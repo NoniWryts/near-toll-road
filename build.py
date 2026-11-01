@@ -109,7 +109,7 @@ def build():
             e = dm[dm.ecosystem == eco]
             if e.empty: continue
             f10.add_scatter(x=e.day, y=e.all_devs, name=eco, line=dict(color=palette.get(eco, "#b8b7b3"), width=3 if eco == "NEAR" else 1.5))
-        f10.update_layout(title=f"Monthly-active developers, NEAR vs peers (Electric Capital Open Dev Data, CC BY 4.0; NEAR {k['dev_all']} on {k['dev_as_of']}, peak {k['dev_peak_all']} in {k['dev_peak_date'][:7]})")
+        f10.update_layout(title=f"Monthly-active developers, NEAR vs peer chains (NEAR {k['dev_all']}, peak {k['dev_peak_all']} in {k['dev_peak_date'][:7]})")
         nm = dm[dm.ecosystem == "NEAR"]
         f12 = go.Figure()
         f12.add_scatter(x=nm.day, y=nm.all_devs, name="All active (>=1 commit, 28d)", line=dict(color=C["1"], width=2))
@@ -180,7 +180,7 @@ td:nth-child(2) {{white-space:nowrap}} .PASS{{color:#008300}} .FAIL{{color:#e349
 <h2>4. Network fundamentals</h2>{fig_html(f7, 300)}{fig_html(f7b, 300)}{fig_html(f8, 340)}
 <h2>4b. Chain Signatures</h2><div class="note">v1.signer is the MPC contract. Counts are calls, not value. Most of the demand is NEAR's own plumbing: the Intents bridge (omni.bridge, BTC and Zcash connectors) and FastAuth.</div>{fig_html(f9, 380) if f9 is not None else '<p class="note">no signer sample in this snapshot</p>'}
 <h2>4c. Cross-protocol: where Intents sits</h2><div class="note">One volume definition (DefiLlama). Intents is filed by DefiLlama as a Bridge, so it is inserted into each aggregator list for ranking. Canonical bridges and CEX flows are not in these lists (paid endpoint).</div>{fig_html(f11, 400) if f11 is not None else '<p class="note">no aggregator data in this snapshot</p>'}
-<h2>4d. Developers</h2><div class="note">Electric Capital's open dataset counts public GitHub commits in repos mapped to each ecosystem. Private repos are invisible. Ledger C19 is red: the all-developer count is down {k.get('dev_all_chg_1y', 0):+.0%} in a year while full-time is {k.get('dev_full_time_chg_1y', 0):+.0%}.</div>{fig_html(f10, 380) if f10 is not None else ''}{fig_html(f12, 340) if f12 is not None else ''}
+<h2>4d. Developers</h2><div class="note">Electric Capital's open dataset counts public GitHub commits in repos mapped to each ecosystem. Private repos are invisible. Source: Electric Capital Open Dev Data, CC BY 4.0, snapshot {k.get('dev_as_of','')}. Ledger C19 is red: the all-developer count is down {k.get('dev_all_chg_1y', 0):+.0%} in a year while full-time is {k.get('dev_full_time_chg_1y', 0):+.0%}.</div>{fig_html(f10, 380) if f10 is not None else ''}{fig_html(f12, 340) if f12 is not None else ''}
 <h2>5. Valuation comparables and 2030 scenarios</h2><div class="note">Chain-level gas fees and revenue from DefiLlama with one definition for all three. NEAR's product revenue (Intents) is shown in the tiles above and is not in the chain row.</div>
 {comps_tab}<div class="note">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}
 <h2>6. Claims ledger</h2><div class="note">Public claims re-tested against the snapshot. Full columns in <code>thesis/claims_ledger.csv</code>.</div>{led_tab}
