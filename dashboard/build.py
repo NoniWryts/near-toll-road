@@ -70,7 +70,7 @@ def build():
     piv = sens[sens.issuance_rate == 0.025].pivot(index="capture_rate", columns="fee_rate_bps", values="breakeven_volume_usd_per_day") / 1e6
     f6 = go.Figure(go.Heatmap(z=piv.values, x=[f"{c} bps" for c in piv.columns], y=[f"{r:.0%}" for r in piv.index], colorscale="Blues",
                               text=[[f"${x:,.0f}M" for x in row] for row in piv.values], texttemplate="%{text}", hovertemplate="fee %{x}, capture %{y}: $%{z:,.0f}M/day<extra></extra>", colorbar_title="$M/day"))
-    f6.update_layout(title=f"Breakeven Intents volume needed per day, 2.5% issuance, price ${k['price_usd']:.2f}. Today: {money(ms['current_volume_usd_per_day'],0)}/day",
+    f6.update_layout(title=f"Breakeven volume per day at 2.5% issuance (today {money(ms['current_volume_usd_per_day'],0)}/day)",
                      xaxis_title="gross fee rate", yaxis_title="capture rate")
     piv2 = sens[sens.issuance_rate == 0.016].pivot(index="capture_rate", columns="fee_rate_bps", values="breakeven_volume_usd_per_day") / 1e6
     f6b = go.Figure(go.Heatmap(z=piv2.values, x=[f"{c} bps" for c in piv2.columns], y=[f"{r:.0%}" for r in piv2.index], colorscale="Blues",

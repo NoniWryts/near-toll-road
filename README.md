@@ -64,6 +64,16 @@ thesis/risk_register.md     risks with the metric that monitors each
 - The cross-protocol ranking uses DefiLlama's lists only. Canonical bridges (Across, Stargate, Wormhole, CCTP) sit behind a paid endpoint and exchange flows are not counted.
 - revenue.near.org labels its own figures "illustrative"; the ledger records where it and the chain differ.
 
+## Other entries
+
+The same author also submits **Clearance** (AI Security & Defense track), a separate project with its own repository; the two share no code. Disclosed per rule Q-015.
+
+## Optional sources
+
+- **NEAR BigQuery public dataset**: queries in `sql/`, run by `pipeline/fetch_bigquery.py` when `GOOGLE_CLOUD_PROJECT` is set. Not needed for the rebuild.
+- **Dune**: `DUNE_API_KEY` enables `pipeline/fetch_dune.py`.
+- **Intents Explorer API**: partner JWT in `.env` would unlock sender-level data; see `thesis/methodology.md` known gaps.
+
 ## Sources
 
 NearBlocks API, NEAR RPC via FastNear, FastNear API, DefiLlama (NEAR Intents adapter, chain fee adapters), CoinGecko, nearstats.org, revenue.near.org, NEAR Q2 2026 State of NEAR, NEAR Q3 update (Oct 6), Nansen NEAR Q3 2026, HSP-029 (gov.near.org), Electric Capital Open Dev Data (CC BY 4.0, snapshot 20261101T130318). Licence: MIT for code; data files carry their sources' terms.
