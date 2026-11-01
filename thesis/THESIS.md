@@ -39,6 +39,7 @@ What the buyback wallet actually holds: 2,148,000 NEAR, liquid, in a multisig. Z
 - **Distribution.** Volume comes through Brave, Ledger, Trust Wallet, Rabby, SwapKit and near.com. The capture rate has risen as near.com's own share grew (28% to 34.2% across October), which is the mechanism by which margin improves.
 - **Confidential execution.** Roughly a tenth of all-time volume and most of recent growth ran through the confidential shard. This is NEAR-reported and not independently observable (ledger C12), so this thesis treats it as a product signal, not as audited volume.
 - **Chain Signatures is real but internal.** About 16,857 sign requests a day reach the MPC contract (extrapolated from a 3.5-hour sample of 7,489 receipts; 26.4M lifetime receipts). 92% of them come from NEAR's own Intents bridge and FastAuth. The "agents signing on any chain" story is not yet visible in who calls the contract.
+- **It is the biggest venue of its kind that DefiLlama can see.** $3.86B of 30-day volume puts Intents at rank 1 of 30 when placed among DefiLlama's bridge aggregators (41% of that list; next LI.FI Bridge Aggregator $1.41B; 0x Bridge Aggregator $1.05B; SOCKET Protocol $0.96B) and rank 6 of 144 among swap aggregators (leader Jupiter Aggregator). Canonical bridges and exchanges are outside this comparison, and DefiLlama's own 30-day change for Intents is -41%.
 - **Security budget.** 375 validators, 45.2% of supply staked, Nakamoto coefficient 9 at the one-third threshold, top-10 share 36%.
 
 ## 5. Valuation: what the market is paying for
@@ -55,13 +56,14 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 
 - **Issuance outruns buybacks** by 9.4x. Bought NEAR is held, not retired.
 - **Volume is not users.** This snapshot cannot yet measure sender concentration or repeat use; the Intents Explorer API needs a partner token and NearStats mirrors it. Network-level activity: 715,881 transactions and 72,378 active accounts per day on average (accounts, not people).
+- **Developers are fewer.** Electric Capital counts 582 monthly-active NEAR developers (2026-10-24), down 28% in a year and 60% from four years ago, from a peak of 1,804 in 2022-05. Full-time developers held at 278 (+6% y/y), so the loss is in casual contributors. NEAR ranks 9 of 13 peer chains on all developers and 7 on full-time (ledger C19, FAIL).
 - **October fell -19%** from the September record. One month is noise; two more would be a trend.
 - **Oct 1, 2026 exploit**: $3.8M taken from the Omni deposit layer, returned in full, services paused for hours. Cross-chain settlement has an attack surface the L1 does not.
 - **MPC and private shard trust.** Chain Signatures runs on 17 participants with threshold 11; the confidential shard is permissioned.
 - **Dashboard discrepancies.** revenue.near.org calls its figures "illustrative" and counts only sweeps from `intents.near`; the chain balance is higher (ledger C09).
 - **Unverifiable from public data**: confidential TVL, NEAR AI inference staking, ETF holdings (ledger C12 to C14).
 
-## 8. Claims ledger (7 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 1 FAIL)
+## 8. Claims ledger (9 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL)
 
 | id | status | claim | observed |
 |---|---|---|---|
@@ -81,6 +83,9 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 | C14 | UNVERIFIABLE | Bitwise NRR holds ~16.84M NEAR (Oct 28) | fund page is not machine-readable without a browser; no on-chain custody address published |
 | C15 | PARTIAL | HSP-029 text: staking ratio 42.71% at block 216,701,043 (Sep 22) | 45.16% at block 222583497 (Nov 1); direction: up |
 | C16 | PASS | September 2026 was a record month ($4.80B) and October fell (~$3.99B) | Sep $4.80B, Oct $3.91B (-18.5%) |
+| C17 | PASS | Chain Signatures is used in production (NEAR docs, Messari); scale and who uses it are not published | ~16,857 sign calls/day (extrapolated from 7,489 receipts over 3.5 h); lifetime receipts 26,383,939; 92% of sign calls come from NEAR's own bridge/FastAuth contracts |
+| C18 | PASS | NEAR Intents is the largest cross-chain swap/bridge venue by volume (near.org and Intents team framing) | 30d volume $3.86B. Ranked against DefiLlama's bridge aggregators: 1 of 30 (next: LI.FI Bridge Aggregator $1.41B; 0x Bridge Aggregator $1.05B; SOCKET Protocol $0.96B). Against swap aggregators: 6 of 144 (leader Jupiter Aggregator $13.4B). Among DefiLlama's own Bridge-category venues: next Unit $1.99B; Maya Protocol $0.53B; TeleSwap $0.04B. Rank 17 of 1100 in the whole DEX-volume overview |
+| C19 | FAIL | NEAR's developer ecosystem is growing (recurring ecosystem framing in NEAR Foundation posts) | Electric Capital monthly-active developers 582 on 2026-10-24 vs 805 a year earlier (-28%) and 1453 four years earlier (-60%); full-time 278 vs 262 (+6%); rank 9 of 13 peer chains, rank 7 on full-time |
 
 ## 9. Time horizon and how to re-check
 

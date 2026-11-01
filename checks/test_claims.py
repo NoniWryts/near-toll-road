@@ -6,7 +6,7 @@ LEDGER = ROOT / "thesis" / "claims_ledger.csv"
 
 def test_ledger_exists_and_is_complete():
     df = pd.read_csv(LEDGER)
-    assert len(df) >= 16
+    assert len(df) >= 18
     assert set(df.status) <= {"PASS", "FAIL", "PARTIAL", "UNVERIFIABLE"}
     assert df.evidence.notna().all() and df.observed.notna().all()
 

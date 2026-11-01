@@ -39,6 +39,7 @@ What the buyback wallet actually holds: {{bb_balance}} NEAR, liquid, in a multis
 - **Distribution.** Volume comes through Brave, Ledger, Trust Wallet, Rabby, SwapKit and near.com. The capture rate has risen as near.com's own share grew (28% to {{cap30}} across October), which is the mechanism by which margin improves.
 - **Confidential execution.** Roughly a tenth of all-time volume and most of recent growth ran through the confidential shard. This is NEAR-reported and not independently observable (ledger C12), so this thesis treats it as a product signal, not as audited volume.
 - **Chain Signatures is real but internal.** About {{cs_calls}} sign requests a day reach the MPC contract (extrapolated from a {{cs_hours}}-hour sample of {{cs_rows}} receipts; {{cs_lifetime}} lifetime receipts). {{cs_infra}} of them come from NEAR's own Intents bridge and FastAuth. The "agents signing on any chain" story is not yet visible in who calls the contract.
+- **It is the biggest venue of its kind that DefiLlama can see.** ${{xp_vol30_b}}B of 30-day volume puts Intents at rank {{xp_bridge_rank}} of {{xp_bridge_n}} when placed among DefiLlama's bridge aggregators ({{xp_bridge_share}} of that list; next {{xp_bridge_next}}) and rank {{xp_swap_rank}} of {{xp_swap_n}} among swap aggregators (leader {{xp_swap_leader}}). Canonical bridges and exchanges are outside this comparison, and DefiLlama's own 30-day change for Intents is {{xp_chg_llama}}.
 - **Security budget.** {{validators}} validators, {{stake_ratio}} of supply staked, Nakamoto coefficient {{nakamoto}} at the one-third threshold, top-10 share {{top10}}.
 
 ## 5. Valuation: what the market is paying for
@@ -55,6 +56,7 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 
 - **Issuance outruns buybacks** by {{iss_x_bb}}x. Bought NEAR is held, not retired.
 - **Volume is not users.** This snapshot cannot yet measure sender concentration or repeat use; the Intents Explorer API needs a partner token and NearStats mirrors it. Network-level activity: {{txns30}} transactions and {{aa30}} active accounts per day on average (accounts, not people).
+- **Developers are fewer.** Electric Capital counts {{dev_all}} monthly-active NEAR developers ({{dev_as_of}}), down {{dev_chg_1y}} in a year and {{dev_chg_4y}} from four years ago, from a peak of {{dev_peak}} in {{dev_peak_month}}. Full-time developers held at {{dev_full_time}} ({{dev_ft_chg_1y}} y/y), so the loss is in casual contributors. NEAR ranks {{dev_rank}} of {{dev_peers_n}} peer chains on all developers and {{dev_rank_ft}} on full-time (ledger C19, FAIL).
 - **October fell {{oct_chg}}** from the September record. One month is noise; two more would be a trend.
 - **Oct 1, 2026 exploit**: $3.8M taken from the Omni deposit layer, returned in full, services paused for hours. Cross-chain settlement has an attack surface the L1 does not.
 - **MPC and private shard trust.** Chain Signatures runs on 17 participants with threshold 11; the confidential shard is permissioned.

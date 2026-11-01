@@ -14,10 +14,13 @@ Everything is regenerated from committed, dated snapshots. No API keys are neede
 |---|---|
 | `make setup` | dependencies installed (pandas, pyarrow, plotly, pyyaml, requests, pytest) |
 | `make report` | `reports/tables/*.csv`, `dashboard/index.html`, `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
-| `make check` | the 16-row claims ledger re-verified (7 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 1 FAIL) and 11 tests passing. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
-| `make serve` then open http://localhost:5300 | the dashboard: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, comparables, 2030 scenarios, the ledger |
+| `make check` | the 19-row claims ledger re-verified (9 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL) and 13 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
+| `make serve` then open http://localhost:5300 | the dashboard: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, Chain Signatures callers, Intents vs every DefiLlama bridge and swap aggregator, developers vs peer chains, comparables, 2030 scenarios, the ledger |
 | edit `params.yaml` (e.g. `capture_rate: 0.5`), `make model` | `reports/tables/breakeven.csv` and the printed breakeven volume move |
 | `make refresh` | today's data pulled from NearBlocks, NEAR RPC, FastNear, DefiLlama, CoinGecko, nearstats and revenue.near.org into `data/snapshots/<today>/` with a `manifest.json` (source URL, fetch time, sha256, row count); keyed sources (Dune) skip cleanly |
+| `python -m pipeline.fetch_signer` | a time-boxed sample of `v1.signer` receipts (Chain Signatures): who calls `sign`, how often; `SIGNER_PAGES` sets the sample size |
+| `python -m pipeline.fetch_opendevdata` | Electric Capital's `eco_mads.parquet` (77 MB, cached in `data/raw/`) reduced to 13 peer chains in `opendevdata_mads.parquet` |
+| `python -m pipeline.fetch_llama_aggregators` | DefiLlama's swap-aggregator, bridge-aggregator and DEX-overview lists, 1,816 rows, the comparison set for Intents |
 | `python -m pipeline.fetch_buybacks` | every receipt that ever touched `buybacks.multisignature.near`, 3,119 rows, the primary record behind the buyback numbers |
 
 ## What is in the repo
@@ -48,14 +51,19 @@ thesis/risk_register.md     risks with the metric that monitors each
 | Coverage | 10.6% | the two rows above |
 | Breakeven volume | $718M/day at 2.5%, $459M/day at 1.6% | `models/breakeven.py` |
 | Staking | 45.2% of supply, 375 validators, Nakamoto coefficient 9 | NEAR RPC `validators` |
+| Chain Signatures | ~16.9k `sign` calls/day, 92% from NEAR's own bridge and FastAuth contracts | sample of `v1.signer` receipts (NearBlocks) |
+| Intents vs peers | rank 1 of 30 bridge aggregators (41% of list volume); rank 6 of 144 swap aggregators | DefiLlama overview lists, one volume definition |
+| Developers | 582 monthly-active (down 28% y/y, 60% from 2022), 278 full-time (+6% y/y); rank 9 of 13 peer chains | Electric Capital Open Dev Data, 2026-10-24 |
 
 ## Honest limits
 
 - Confidential Intents volume and TVL are NEAR-reported; no public indexer sees the private shard. The volume series here includes them as reported.
 - Sender-level data (concentration, repeat use) needs the Intents Explorer partner token; it is a listed gap, not a filled one.
 - NEAR AI inference staking and the Bitwise ETF holdings are marked UNVERIFIABLE because no public, machine-readable source exists.
+- Developer counts cover public GitHub commits in repos Electric Capital maps to NEAR; private and non-GitHub work is invisible.
+- The cross-protocol ranking uses DefiLlama's lists only. Canonical bridges (Across, Stargate, Wormhole, CCTP) sit behind a paid endpoint and exchange flows are not counted.
 - revenue.near.org labels its own figures "illustrative"; the ledger records where it and the chain differ.
 
 ## Sources
 
-NearBlocks API, NEAR RPC via FastNear, FastNear API, DefiLlama (NEAR Intents adapter, chain fee adapters), CoinGecko, nearstats.org, revenue.near.org, NEAR Q2 2026 State of NEAR, NEAR Q3 update (Oct 6), Nansen NEAR Q3 2026, HSP-029 (gov.near.org), Electric Capital Open Dev Data (planned). Licence: MIT for code; data files carry their sources' terms.
+NearBlocks API, NEAR RPC via FastNear, FastNear API, DefiLlama (NEAR Intents adapter, chain fee adapters), CoinGecko, nearstats.org, revenue.near.org, NEAR Q2 2026 State of NEAR, NEAR Q3 update (Oct 6), Nansen NEAR Q3 2026, HSP-029 (gov.near.org), Electric Capital Open Dev Data (CC BY 4.0, snapshot 20261101T130318). Licence: MIT for code; data files carry their sources' terms.

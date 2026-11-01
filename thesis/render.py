@@ -48,6 +48,13 @@ def main():
         "base_rev_m": f"{sc.loc['base','annual_net_revenue_usd']/1e6:.0f}", "bull_rev_m": f"{sc.loc['bull','annual_net_revenue_usd']/1e6:.0f}", "bear_rev_m": f"{sc.loc['bear','annual_net_revenue_usd']/1e6:.0f}",
         "base_cov": f"{sc.loc['base','revenue_to_issuance']:.2f}", "bull_cov": f"{sc.loc['bull','revenue_to_issuance']:.2f}", "bear_cov": f"{sc.loc['bear','revenue_to_issuance']:.2f}",
         "base_vs_today": f"{sc.loc['base','implied_vs_today']:.2f}", "bull_vs_today": f"{sc.loc['bull','implied_vs_today']:.2f}",
+        "xp_vol30_b": f"{k.get('xp_intents_vol30', 0)/1e9:.2f}", "xp_bridge_rank": k.get("xp_bridge_rank", "n/a"), "xp_bridge_n": k.get("xp_bridge_n", "n/a"),
+        "xp_bridge_share": f"{k.get('xp_bridge_share', 0):.0%}", "xp_bridge_next": k.get("xp_bridge_next", "n/a"), "xp_swap_rank": k.get("xp_swap_rank", "n/a"),
+        "xp_swap_n": k.get("xp_swap_n", "n/a"), "xp_swap_leader": k.get("xp_swap_leader", "n/a"),
+        "xp_chg_llama": (f"{k['xp_intents_chg_1m_llama']:+.0f}%" if k.get("xp_intents_chg_1m_llama") is not None else "n/a"),
+        "dev_all": f"{k.get('dev_all', 0):,}", "dev_as_of": k.get("dev_as_of", "n/a"), "dev_chg_1y": f"{abs(k.get('dev_all_chg_1y', 0)):.0%}", "dev_chg_4y": f"{abs(k.get('dev_all_chg_4y', 0)):.0%}",
+        "dev_peak": f"{k.get('dev_peak_all', 0):,}", "dev_peak_month": k.get("dev_peak_date", "n/a")[:7], "dev_full_time": f"{k.get('dev_full_time', 0):,}",
+        "dev_ft_chg_1y": f"{k.get('dev_full_time_chg_1y', 0):+.0%}", "dev_rank": k.get("dev_rank_all", "n/a"), "dev_peers_n": k.get("dev_peers_n", "n/a"), "dev_rank_ft": k.get("dev_rank_full_time", "n/a"),
     }
     tpl = (ROOT / "thesis" / "THESIS.template.md").read_text()
     out = tpl

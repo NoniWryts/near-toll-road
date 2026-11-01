@@ -118,6 +118,19 @@ def build(snap: Path) -> pd.DataFrame:
             f"~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (extrapolated from {k['signer_sample_rows']:,} receipts over {k['signer_sample_hours']:.1f} h); lifetime receipts {k['signer_lifetime_receipts']:,}; {k['signer_near_infra_share']:.0%} of sign calls come from NEAR's own bridge/FastAuth contracts",
             "calls/day", "PASS", "data/snapshots/<date>/signer_sample.parquet; reports/tables/signer_callers.csv",
             "Call counts, not value signed. Most demand is NEAR Intents' own bridging (omni.bridge, btc/zcash connectors) and FastAuth, not third-party apps or agents.")
+    # C18 cross-protocol rank
+    if "xp_bridge_rank" in k:
+        add("C18", "NEAR Intents is the largest cross-chain swap/bridge venue by volume (near.org and Intents team framing)", "near.org, intents.near.org",
+            f"30d volume ${k['xp_intents_vol30']/1e9:.2f}B. Ranked against DefiLlama's bridge aggregators: {k['xp_bridge_rank']} of {k['xp_bridge_n']} (next: {k['xp_bridge_next']}). Against swap aggregators: {k['xp_swap_rank']} of {k['xp_swap_n']} (leader {k['xp_swap_leader']} ${k['xp_swap_leader_vol30']/1e9:.1f}B). Among DefiLlama's own Bridge-category venues: next {k['xp_bridge_cat_next']}. Rank {k['xp_dex_overview_rank']} of {k['xp_dex_overview_n']} in the whole DEX-volume overview",
+            "rank", "PASS" if k["xp_bridge_rank"] == 1 else "FAIL", "data/snapshots/<date>/llama_aggregators.parquet; reports/tables/aggregators.csv",
+            "DefiLlama lists only; canonical bridges (Across, Stargate, Wormhole, CCTP) sit behind a paid endpoint and CEX flows are not counted. Intents volume includes NEAR-reported confidential volume. DefiLlama shows Intents 30d change of " + (f"{k['xp_intents_chg_1m_llama']:+.0f}%" if k.get("xp_intents_chg_1m_llama") is not None else "n/a") + ".")
+    # C19 developer growth
+    if "dev_all" in k:
+        add("C19", "NEAR's developer ecosystem is growing (recurring ecosystem framing in NEAR Foundation posts)", "near.org blog, NEAR Foundation X posts (paraphrased)",
+            f"Electric Capital monthly-active developers {k['dev_all']} on {k['dev_as_of']} vs {k['dev_all_1y_ago']} a year earlier ({k['dev_all_chg_1y']:+.0%}) and {k['dev_all_4y_ago']} four years earlier ({k['dev_all_chg_4y']:+.0%}); full-time {k['dev_full_time']} vs {k['dev_full_time_1y_ago']} ({k['dev_full_time_chg_1y']:+.0%}); rank {k['dev_rank_all']} of {k['dev_peers_n']} peer chains, rank {k['dev_rank_full_time']} on full-time",
+            "developers", "FAIL" if k["dev_all_chg_1y"] < -0.05 else ("PARTIAL" if k["dev_all_chg_1y"] < 0.05 else "PASS"),
+            "data/snapshots/<date>/opendevdata_mads.parquet; reports/tables/devs_peers.csv, devs_monthly.csv",
+            "Counts public GitHub commits in repos Electric Capital maps to NEAR (CC BY 4.0). Private repos and non-GitHub work are invisible. Full-time count is the steadier measure.")
     df = pd.DataFrame(rows)
     LEDGER.parent.mkdir(exist_ok=True)
     df.to_csv(LEDGER, index=False)

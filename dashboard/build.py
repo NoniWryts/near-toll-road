@@ -97,6 +97,33 @@ def build():
                               text=[f"{x:.0%}" for x in sc9.share], textposition="outside", hovertemplate="%{y}: %{x:.1%}<extra></extra>"))
         f9.update_layout(title=f"Who calls Chain Signatures: share of ~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (sample of {k['signer_sample_rows']:,} receipts, {k['signer_sample_hours']:.1f} h)",
                          xaxis_tickformat=".0%", margin=dict(l=220))
+    # 10 developers, 11 cross-protocol
+    f10 = f11 = f12 = None
+    dp = T / "devs_monthly.csv"
+    if dp.exists() and "dev_all" in k:
+        dm = pd.read_csv(dp, parse_dates=["day"])
+        order = ["NEAR", "Solana", "Sui", "Aptos", "Avalanche", "Polygon", "Arbitrum", "Base"]
+        palette = {"NEAR": C["1"], "Solana": C["2"], "Sui": C["3"], "Aptos": C["4"]}
+        f10 = go.Figure()
+        for eco in order:
+            e = dm[dm.ecosystem == eco]
+            if e.empty: continue
+            f10.add_scatter(x=e.day, y=e.all_devs, name=eco, line=dict(color=palette.get(eco, "#b8b7b3"), width=3 if eco == "NEAR" else 1.5))
+        f10.update_layout(title=f"Monthly-active developers, NEAR vs peers (Electric Capital Open Dev Data, CC BY 4.0; NEAR {k['dev_all']} on {k['dev_as_of']}, peak {k['dev_peak_all']} in {k['dev_peak_date'][:7]})")
+        nm = dm[dm.ecosystem == "NEAR"]
+        f12 = go.Figure()
+        f12.add_scatter(x=nm.day, y=nm.all_devs, name="All active (>=1 commit, 28d)", line=dict(color=C["1"], width=2))
+        f12.add_scatter(x=nm.day, y=nm.full_time_devs, name="Full-time (>=10 active days, 84d)", line=dict(color=C["3"], width=2))
+        f12.add_scatter(x=nm.day, y=nm.exclusive_devs, name="Exclusive to NEAR", line=dict(color=C["2"], width=2))
+        f12.update_layout(title=f"NEAR developers by commitment: casual contributors left, full-time held ({k['dev_full_time']} now vs {k['dev_full_time_1y_ago']} a year ago)")
+    apth = T / "aggregators.csv"
+    if apth.exists() and "xp_bridge_rank" in k:
+        ag = pd.read_csv(apth)
+        br = ag[ag.llama_category == "bridge_aggregator"].head(10).sort_values("total30d")
+        colors = [C["1"] if "NEAR Intents" in n else "#b8b7b3" for n in br.displayName]
+        f11 = go.Figure(go.Bar(x=br.total30d, y=br.displayName.str.replace(" (DefiLlama category: Bridge)", ""), orientation="h", marker_color=colors, marker_line_width=0,
+                               text=[money(x) for x in br.total30d], textposition="outside", hovertemplate="%{y}: $%{x:,.0f}<extra></extra>"))
+        f11.update_layout(title=f"30-day volume: NEAR Intents vs DefiLlama's bridge aggregators (rank {k['xp_bridge_rank']} of {k['xp_bridge_n']}; rank {k['xp_swap_rank']} of {k['xp_swap_n']} among swap aggregators)", margin=dict(l=200), xaxis_tickprefix="$")
     # tables
     def table(df, cols, fmt=None):
         fmt = fmt or {}
@@ -152,6 +179,8 @@ td:nth-child(2) {{white-space:nowrap}} .PASS{{color:#008300}} .FAIL{{color:#e349
 {be_tab}<div class="grid2">{fig_html(f6, 420)}{fig_html(f6b, 420)}</div>
 <h2>4. Network fundamentals</h2>{fig_html(f7, 300)}{fig_html(f7b, 300)}{fig_html(f8, 340)}
 <h2>4b. Chain Signatures</h2><div class="note">v1.signer is the MPC contract. Counts are calls, not value. Most of the demand is NEAR's own plumbing: the Intents bridge (omni.bridge, BTC and Zcash connectors) and FastAuth.</div>{fig_html(f9, 380) if f9 is not None else '<p class="note">no signer sample in this snapshot</p>'}
+<h2>4c. Cross-protocol: where Intents sits</h2><div class="note">One volume definition (DefiLlama). Intents is filed by DefiLlama as a Bridge, so it is inserted into each aggregator list for ranking. Canonical bridges and CEX flows are not in these lists (paid endpoint).</div>{fig_html(f11, 400) if f11 is not None else '<p class="note">no aggregator data in this snapshot</p>'}
+<h2>4d. Developers</h2><div class="note">Electric Capital's open dataset counts public GitHub commits in repos mapped to each ecosystem. Private repos are invisible. Ledger C19 is red: the all-developer count is down {k.get('dev_all_chg_1y', 0):+.0%} in a year while full-time is {k.get('dev_full_time_chg_1y', 0):+.0%}.</div>{fig_html(f10, 380) if f10 is not None else ''}{fig_html(f12, 340) if f12 is not None else ''}
 <h2>5. Valuation comparables and 2030 scenarios</h2><div class="note">Chain-level gas fees and revenue from DefiLlama with one definition for all three. NEAR's product revenue (Intents) is shown in the tiles above and is not in the chain row.</div>
 {comps_tab}<div class="note">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}
 <h2>6. Claims ledger</h2><div class="note">Public claims re-tested against the snapshot. Full columns in <code>thesis/claims_ledger.csv</code>.</div>{led_tab}

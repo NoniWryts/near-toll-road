@@ -141,6 +141,42 @@
    "note": "most recent 7489 receipts spanning 3.5 hours; lifetime receipt count 26383939",
    "lifetime_receipts": 26383939,
    "sample_span_days": 0.1438009194675926
+  },
+  "llama_aggregators.parquet": {
+   "source": "https://api.llama.fi/overview/{aggregators,bridge-aggregators}",
+   "fetched_at": "2026-11-01T15:33:17Z",
+   "rows": 1816,
+   "sha256": "f9644813536bf47d0c14aea4b8328fec2ac72127fb583e3addb8b2246a19e3c5",
+   "note": "DefiLlama aggregator, bridge-aggregator and DEX-overview volume rankings; near-intents sits in dex_overview, category Bridge",
+   "n_swap_aggregators": 201,
+   "n_bridge_aggregators": 37,
+   "n_dex_overview": 1578
+  },
+  "opendevdata_mads.parquet": {
+   "source": "https://data.opendevdata.org/snapshots/20261101T130318/eco_mads.parquet",
+   "fetched_at": "2026-11-01T15:31:09Z",
+   "rows": 44249,
+   "sha256": "58f1026da8b3bc001292d615932c1c0838a84c6a93fb086fa73e5d15840afcf9",
+   "note": "Electric Capital Open Dev Data, CC BY 4.0; peer set only; all_devs = >=1 commit in trailing 28 days",
+   "dataset_version": "20261101T130318",
+   "dataset_created": "2026-11-01T13:33:05.548674+00:00",
+   "peers": [
+    "Aptos",
+    "Arbitrum",
+    "Avalanche",
+    "Base",
+    "Bitcoin",
+    "Cardano",
+    "Ethereum",
+    "Internet Computer",
+    "NEAR",
+    "Polygon",
+    "Solana",
+    "Sui",
+    "TON"
+   ],
+   "license": "CC BY 4.0 (https://github.com/electric-capital/open-dev-data)",
+   "b3sum_eco_mads": "8e1b14a802a95d84d4d2f5c523ba0102181e2a5ed240b5e38f77a66a9cd52750"
   }
  }
 }

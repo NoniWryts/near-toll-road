@@ -75,6 +75,78 @@ def signer(snap: Path) -> dict:
             "signer_top_caller_share": float(shares.iloc[0])}
 
 
+def developers(snap: Path) -> dict:
+    """Electric Capital monthly-active developers: NEAR vs peers, same definition for all."""
+    try:
+        d = load_df(snap, "opendevdata_mads")
+    except FileNotFoundError:
+        return {}
+    d = d.copy(); d["day"] = pd.to_datetime(d.day)
+    last_day = d.day.max()
+    peers = d[d.day == last_day].sort_values("all_devs", ascending=False)[
+        ["ecosystem", "day", "all_devs", "exclusive_devs", "multichain_devs", "full_time_devs", "part_time_devs", "one_time_devs", "devs_2y_plus", "num_commits"]]
+    peers["rank"] = range(1, len(peers) + 1)
+    peers.to_csv(TABLES / "devs_peers.csv", index=False)
+    # month-end series since 2021 for the chart
+    me = d.set_index("day").groupby("ecosystem")[["all_devs", "exclusive_devs", "full_time_devs"]].resample("ME").last().reset_index()
+    me = me[me.day >= "2021-01-01"]
+    me.to_csv(TABLES / "devs_monthly.csv", index=False)
+    n = d[d.ecosystem == "NEAR"].set_index("day").sort_index()
+    cur = n.iloc[-1]
+    def at(dt):
+        return n.loc[:dt].iloc[-1]
+    y1, y2, y4 = at(last_day - pd.DateOffset(years=1)), at(last_day - pd.DateOffset(years=2)), at(last_day - pd.DateOffset(years=4))
+    peak = n.all_devs.idxmax()
+    return {"dev_as_of": str(last_day.date()), "dev_all": int(cur.all_devs), "dev_exclusive": int(cur.exclusive_devs),
+            "dev_full_time": int(cur.full_time_devs), "dev_2y_plus": int(cur.devs_2y_plus),
+            "dev_all_1y_ago": int(y1.all_devs), "dev_all_2y_ago": int(y2.all_devs), "dev_all_4y_ago": int(y4.all_devs),
+            "dev_full_time_1y_ago": int(y1.full_time_devs), "dev_full_time_4y_ago": int(y4.full_time_devs),
+            "dev_all_chg_1y": float(cur.all_devs / y1.all_devs - 1), "dev_all_chg_4y": float(cur.all_devs / y4.all_devs - 1),
+            "dev_full_time_chg_1y": float(cur.full_time_devs / y1.full_time_devs - 1),
+            "dev_peak_all": int(n.all_devs.max()), "dev_peak_date": str(peak.date()),
+            "dev_rank_all": int(peers.set_index("ecosystem").loc["NEAR", "rank"]), "dev_peers_n": int(len(peers)),
+            "dev_rank_full_time": int((peers.full_time_devs > cur.full_time_devs).sum() + 1)}
+
+
+def cross_protocol(snap: Path) -> dict:
+    """NEAR Intents against every swap aggregator and bridge aggregator DefiLlama tracks, one volume definition.
+    DefiLlama files Intents under its DEX overview (category Bridge), so we insert that row into each list and rank it."""
+    try:
+        a = load_df(snap, "llama_aggregators")
+    except FileNotFoundError:
+        return {}
+    a = a[a.total30d.fillna(0) > 0].copy()
+    ni = a[(a.llama_category == "dex_overview") & (a.name == "NEAR Intents")]
+    if ni.empty:
+        return {}
+    ni = ni.iloc[0]
+    k = {"xp_intents_vol30": float(ni.total30d), "xp_intents_chg_1m_llama": float(ni.change_1m) if pd.notna(ni.change_1m) else None,
+         "xp_intents_llama_category": str(ni.category)}
+    dex = a[a.llama_category == "dex_overview"].sort_values("total30d", ascending=False).reset_index(drop=True)
+    k["xp_dex_overview_rank"] = int(dex.index[dex.name == "NEAR Intents"][0] + 1); k["xp_dex_overview_n"] = int(len(dex))
+    bridges = dex[dex.category.isin(["Bridge", "Cross Chain Bridge"])]
+    k["xp_bridge_cat_next"] = "; ".join(f"{o.displayName} ${o.total30d/1e9:.2f}B" for o in bridges[bridges.name != "NEAR Intents"].head(3).itertuples())
+    frames = []
+    for cat, tag in (("bridge_aggregator", "bridge"), ("swap_aggregator", "swap")):
+        c = a[a.llama_category == cat].copy()
+        row = ni.copy(); row["llama_category"] = cat; row["displayName"] = "NEAR Intents (DefiLlama category: Bridge)"
+        c = pd.concat([c, row.to_frame().T], ignore_index=True)
+        c["total30d"] = c.total30d.astype(float)
+        c = c.sort_values("total30d", ascending=False).reset_index(drop=True)
+        c["rank_30d"] = c.index + 1
+        c["share_of_list_30d"] = c.total30d / c.total30d.sum()
+        frames.append(c)
+        r = c[c.name == "NEAR Intents"].iloc[0]
+        k[f"xp_{tag}_rank"] = int(r.rank_30d); k[f"xp_{tag}_n"] = int(len(c)); k[f"xp_{tag}_share"] = float(r.share_of_list_30d)
+        others = c[c.name != "NEAR Intents"].head(3)
+        k[f"xp_{tag}_next"] = "; ".join(f"{o.displayName} ${o.total30d/1e9:.2f}B" for o in others.itertuples())
+        k[f"xp_{tag}_leader"] = str(c.iloc[0].displayName); k[f"xp_{tag}_leader_vol30"] = float(c.iloc[0].total30d)
+    out = pd.concat(frames, ignore_index=True)
+    cols = ["llama_category", "rank_30d", "displayName", "total24h", "total7d", "total30d", "total30DaysAgo", "change_1m", "totalAllTime", "n_chains", "share_of_list_30d"]
+    out[cols].to_csv(TABLES / "aggregators.csv", index=False)
+    return k
+
+
 def build(snap: Path) -> dict:
     TABLES.mkdir(parents=True, exist_ok=True)
     cg = load_df(snap, "coingecko_daily")
@@ -117,6 +189,8 @@ def build(snap: Path) -> dict:
     }
     kpis.update(validators(snap, total_supply))
     kpis.update(signer(snap))
+    kpis.update(developers(snap))
+    kpis.update(cross_protocol(snap))
     # monthly table
     m = idaily.set_index("date").resample("MS")[["volume_usd", "fees_usd", "revenue_usd"]].sum()
     m["fee_rate_bps"] = 1e4 * m.fees_usd / m.volume_usd
