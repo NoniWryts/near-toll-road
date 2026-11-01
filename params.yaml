@@ -1,0 +1,36 @@
+# Every assumption the models use. Change a value, run `make model`, and the numbers move.
+# "measured" means the value is taken from the latest snapshot at run time; a number overrides it.
+price_usd: measured                 # NEAR/USD, CoinGecko latest daily close in the snapshot
+total_supply_near: measured         # from NEAR RPC via NearBlocks daily series
+fee_rate_bps: measured              # gross Intents fees / Intents volume, trailing 30d (DefiLlama)
+capture_rate: measured              # NEAR captured revenue / gross fees, trailing 30d (DefiLlama)
+buyback_share_of_revenue: measured  # NEAR swept to buybacks.multisignature.near / all captured revenue, trailing 30d
+window_days: 30                     # trailing window for "current" rates
+issuance_scenarios:                 # annual issuance as a share of total supply
+  current_cap: 0.025                # protocol max_inflation_rate = 1/40 (RPC protocol config)
+  hsp029_target: 0.016              # HSP-029 proposal; House of Stake vote closes 2026-11-02; needs validator upgrade
+  realized_trailing: measured       # trailing-30d change in total supply, annualised
+capture_scenarios:
+  conservative: 0.164               # lifetime capture reported in NEAR's Q3 update (Oct 6, 2026)
+  base: 0.284                       # trailing-30d capture reported in the same update
+  optimistic: 0.35
+valuation:
+  horizon_year: 2030
+  volume_cagr: {bear: -0.10, base: 0.35, bull: 0.70}   # annual growth of Intents volume from the 2026 run rate
+  fee_rate_bps: {bear: 10, base: 15, bull: 15}
+  capture_rate: {bear: 0.16, base: 0.30, bull: 0.40}
+  revenue_multiple: {bear: 20, base: 40, bull: 60}      # market cap / annual net revenue; SOL ~40x per SVRN comps
+  issuance_rate: {bear: 0.025, base: 0.016, bull: 0.016}
+reported_claims:                    # figures other people published; the ledger re-tests the ones it can
+  q3_intents_volume_usd: 10.4e9     # Nansen NEAR Q3 2026 report
+  cumulative_volume_floor_usd: 32e9 # NEAR Q3 update, Oct 6
+  lifetime_capture: 0.164           # NEAR Q3 update, Oct 6
+  trailing30_capture: 0.284         # NEAR Q3 update, Oct 6
+  buybacks_cumulative_usd: 8.0e6    # "more than $8M" Nansen Q3
+  staking_ratio: 0.46               # Bitwise, Oct 2026
+  validators_active: 403            # CryptoTicker, Oct 18 2026 (HSP-029 snapshot said 406 on Sep 22)
+  confidential_tvl_usd: 150e6       # NEAR / revenue.near.org, Oct 2026
+  near_ai_staked_near: 1.0e6        # NEAR AI X post, Oct 21 2026
+  etf_near_held: 16.84e6            # nrretf.com, Oct 28 2026 (reported in blueprint)
+  issuance_to_buyback_ratio: 6      # Sal Ternullo on Bankless, Oct 6 2026 (~$13M issued vs ~$1.9M bought, 30d)
+  hsp029_staking_ratio: 0.4271      # HSP-029 text, block 216,701,043 (Sep 22 2026)

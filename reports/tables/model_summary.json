@@ -1,0 +1,68 @@
+{
+ "params_used": {
+  "price_usd": 4.378852990671429,
+  "total_supply_near": 1310550319.0959628,
+  "fee_rate_bps": 16.008306571998464,
+  "capture_rate": 0.3421807844851083,
+  "buyback_share_of_revenue": 0.6392397856944988,
+  "window_days": 30,
+  "issuance_scenarios": {
+   "current_cap": 0.025,
+   "hsp029_target": 0.016,
+   "realized_trailing": 0.024617987754915294
+  },
+  "capture_scenarios": {
+   "conservative": 0.164,
+   "base": 0.284,
+   "optimistic": 0.35
+  },
+  "valuation": {
+   "horizon_year": 2030,
+   "volume_cagr": {
+    "bear": -0.1,
+    "base": 0.35,
+    "bull": 0.7
+   },
+   "fee_rate_bps": {
+    "bear": 10,
+    "base": 15,
+    "bull": 15
+   },
+   "capture_rate": {
+    "bear": 0.16,
+    "base": 0.3,
+    "bull": 0.4
+   },
+   "revenue_multiple": {
+    "bear": 20,
+    "base": 40,
+    "bull": 60
+   },
+   "issuance_rate": {
+    "bear": 0.025,
+    "base": 0.016,
+    "bull": 0.016
+   }
+  },
+  "reported_claims": {
+   "q3_intents_volume_usd": "10.4e9",
+   "cumulative_volume_floor_usd": "32e9",
+   "lifetime_capture": 0.164,
+   "trailing30_capture": 0.284,
+   "buybacks_cumulative_usd": "8.0e6",
+   "staking_ratio": 0.46,
+   "validators_active": 403,
+   "confidential_tvl_usd": "150e6",
+   "near_ai_staked_near": "1.0e6",
+   "etf_near_held": "16.84e6",
+   "issuance_to_buyback_ratio": 6,
+   "hsp029_staking_ratio": 0.4271
+  }
+ },
+ "current_volume_usd_per_day": 130406943.66666667,
+ "breakeven_measured_current_cap": 717563268.3980395,
+ "breakeven_measured_hsp029": 459240491.7747453,
+ "breakeven_measured_buyback_only_current_cap": 1122525982.3564432,
+ "coverage_observed_near_30d": 0.10643521135223422,
+ "coverage_observed_usd_30d": 0.10549978294191317
+}

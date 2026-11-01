@@ -1,0 +1,38 @@
+{
+ "nearblocks": {
+  "status": "ok",
+  "at": "2026-11-01T14:44:41Z"
+ },
+ "rpc": {
+  "status": "ok",
+  "at": "2026-11-01T14:44:45Z"
+ },
+ "fastnear": {
+  "status": "ok",
+  "at": "2026-11-01T14:44:54Z"
+ },
+ "defillama": {
+  "status": "ok",
+  "at": "2026-11-01T14:44:58Z"
+ },
+ "coingecko": {
+  "status": "ok",
+  "at": "2026-11-01T14:45:21Z"
+ },
+ "nearstats": {
+  "status": "ok",
+  "at": "2026-11-01T14:45:22Z"
+ },
+ "revenue_dashboard": {
+  "status": "ok",
+  "at": "2026-11-01T14:45:23Z"
+ },
+ "buybacks": {
+  "status": "ok",
+  "at": "2026-11-01T14:46:19Z"
+ },
+ "dune": {
+  "status": "ok",
+  "at": "2026-11-01T14:46:19Z"
+ }
+}

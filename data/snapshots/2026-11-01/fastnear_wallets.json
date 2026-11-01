@@ -1,0 +1,153 @@
+{
+ "buybacks.multisignature.near": {
+  "staking": {
+   "account_id": "buybacks.multisignature.near",
+   "pools": []
+  },
+  "full": {
+   "account_id": "buybacks.multisignature.near",
+   "pools": [],
+   "tokens": [
+    {
+     "contract_id": "token.0xshitzu.near",
+     "last_update_block_height": 205726682,
+     "balance": "69000000000000000000"
+    }
+   ],
+   "nfts": [
+    {
+     "contract_id": "desktopapp.near",
+     "last_update_block_height": 221286866
+    },
+    {
+     "contract_id": "officialevents.near",
+     "last_update_block_height": 222072007
+    }
+   ],
+   "state": {
+    "balance": "2147999574201945488604897804963",
+    "locked": "0",
+    "storage_bytes": 356468
+   }
+  }
+ },
+ "fefundsadmin.sputnik-dao.near": {
+  "staking": {
+   "account_id": "fefundsadmin.sputnik-dao.near",
+   "pools": []
+  },
+  "full": {
+   "account_id": "fefundsadmin.sputnik-dao.near",
+   "pools": [],
+   "tokens": [
+    {
+     "contract_id": "17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+     "last_update_block_height": 199188529,
+     "balance": "71283790077"
+    },
+    {
+     "contract_id": "a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.factory.bridge.near",
+     "last_update_block_height": 191223350,
+     "balance": "0"
+    }
+   ],
+   "nfts": [
+    {
+     "contract_id": "nearrewardvoucher2.mintbase1.near",
+     "last_update_block_height": 165508153
+    },
+    {
+     "contract_id": "nft-rewards.near",
+     "last_update_block_height": 166443983
+    },
+    {
+     "contract_id": "near-rewards.near",
+     "last_update_block_height": 168311455
+    },
+    {
+     "contract_id": "claim-rewards.near",
+     "last_update_block_height": 169149566
+    },
+    {
+     "contract_id": "event-drop.near",
+     "last_update_block_height": 169258814
+    },
+    {
+     "contract_id": "event-drops.near",
+     "last_update_block_height": 169581985
+    },
+    {
+     "contract_id": "nftsairdrop.near",
+     "last_update_block_height": 171792115
+    },
+    {
+     "contract_id": "event-special.near",
+     "last_update_block_height": 175026687
+    },
+    {
+     "contract_id": "reward-free.near",
+     "last_update_block_height": 180270765
+    },
+    {
+     "contract_id": "smallblog33.near",
+     "last_update_block_height": 180324420
+    },
+    {
+     "contract_id": "softdata2102.near",
+     "last_update_block_height": 180324432
+    },
+    {
+     "contract_id": "cashback1.near",
+     "last_update_block_height": 180324447
+    },
+    {
+     "contract_id": "near-bonus.near",
+     "last_update_block_height": 183779861
+    },
+    {
+     "contract_id": "nearreward.mintbase1.near",
+     "last_update_block_height": 183942766
+    },
+    {
+     "contract_id": "kiei.near",
+     "last_update_block_height": 198850551
+    },
+    {
+     "contract_id": "desktopapp.near",
+     "last_update_block_height": 221294794
+    },
+    {
+     "contract_id": "officialevents.near",
+     "last_update_block_height": 222071920
+    }
+   ],
+   "state": {
+    "balance": "1964544444999708663458057922411",
+    "locked": "0",
+    "storage_bytes": 550832
+   }
+  }
+ },
+ "1csfundsadmin.sputnik-dao.near": {
+  "staking": {
+   "account_id": "1csfundsadmin.sputnik-dao.near",
+   "pools": []
+  },
+  "full": {
+   "account_id": "1csfundsadmin.sputnik-dao.near",
+   "pools": [],
+   "tokens": [],
+   "nfts": [
+    {
+     "contract_id": "nearreward.mintbase1.near",
+     "last_update_block_height": 183943827
+    }
+   ],
+   "state": {
+    "balance": "270875891412420848813311023",
+    "locked": "0",
+    "storage_bytes": 553750
+   }
+  }
+ }
+}

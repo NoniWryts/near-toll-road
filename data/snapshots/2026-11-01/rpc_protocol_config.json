@@ -1,0 +1,14 @@
+{
+ "protocol_version": 86,
+ "max_inflation_rate": [
+  1,
+  40
+ ],
+ "protocol_reward_rate": [
+  0,
+  1
+ ],
+ "num_blocks_per_year": 31536000,
+ "epoch_length": 43200,
+ "protocol_treasury_account": "treasury.near"
+}

@@ -1,0 +1,45 @@
+{
+ "near": {
+  "fees_30d": 183290,
+  "fees_7d": 24606,
+  "fees_all": 18358167.97,
+  "revenue_30d": 128301,
+  "revenue_7d": 17225,
+  "revenue_all": 12851320.09,
+  "methodology": {
+   "UserFees": "Gas fees paid by users",
+   "Fees": "All transaction (gas) fees paid by users on the NEAR blockchain, fetched from Allium.",
+   "Revenue": "70% of every gas fee is permanently burned, reducing NEAR supply. The other 30% is paid to contract developers, so only 70% is protocol revenue.",
+   "HoldersRevenue": "Burned gas fees (70%) accrue to all NEAR holders through reduced circulating supply.",
+   "SupplySideRevenue": "The remaining 30% of each gas fee is rebated to the developer of the smart contract being called."
+  }
+ },
+ "ethereum": {
+  "fees_30d": 22112571,
+  "fees_7d": 12469208,
+  "fees_all": 20603560594,
+  "revenue_30d": 7291894,
+  "revenue_7d": 4400848,
+  "revenue_all": 13138545942,
+  "methodology": {
+   "UserFees": "Gas fees paid by users",
+   "Fees": "Total ETH gas fees (base fees + priority fees) plus blob fees (post-EIP-4844, type-3 blob-carrying transactions) paid by users",
+   "Revenue": "Amount of ETH burned \u2014 base fees plus blob fees (both are permanently burned, accruing to no proposer)",
+   "HoldersRevenue": "Amount of ETH burned \u2014 base fees plus blob fees"
+  }
+ },
+ "solana": {
+  "fees_30d": 22005089,
+  "fees_7d": 3488255,
+  "fees_all": 1633382038,
+  "revenue_30d": 2615360,
+  "revenue_7d": 254482,
+  "revenue_all": 593760604,
+  "methodology": {
+   "UserFees": "Gas fees paid by users",
+   "Fees": "Transaction fees paid by users",
+   "Revenue": "Transaction base fees paid by users",
+   "HoldersRevenue": "Transaction base fees paid by users were burned"
+  }
+ }
+}

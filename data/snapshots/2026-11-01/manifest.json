@@ -1,0 +1,137 @@
+{
+ "snapshot": "2026-11-01",
+ "files": {
+  "nearblocks_charts.parquet": {
+   "source": "https://api.nearblocks.io/v1/charts",
+   "fetched_at": "2026-11-01T14:44:40Z",
+   "rows": 2294,
+   "sha256": "edfe1eb74a769dcb71734a302b1761a873d769027714d1eb67ffc8d580437cce",
+   "note": "daily series; supply, txn_volume, txn_fee converted from yocto to NEAR"
+  },
+  "nearblocks_stats.json": {
+   "source": "https://api.nearblocks.io/v1/stats",
+   "fetched_at": "2026-11-01T14:44:41Z",
+   "rows": 17,
+   "sha256": "4920ffdfac5e2c795e399eedb2005693af8921e991ddb2a9214eafdc611adaaa",
+   "note": "live stats incl. total_supply (yocto), near_price, nodes_online"
+  },
+  "rpc_validators.parquet": {
+   "source": "https://rpc.mainnet.fastnear.com validators",
+   "fetched_at": "2026-11-01T14:44:41Z",
+   "rows": 375,
+   "sha256": "849bdf17f92b152c30ab27f12c41691e4203bcaff6740fffde965359ef3c23cc",
+   "note": "epoch_start_height=222580337",
+   "epoch_start_height": 222580337
+  },
+  "rpc_protocol_config.json": {
+   "source": "https://rpc.mainnet.fastnear.com EXPERIMENTAL_protocol_config",
+   "fetched_at": "2026-11-01T14:44:42Z",
+   "rows": 6,
+   "sha256": "c0e7b205ac2315d04b95015cfd92c138abbf2cf519c4866200912deb7adc790b",
+   "note": "max_inflation_rate [1,40] = 2.5%/yr cap on total supply"
+  },
+  "rpc_accounts.json": {
+   "source": "https://rpc.mainnet.fastnear.com query view_account",
+   "fetched_at": "2026-11-01T14:44:45Z",
+   "rows": 6,
+   "sha256": "85b82885b9cddcb14cd72d778e797c116995292d8aa66ddddb69552021a588c8",
+   "note": "balances in NEAR; locked = staked directly"
+  },
+  "rpc_status.json": {
+   "source": "https://rpc.mainnet.fastnear.com status",
+   "fetched_at": "2026-11-01T14:44:45Z",
+   "rows": 3,
+   "sha256": "c2ff6045b7298c12f387f3b93df860c09ef710a6c2a4c3f86d3e7b66eb4d3a0a",
+   "note": ""
+  },
+  "fastnear_wallets.json": {
+   "source": "https://api.fastnear.com/v1/account",
+   "fetched_at": "2026-11-01T14:44:54Z",
+   "rows": 3,
+   "sha256": "420b4cb25f770f9d6f5f08ee31d3f14ed4e84bda6560429fdd801ca6b1b0e667",
+   "note": "staking pools (empty list = nothing delegated) and FT holdings"
+  },
+  "llama_intents_daily.parquet": {
+   "source": "https://api.llama.fi/summary/{dexs,fees}/near-intents",
+   "fetched_at": "2026-11-01T14:44:55Z",
+   "rows": 691,
+   "sha256": "b3434d930ea2b13e2ee52b4186d985d2204e6bf78af1bc342a6cb56ee8cd0bcd",
+   "note": "fees = protocol + affiliate fee on swaps; revenue = NEAR swept into revenue wallets (DefiLlama methodology)",
+   "methodology": {
+    "Fees": "Gross fees charged on NEAR Intents swaps - the protocol fee plus the affiliate (distribution) fee each frontend collects, summed across all integrators.",
+    "Revenue": "NEAR's net captured revenue, measured as NEAR/wNEAR swept into its revenue wallets (reconciles with revenue.near.org and the on-chain buyback). Split by destination wallet into front-end affiliate revenue and Other. Transfers between those wallets are excluded.",
+    "ProtocolRevenue": "Captured revenue held by the treasury before the 2026-02-23 buyback program.",
+    "HoldersRevenue": "Since 2026-02-23, NEAR's captured Intents revenue is used to buy back $NEAR on the open market (not burned), returning value to holders.",
+    "SupplySideRevenue": "Gross fees minus NEAR's captured revenue - the affiliate fees kept by solvers and third-party distribution channels (e.g. SwapKit)."
+   },
+   "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/near-intents",
+   "totals_fees": {
+    "total24h": 11755,
+    "total7d": 1218693,
+    "total30d": 6067942,
+    "totalAllTime": 57982721.980000004
+   },
+   "totals_revenue": {
+    "total24h": 46140,
+    "total7d": 491821,
+    "total30d": 2117756,
+    "totalAllTime": 9285151.05
+   },
+   "totals_volume": {
+    "total24h": 73433291,
+    "total7d": 884323997,
+    "total30d": 3860604916,
+    "totalAllTime": 36011422884
+   }
+  },
+  "llama_chain_fees.json": {
+   "source": "https://api.llama.fi/summary/fees/{near,ethereum,solana}",
+   "fetched_at": "2026-11-01T14:44:58Z",
+   "rows": 3,
+   "sha256": "067c27ea3ed4078705ff22e960219632d27910beaa3c671b0e50e427a91b50b5",
+   "note": "chain base-layer fees and revenue (gas), same DefiLlama definitions across the three"
+  },
+  "coingecko_daily.parquet": {
+   "source": "https://api.coingecko.com/api/v3/coins/{near,ethereum,solana}/market_chart",
+   "fetched_at": "2026-11-01T14:45:21Z",
+   "rows": 1095,
+   "sha256": "8e2dfcf78d9bdbc5b672a48fc60a514734a224d6ce2dcbe3a3aaeaca06848ddb",
+   "note": "daily close; last row is intraday"
+  },
+  "nearstats_summary.json": {
+   "source": "https://nearstats.org/api/near/summary",
+   "fetched_at": "2026-11-01T14:45:22Z",
+   "rows": 11,
+   "sha256": "95e98c8f711b3b920a809bf362887640d001ef7c0d590d418e72b7c2db88ebeb",
+   "note": "secondary source; confidential volume = NEAR total minus observable public swaps"
+  },
+  "revenue_dashboard.json": {
+   "source": "https://revenue.near.org/",
+   "fetched_at": "2026-11-01T14:45:23Z",
+   "rows": 3,
+   "sha256": "2514070ce9c3c0b9c62526651c60d5c5aa94674830b54658c922ae6085e3857a",
+   "note": "scraped from the page's embedded Next.js payload; wallet NEAR amounts as the dashboard shows them"
+  },
+  "buyback_receipts.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/buybacks.multisignature.near/receipts",
+   "fetched_at": "2026-11-01T14:46:19Z",
+   "rows": 3119,
+   "sha256": "6d5f43d879104c949c2d72326ba7187e48c137f25df17d0d4e066053196fd681",
+   "note": "all receipts; 3073 are TRANSFER from intents.near (the buyback sweeps)"
+  },
+  "dune_skipped.json": {
+   "source": "https://dune.com/near/near-intents",
+   "fetched_at": "2026-11-01T14:46:19Z",
+   "rows": 2,
+   "sha256": "277a99f47ab72d1cb271af29afa5d397158af12e109cc44c029e3ddd1c0653da",
+   "note": ""
+  },
+  "source_health.json": {
+   "source": "pipeline.fetch_all",
+   "fetched_at": "2026-11-01T14:46:19Z",
+   "rows": 9,
+   "sha256": "e9b121a94fccdb52d550ea07cff1f111dd0579d4ac8ec7b699e6eaaf6685bfa6",
+   "note": "a failed source never overwrites an older file"
+  }
+ }
+}
