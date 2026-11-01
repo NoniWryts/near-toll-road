@@ -13,9 +13,9 @@ Everything is regenerated from committed, dated snapshots. No API keys are neede
 | Do | See |
 |---|---|
 | `make setup` | dependencies installed (pandas, pyarrow, plotly, pyyaml, requests, pytest) |
-| `make report` | `reports/tables/*.csv`, `dashboard/index.html`, `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
+| `make report` | `reports/tables/*.csv`, `dashboard/*.html` (10 pages), `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
 | `make check` | the 19-row claims ledger re-verified (9 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL) and 13 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
-| `make serve` then open http://localhost:5300 | the dashboard: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, Chain Signatures callers, Intents vs every DefiLlama bridge and swap aggregator, developers vs peer chains, comparables, 2030 scenarios, the ledger |
+| `make serve` then open http://localhost:5300 | the dashboard, one page per question with an evidence map on the start page: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, Chain Signatures callers, Intents vs every DefiLlama bridge and swap aggregator, developers vs peer chains, comparables, 2030 scenarios, the ledger |
 | edit `params.yaml` (e.g. `capture_rate: 0.5`), `make model` | `reports/tables/breakeven.csv` and the printed breakeven volume move |
 | `make refresh` | today's data pulled from NearBlocks, NEAR RPC, FastNear, DefiLlama, CoinGecko, nearstats and revenue.near.org into `data/snapshots/<today>/` with a `manifest.json` (source URL, fetch time, sha256, row count); keyed sources (Dune) skip cleanly |
 | `python -m pipeline.fetch_signer` | a time-boxed sample of `v1.signer` receipts (Chain Signatures): who calls `sign`, how often; `SIGNER_PAGES` sets the sample size |
@@ -33,7 +33,7 @@ analysis/build.py           derived tables and KPIs (reports/tables/)
 models/breakeven.py         breakeven volume, coverage, sensitivity grid, 2030 scenarios
 checks/run_ledger.py        the claims ledger: public claims re-tested against the snapshot
 checks/test_*.py            pytest: ledger integrity, model identities, data quality
-dashboard/build.py          one static HTML page from the tables (Plotly)
+dashboard/build.py          static HTML pages from the tables (Plotly); index.html is the start page and evidence map
 thesis/THESIS.template.md   the thesis with {{placeholders}}; render.py fills them
 thesis/methodology.md       definitions and source hierarchy
 thesis/risk_register.md     risks with the metric that monitors each
