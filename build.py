@@ -151,9 +151,36 @@ def build():
              ("Buyback coverage of issuance", f"{k['coverage_near_30d']:.1%}", "NEAR bought / NEAR issued, same 30 days"),
              ("Breakeven volume (2.5%)", money(ms["breakeven_measured_current_cap"], 0) + "/day", f"{money(ms['breakeven_measured_hsp029'],0)}/day at 1.6%"),
              ("Staking ratio", f"{k['staking_ratio']:.1%}", f"{k['validators']} validators, Nakamoto {k['nakamoto_coefficient_1_3']}"),
-             ("Claims ledger", " / ".join(f"{s} {c}" for s, c in status_counts.items()), "PASS / PARTIAL / UNVERIFIABLE / FAIL")]
+             ("Claims ledger", " / ".join(str(status_counts.get(x, 0)) for x in ("PASS", "PARTIAL", "UNVERIFIABLE", "FAIL")), "PASS / PARTIAL / UNVERIFIABLE / FAIL")]
     tiles_html = "".join(f'<div class="tile"><div class="label">{html.escape(a)}</div><div class="value">{html.escape(b)}</div><div class="sub">{html.escape(c)}</div></div>' for a, b, c in tiles)
-    page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    sections = {
+        "flywheel": ("Fee flywheel", "Volume → gross fees → revenue captured by NEAR → NEAR bought. Revenue is recognised when swept on-chain, so monthly totals are the comparable unit.",
+                     f"{fig_html(f1)}{fig_html(f2)}<div class=\"grid2\">{fig_html(f3, 320)}{fig_html(f3b, 320)}</div>",
+                     "reports/tables/intents_daily.csv, monthly.csv", "C04 C05 C06 C07 C16"),
+        "issuance": ("Issuance vs buybacks", "NEAR terms, so price does not distort it. Bought NEAR sits in a multisig: not burned, not staked (ledger C02).",
+                     f"{fig_html(f4)}{fig_html(f5, 300)}", "reports/tables/buybacks_daily.csv, network_daily.csv, monthly.csv", "C01 C02 C03 C08 C09"),
+        "breakeven": ("Breakeven model", f"Volume per day at which captured revenue equals the value of new issuance. Inputs live in <code>params.yaml</code>; measured rows use the trailing-30d fee rate ({k['fee_rate_bps_30d']:.1f} bps) and capture ({k['capture_30d']:.1%}).",
+                      f"{be_tab}<div class=\"grid2\">{fig_html(f6, 420)}{fig_html(f6b, 420)}</div>", "reports/tables/breakeven.csv, breakeven_sensitivity.csv, model_summary.json", "model identities in checks/test_model.py"),
+        "network": ("Network fundamentals", "Base-layer activity and the security budget. Accounts are accounts, not people.",
+                    f"{fig_html(f7, 300)}{fig_html(f7b, 300)}{fig_html(f8, 340)}", "reports/tables/network_daily.csv, validators.csv", "C10 C11 C15"),
+        "signatures": ("Chain Signatures", "v1.signer is the MPC contract. Counts are calls, not value. Most of the demand is NEAR's own plumbing: the Intents bridge (omni.bridge, BTC and Zcash connectors) and FastAuth.",
+                       fig_html(f9, 380) if f9 is not None else '<p class="note">no signer sample in this snapshot</p>', "reports/tables/signer_callers.csv", "C17"),
+        "cross-protocol": ("Cross-protocol", "One volume definition (DefiLlama). Intents is filed by DefiLlama as a Bridge, so it is inserted into each aggregator list for ranking. Canonical bridges and CEX flows are not in these lists (paid endpoint).",
+                           fig_html(f11, 400) if f11 is not None else '<p class="note">no aggregator data in this snapshot</p>', "reports/tables/aggregators.csv", "C18"),
+        "developers": ("Developers", f"Electric Capital's open dataset counts public GitHub commits in repos mapped to each ecosystem. Private repos are invisible. Source: Electric Capital Open Dev Data, CC BY 4.0, snapshot {k.get('dev_as_of','')}. Ledger C19 is red: the all-developer count is down {k.get('dev_all_chg_1y', 0):+.0%} in a year while full-time is {k.get('dev_full_time_chg_1y', 0):+.0%}.",
+                       (fig_html(f10, 380) if f10 is not None else '') + (fig_html(f12, 340) if f12 is not None else ''), "reports/tables/devs_peers.csv, devs_monthly.csv", "C19"),
+        "valuation": ("Valuation and 2030 scenarios", "Chain-level gas fees and revenue from DefiLlama with one definition for all three. NEAR's product revenue (Intents) is in the tiles on the start page and is not in the chain row.",
+                      f"{comps_tab}<div class=\"note\">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}",
+                      "reports/tables/comps.csv, scenarios_2030.csv", "none; these are our own numbers"),
+        "ledger": ("Claims ledger", "Public claims re-tested against the snapshot. Full columns in <code>thesis/claims_ledger.csv</code>.", led_tab, "thesis/claims_ledger.csv", "all"),
+    }
+    order = ["index"] + list(sections)
+    labels = {"index": "Start here", **{kk: v[0] for kk, v in sections.items()}}
+
+    def nav(cur):
+        return '<nav>' + "".join(f'<a href="{kk}.html"{" class=\"on\"" if kk == cur else ""}>{html.escape(labels[kk])}</a>' for kk in order) + '</nav>'
+
+    head = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Toll Road: NEAR evidence dashboard</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
 <style>
@@ -162,32 +189,33 @@ body{{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-
 main{{max-width:1180px;margin:0 auto;padding:24px 16px 64px}}
 h1{{font-size:26px;margin:0 0 4px}} h2{{font-size:18px;margin:36px 0 8px;border-top:1px solid var(--line);padding-top:20px}}
 .sub,.note{{color:var(--muted);font-size:13px}} .note{{margin:4px 0 12px}}
+nav{{display:flex;flex-wrap:wrap;gap:4px 14px;margin:14px 0 6px;font-size:14px}} nav a{{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}} nav a.on{{color:var(--ink);border-color:var(--accent)}} nav a:hover{{color:var(--ink)}}
 .tiles{{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:18px 0}}
 .tile{{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff}} .tile .label{{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}}
 .tile .value{{font-size:22px;font-weight:600;margin:2px 0}} .grid2{{display:grid;grid-template-columns:1fr 1fr;gap:16px}} @media(max-width:860px){{.grid2{{grid-template-columns:1fr}}}}
 table{{border-collapse:collapse;width:100%;font-size:13px;margin:8px 0}} th,td{{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}} th{{color:var(--muted);font-weight:600}}
 td:nth-child(2) {{white-space:nowrap}} .PASS{{color:#008300}} .FAIL{{color:#e34948}} .PARTIAL{{color:#c98500}} .UNVERIFIABLE{{color:#52514e}}
+.verdict{{border-left:3px solid var(--accent);padding:4px 14px;margin:16px 0;background:#fff}}
 </style></head><body><main>
 <h1>Toll Road: does NEAR's fee switch pay for the chain?</h1>
-<div class="sub">Snapshot {k['snapshot']} · data through {k['as_of_date']} · block {k['block_height']:,} · every number here is regenerated by <code>make report</code> from <code>data/snapshots/{k['snapshot']}/</code></div>
-<div class="tiles">{tiles_html}</div>
-<h2>1. Fee flywheel</h2><div class="note">Volume → gross fees → revenue captured by NEAR → NEAR bought. Revenue is recognised when swept on-chain, so monthly totals are the comparable unit.</div>
-{fig_html(f1)}{fig_html(f2)}<div class="grid2">{fig_html(f3, 320)}{fig_html(f3b, 320)}</div>
-<h2>2. Issuance vs buybacks</h2><div class="note">NEAR terms, so price does not distort it. Bought NEAR sits in a multisig: not burned, not staked (ledger C02).</div>
-{fig_html(f4)}{fig_html(f5, 300)}
-<h2>3. Breakeven model</h2><div class="note">Volume per day at which captured revenue equals the value of new issuance. Inputs live in <code>params.yaml</code>; measured rows use the trailing-30d fee rate ({k['fee_rate_bps_30d']:.1f} bps) and capture ({k['capture_30d']:.1%}).</div>
-{be_tab}<div class="grid2">{fig_html(f6, 420)}{fig_html(f6b, 420)}</div>
-<h2>4. Network fundamentals</h2>{fig_html(f7, 300)}{fig_html(f7b, 300)}{fig_html(f8, 340)}
-<h2>4b. Chain Signatures</h2><div class="note">v1.signer is the MPC contract. Counts are calls, not value. Most of the demand is NEAR's own plumbing: the Intents bridge (omni.bridge, BTC and Zcash connectors) and FastAuth.</div>{fig_html(f9, 380) if f9 is not None else '<p class="note">no signer sample in this snapshot</p>'}
-<h2>4c. Cross-protocol: where Intents sits</h2><div class="note">One volume definition (DefiLlama). Intents is filed by DefiLlama as a Bridge, so it is inserted into each aggregator list for ranking. Canonical bridges and CEX flows are not in these lists (paid endpoint).</div>{fig_html(f11, 400) if f11 is not None else '<p class="note">no aggregator data in this snapshot</p>'}
-<h2>4d. Developers</h2><div class="note">Electric Capital's open dataset counts public GitHub commits in repos mapped to each ecosystem. Private repos are invisible. Source: Electric Capital Open Dev Data, CC BY 4.0, snapshot {k.get('dev_as_of','')}. Ledger C19 is red: the all-developer count is down {k.get('dev_all_chg_1y', 0):+.0%} in a year while full-time is {k.get('dev_full_time_chg_1y', 0):+.0%}.</div>{fig_html(f10, 380) if f10 is not None else ''}{fig_html(f12, 340) if f12 is not None else ''}
-<h2>5. Valuation comparables and 2030 scenarios</h2><div class="note">Chain-level gas fees and revenue from DefiLlama with one definition for all three. NEAR's product revenue (Intents) is shown in the tiles above and is not in the chain row.</div>
-{comps_tab}<div class="note">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}
-<h2>6. Claims ledger</h2><div class="note">Public claims re-tested against the snapshot. Full columns in <code>thesis/claims_ledger.csv</code>.</div>{led_tab}
-<p class="sub">Sources: NearBlocks, NEAR RPC (FastNear), FastNear API, DefiLlama, CoinGecko, nearstats.org, revenue.near.org. Not investment advice.</p>
-</main><script>document.querySelectorAll('td').forEach(td=>{{if(['PASS','FAIL','PARTIAL','UNVERIFIABLE'].includes(td.textContent))td.classList.add(td.textContent)}})</script></body></html>"""
-    OUT.write_text(page)
-    print(f"dashboard -> {OUT} ({OUT.stat().st_size/1e6:.1f} MB)")
+<div class="sub">Snapshot {k['snapshot']} · data through {k['as_of_date']} · block {k['block_height']:,} · every number here is regenerated by <code>make report</code> from <code>data/snapshots/{k['snapshot']}/</code></div>"""
+    foot = """<p class="sub">Sources: NearBlocks, NEAR RPC (FastNear), FastNear API, DefiLlama, CoinGecko, nearstats.org, revenue.near.org, Electric Capital Open Dev Data. Not investment advice.</p>
+</main><script>document.querySelectorAll('td').forEach(td=>{if(['PASS','FAIL','PARTIAL','UNVERIFIABLE'].includes(td.textContent))td.classList.add(td.textContent)})</script></body></html>"""
+    OUT.parent.mkdir(exist_ok=True)
+    for name, (title, note, body, files, claims) in sections.items():
+        (OUT.parent / f"{name}.html").write_text(head + nav(name) + f"<h2>{html.escape(title)}</h2><div class=\"note\">{note}</div>{body}"
+                                                 + f"<p class=\"sub\">Tables: <code>{html.escape(files)}</code> · ledger rows: {html.escape(claims)}</p>" + foot)
+    # start page: tiles, the verdict, and the evidence map
+    verdict = (f"<div class=\"verdict\"><p><b>The mechanism is real and small.</b> In the last 30 days NEAR Intents moved {money(k['intents_volume_30d'])}, earned {money(k['intents_fees_30d'])} in fees, "
+               f"and NEAR captured {money(k['intents_revenue_30d'])} of it ({k['capture_30d']:.0%}). {k['buyback_near_30d']:,.0f} NEAR was bought against {k['issued_near_30d']/1e6:.2f}M issued: coverage <b>{k['coverage_near_30d']:.1%}</b>. "
+               f"Breakeven needs {money(ms['breakeven_measured_current_cap'],0)}/day of volume at 2.5% issuance ({money(ms['breakeven_measured_hsp029'],0)}/day at 1.6%), against {money(k['intents_volume_30d']/30,0)}/day today.</p>"
+               f"<p>What is going right: Intents is the largest venue of its kind DefiLlama can see (rank {k.get('xp_bridge_rank','?')} of {k.get('xp_bridge_n','?')} bridge aggregators) and capture is rising. "
+               f"What is going wrong: issuance outruns buybacks {k['issued_near_30d']/k['buyback_near_30d']:.0f}x, bought NEAR is held not retired, base-layer activity has fallen, and Electric Capital counts {k.get('dev_all','?')} active developers, down {abs(k.get('dev_all_chg_1y',0)):.0%} in a year. Both sides are in the ledger.</p></div>")
+    emap = "<table><thead><tr><th>Question</th><th>Page</th><th>Table (reports/tables/)</th><th>Ledger rows</th></tr></thead><tbody>" + "".join(
+        f"<tr><td>{html.escape(t)}</td><td><a href=\"{n}.html\">{html.escape(t)}</a></td><td><code>{html.escape(f)}</code></td><td>{html.escape(c)}</td></tr>" for n, (t, _, _, f, c) in sections.items()) + "</tbody></table>"
+    index = head + nav("index") + f'<div class="tiles">{tiles_html}</div>' + verdict + "<h2>Evidence map</h2><div class=\"note\">Every page answers one question, cites the table it is drawn from and the ledger rows it supports. <code>make report</code> rebuilds all of it; <code>make check</code> re-tests the ledger.</div>" + emap + foot
+    OUT.write_text(index)
+    print(f"dashboard -> {OUT.parent}/ ({len(sections)+1} pages, index {OUT.stat().st_size/1e3:.0f} KB)")
 
 
 def main():
