@@ -12,7 +12,7 @@ OUT = ROOT / "dashboard" / "index.html"
 # categorical palette (validated, dataviz reference instance): blue, orange, aqua, yellow
 C = {"1": "#2a78d6", "2": "#eb6834", "3": "#1baf7a", "4": "#eda100", "grid": "#e8e7e3", "text": "#0b0b0b", "muted": "#52514e"}
 LAYOUT = dict(template="plotly_white", font=dict(family="Inter, system-ui, sans-serif", size=13, color=C["text"]),
-              margin=dict(l=48, r=24, t=48, b=40), hovermode="x unified", legend=dict(orientation="h", y=1.12, x=0),
+              margin=dict(l=48, r=24, t=84, b=40), hovermode="x unified", legend=dict(orientation="h", y=1.04, x=0, yanchor="bottom"), title=dict(y=0.97, yanchor="top"),
               xaxis=dict(gridcolor=C["grid"], showgrid=False), yaxis=dict(gridcolor=C["grid"], zeroline=False))
 
 
@@ -78,7 +78,7 @@ def build():
     f6b.update_layout(title="Same grid at 1.6% issuance (HSP-029 target)", xaxis_title="gross fee rate", yaxis_title="capture rate")
     # 7 network activity
     f7 = go.Figure(); f7.add_scatter(x=n.date, y=n.txns, name="Transactions / day", line=dict(color=C["1"], width=2))
-    f7.update_layout(title="Transactions per day (NearBlocks)")
+    f7.update_layout(title="Transactions per day (NearBlocks). Step down in April 2026: cause not established; Nansen reports ~740k/day in Q3")
     f7b = go.Figure(); f7b.add_scatter(x=n.date, y=n.active_accounts, name="Active accounts / day", line=dict(color=C["3"], width=2))
     f7b.add_scatter(x=n.date, y=n.new_accounts, name="New accounts / day", line=dict(color=C["4"], width=2))
     f7b.update_layout(title="Active and new accounts per day (NearBlocks; accounts, not people)")
@@ -93,7 +93,7 @@ def build():
         fmt = fmt or {}
         h = "<table><thead><tr>" + "".join(f"<th>{html.escape(c)}</th>" for c in cols) + "</tr></thead><tbody>"
         for _, r in df.iterrows():
-            h += "<tr>" + "".join(f"<td>{html.escape(fmt.get(c, lambda x: str(x))(r[c]))}</td>" for c in cols) + "</tr>"
+            h += "<tr>" + "".join(f"<td>{html.escape('' if pd.isna(r[c]) else fmt.get(c, lambda x: str(x))(r[c]))}</td>" for c in cols) + "</tr>"
         return h + "</tbody></table>"
     be_v = be[be.deployment == "all_captured_revenue"]
     be_tab = table(be_v, ["issuance_scenario", "issuance_rate", "capture_scenario", "capture_rate", "breakeven_volume_usd_per_day", "coverage_at_current_volume", "volume_multiple_needed"],

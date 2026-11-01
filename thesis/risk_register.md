@@ -11,3 +11,4 @@
 | R7 | Competitive standardisation (ERC-7683 solvers, LI.FI, Across) | public | NEAR Intents share of cross-chain volume (DefiLlama bridges/aggregators) |
 | R8 | Reported figures that cannot be verified (confidential TVL, AI staking, ETF holdings) | ledger C12-C14 | keep UNVERIFIABLE until a public source exists |
 | R9 | Price-driven optics: USD coverage improves when NEAR falls | model | always show NEAR-terms coverage first |
+| R10 | Network activity step change: NearBlocks daily transactions fell from ~4M to ~0.8M/day in April 2026; cause (bot traffic ending, or a counting change) not established | `reports/tables/network_daily.csv` | compare with Nansen signer-based series each quarter |
