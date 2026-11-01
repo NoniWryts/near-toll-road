@@ -38,6 +38,8 @@ def main():
         "stake_ratio": f"{k['staking_ratio']:.1%}", "validators": k["validators"], "nakamoto": k["nakamoto_coefficient_1_3"], "top10": f"{k['top10_stake_share']:.0%}",
         "n_pass": counts.get("PASS", 0), "n_partial": counts.get("PARTIAL", 0), "n_unver": counts.get("UNVERIFIABLE", 0), "n_fail": counts.get("FAIL", 0),
         "ledger_table": ledger_md,
+        "cs_calls": f"{k.get('signer_sign_calls_per_day_est', 0):,.0f}", "cs_hours": f"{k.get('signer_sample_hours', 0):.1f}", "cs_rows": f"{k.get('signer_sample_rows', 0):,}",
+        "cs_lifetime": f"{k.get('signer_lifetime_receipts', 0)/1e6:.1f}M", "cs_infra": f"{k.get('signer_near_infra_share', 0):.0%}",
         "near_mcap_fees_x": f"{comps.loc['near','mcap_over_annualised_chain_fees']:,.0f}", "eth_mcap_fees_x": f"{comps.loc['ethereum','mcap_over_annualised_chain_fees']:,.0f}",
         "sol_mcap_fees_x": f"{comps.loc['solana','mcap_over_annualised_chain_fees']:,.0f}",
         "near_mcap_rev_x": f"{comps.loc['near','mcap_over_annualised_chain_revenue']:,.0f}", "near_product_rev_x": f"{k['market_cap_usd']/(k['intents_revenue_30d']*365/30):,.0f}",

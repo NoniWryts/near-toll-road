@@ -55,6 +55,26 @@ def validators(snap: Path, total_supply: float) -> dict:
             "top20_stake_share": float(v.stake_near.head(20).sum() / tot)}
 
 
+def signer(snap: Path) -> dict:
+    """Chain Signatures usage from the v1.signer sample; extrapolated, labelled as such."""
+    try:
+        d = load_df(snap, "signer_sample")
+    except FileNotFoundError:
+        return {}
+    import json as _json
+    meta = _json.loads((snap / "manifest.json").read_text())["files"]["signer_sample.parquet"]
+    span = (d.ts.max() - d.ts.min()).total_seconds() / 86400
+    sign = d[d.method == "sign"]
+    shares = sign.predecessor.value_counts(normalize=True)
+    infra = ["omni.bridge.near", "fast-auth.near", "btc-connector.bridge.near", "zcash-connector.bridge.near"]
+    top = shares.head(8).reset_index(); top.columns = ["caller", "share"]
+    top.to_csv(TABLES / "signer_callers.csv", index=False)
+    return {"signer_lifetime_receipts": meta["lifetime_receipts"], "signer_sample_rows": int(len(d)), "signer_sample_hours": span * 24,
+            "signer_sign_calls_per_day_est": float(len(sign) / span), "signer_receipts_per_day_est": float(len(d) / span),
+            "signer_near_infra_share": float(shares.reindex(infra).fillna(0).sum()), "signer_top_caller": str(shares.index[0]),
+            "signer_top_caller_share": float(shares.iloc[0])}
+
+
 def build(snap: Path) -> dict:
     TABLES.mkdir(parents=True, exist_ok=True)
     cg = load_df(snap, "coingecko_daily")
@@ -96,6 +116,7 @@ def build(snap: Path) -> dict:
         "block_height": acct[WALLET]["block_height"],
     }
     kpis.update(validators(snap, total_supply))
+    kpis.update(signer(snap))
     # monthly table
     m = idaily.set_index("date").resample("MS")[["volume_usd", "fees_usd", "revenue_usd"]].sum()
     m["fee_rate_bps"] = 1e4 * m.fees_usd / m.volume_usd

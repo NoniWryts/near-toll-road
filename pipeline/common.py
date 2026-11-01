@@ -38,7 +38,8 @@ def get_json(url: str, params: dict | None = None, headers: dict | None = None, 
         try:
             r = requests.get(url, params=params, headers=h, timeout=timeout)
             if r.status_code == 429:
-                time.sleep(2 ** i * 2)
+                last = "HTTP 429 rate limited"
+                time.sleep(2 ** i * 5)
                 continue
             r.raise_for_status()
             return r.json()

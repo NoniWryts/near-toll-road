@@ -88,6 +88,15 @@ def build():
                           hovertext=vv.account_id, hovertemplate="%{hovertext}: %{y:.2f}M NEAR<extra></extra>"))
     f8.update_layout(title=f"Stake by validator rank, top 40 of {k['validators']} (Nakamoto coefficient at 1/3: {k['nakamoto_coefficient_1_3']}; top-10 share {k['top10_stake_share']:.0%})",
                      xaxis_title="rank", yaxis_title="M NEAR staked")
+    # 9 chain signatures callers
+    f9 = None
+    sp = T / "signer_callers.csv"
+    if sp.exists() and "signer_sign_calls_per_day_est" in k:
+        sc9 = pd.read_csv(sp).sort_values("share")
+        f9 = go.Figure(go.Bar(x=sc9.share, y=sc9.caller, orientation="h", marker_color=C["1"], marker_line_width=0,
+                              text=[f"{x:.0%}" for x in sc9.share], textposition="outside", hovertemplate="%{y}: %{x:.1%}<extra></extra>"))
+        f9.update_layout(title=f"Who calls Chain Signatures: share of ~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (sample of {k['signer_sample_rows']:,} receipts, {k['signer_sample_hours']:.1f} h)",
+                         xaxis_tickformat=".0%", margin=dict(l=220))
     # tables
     def table(df, cols, fmt=None):
         fmt = fmt or {}
@@ -142,6 +151,7 @@ td:nth-child(2) {{white-space:nowrap}} .PASS{{color:#008300}} .FAIL{{color:#e349
 <h2>3. Breakeven model</h2><div class="note">Volume per day at which captured revenue equals the value of new issuance. Inputs live in <code>params.yaml</code>; measured rows use the trailing-30d fee rate ({k['fee_rate_bps_30d']:.1f} bps) and capture ({k['capture_30d']:.1%}).</div>
 {be_tab}<div class="grid2">{fig_html(f6, 420)}{fig_html(f6b, 420)}</div>
 <h2>4. Network fundamentals</h2>{fig_html(f7, 300)}{fig_html(f7b, 300)}{fig_html(f8, 340)}
+<h2>4b. Chain Signatures</h2><div class="note">v1.signer is the MPC contract. Counts are calls, not value. Most of the demand is NEAR's own plumbing: the Intents bridge (omni.bridge, BTC and Zcash connectors) and FastAuth.</div>{fig_html(f9, 380) if f9 is not None else '<p class="note">no signer sample in this snapshot</p>'}
 <h2>5. Valuation comparables and 2030 scenarios</h2><div class="note">Chain-level gas fees and revenue from DefiLlama with one definition for all three. NEAR's product revenue (Intents) is shown in the tiles above and is not in the chain row.</div>
 {comps_tab}<div class="note">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}
 <h2>6. Claims ledger</h2><div class="note">Public claims re-tested against the snapshot. Full columns in <code>thesis/claims_ledger.csv</code>.</div>{led_tab}

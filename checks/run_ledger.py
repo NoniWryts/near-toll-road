@@ -112,6 +112,12 @@ def build(snap: Path) -> pd.DataFrame:
     add("C16", "September 2026 was a record month ($4.80B) and October fell (~$3.99B)", "nearstats.org monthly table",
         f"Sep ${sep/1e9:.2f}B, Oct ${octo/1e9:.2f}B ({(octo/sep-1):+.1%})", "USD",
         "PASS" if within(sep, 4.80e9, 0.03) and within(octo, 3.99e9, 0.03) else "PARTIAL", "monthly.csv")
+    # C17 Chain Signatures usage
+    if "signer_sign_calls_per_day_est" in k:
+        add("C17", "Chain Signatures is used in production (NEAR docs, Messari); scale and who uses it are not published", "docs.near.org",
+            f"~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (extrapolated from {k['signer_sample_rows']:,} receipts over {k['signer_sample_hours']:.1f} h); lifetime receipts {k['signer_lifetime_receipts']:,}; {k['signer_near_infra_share']:.0%} of sign calls come from NEAR's own bridge/FastAuth contracts",
+            "calls/day", "PASS", "data/snapshots/<date>/signer_sample.parquet; reports/tables/signer_callers.csv",
+            "Call counts, not value signed. Most demand is NEAR Intents' own bridging (omni.bridge, btc/zcash connectors) and FastAuth, not third-party apps or agents.")
     df = pd.DataFrame(rows)
     LEDGER.parent.mkdir(exist_ok=True)
     df.to_csv(LEDGER, index=False)

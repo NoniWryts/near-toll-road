@@ -39,5 +39,13 @@
  "staking_ratio": 0.45162783679325474,
  "nakamoto_coefficient_1_3": 9,
  "top10_stake_share": 0.36340970356989427,
- "top20_stake_share": 0.5811533425293678
+ "top20_stake_share": 0.5811533425293678,
+ "signer_lifetime_receipts": 26383939,
+ "signer_sample_rows": 7489,
+ "signer_sample_hours": 3.4512220672222225,
+ "signer_sign_calls_per_day_est": 16856.637697273414,
+ "signer_receipts_per_day_est": 52078.943776765926,
+ "signer_near_infra_share": 0.9154290429042905,
+ "signer_top_caller": "omni.bridge.near",
+ "signer_top_caller_share": 0.31724422442244227
 }

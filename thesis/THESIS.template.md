@@ -38,6 +38,7 @@ What the buyback wallet actually holds: {{bb_balance}} NEAR, liquid, in a multis
 - **A product with a take rate.** Few L1s have a revenue line that is not gas. NEAR's base-layer gas fees were ${{gas30_m}}M in 30 days; Intents fees were ${{fees30_m}}M. The product earns more than the chain.
 - **Distribution.** Volume comes through Brave, Ledger, Trust Wallet, Rabby, SwapKit and near.com. The capture rate has risen as near.com's own share grew (28% to {{cap30}} across October), which is the mechanism by which margin improves.
 - **Confidential execution.** Roughly a tenth of all-time volume and most of recent growth ran through the confidential shard. This is NEAR-reported and not independently observable (ledger C12), so this thesis treats it as a product signal, not as audited volume.
+- **Chain Signatures is real but internal.** About {{cs_calls}} sign requests a day reach the MPC contract (extrapolated from a {{cs_hours}}-hour sample of {{cs_rows}} receipts; {{cs_lifetime}} lifetime receipts). {{cs_infra}} of them come from NEAR's own Intents bridge and FastAuth. The "agents signing on any chain" story is not yet visible in who calls the contract.
 - **Security budget.** {{validators}} validators, {{stake_ratio}} of supply staked, Nakamoto coefficient {{nakamoto}} at the one-third threshold, top-10 share {{top10}}.
 
 ## 5. Valuation: what the market is paying for

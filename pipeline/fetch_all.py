@@ -2,11 +2,11 @@
 import sys, traceback
 from .common import snapshot_dir, save, utcnow
 from . import fetch_nearblocks, fetch_rpc, fetch_fastnear, fetch_defillama, fetch_coingecko, fetch_nearstats, \
-    fetch_revenue_dashboard, fetch_buybacks, fetch_dune
+    fetch_revenue_dashboard, fetch_buybacks, fetch_dune, fetch_signer
 
 STEPS = [("nearblocks", fetch_nearblocks), ("rpc", fetch_rpc), ("fastnear", fetch_fastnear), ("defillama", fetch_defillama),
          ("coingecko", fetch_coingecko), ("nearstats", fetch_nearstats), ("revenue_dashboard", fetch_revenue_dashboard),
-         ("buybacks", fetch_buybacks), ("dune", fetch_dune)]
+         ("buybacks", fetch_buybacks), ("signer", fetch_signer), ("dune", fetch_dune)]
 
 
 def main():

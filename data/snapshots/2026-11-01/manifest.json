@@ -132,6 +132,15 @@
    "rows": 9,
    "sha256": "e9b121a94fccdb52d550ea07cff1f111dd0579d4ac8ec7b699e6eaaf6685bfa6",
    "note": "a failed source never overwrites an older file"
+  },
+  "signer_sample.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/v1.signer/txns",
+   "fetched_at": "2026-11-01T15:25:28Z",
+   "rows": 7489,
+   "sha256": "d29f84e0f2c78a8cb824a04e86962e2a28c6c2a47bed2a5265ec4fcee59affb1",
+   "note": "most recent 7489 receipts spanning 3.5 hours; lifetime receipt count 26383939",
+   "lifetime_receipts": 26383939,
+   "sample_span_days": 0.1438009194675926
   }
  }
 }
