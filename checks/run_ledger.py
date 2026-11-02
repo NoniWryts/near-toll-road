@@ -131,6 +131,17 @@ def build(snap: Path) -> pd.DataFrame:
             "developers", "FAIL" if k["dev_all_chg_1y"] < -0.05 else ("PARTIAL" if k["dev_all_chg_1y"] < 0.05 else "PASS"),
             "data/snapshots/<date>/opendevdata_mads.parquet; reports/tables/devs_peers.csv, devs_monthly.csv",
             "Counts public GitHub commits in repos Electric Capital maps to NEAR (CC BY 4.0). Private repos and non-GitHub work are invisible. Full-time count is the steadier measure.")
+    # C20 HSP-029 outcome, read from the voting contract
+    try:
+        hos = load_json(snap, "hos_proposals")["29"]
+        passed = hos["status"] in ("Timelock", "Approved", "Executed", "Finished") and hos["turnout"] >= hos["quorum_threshold_bps"] / 1e4 \
+            and (hos["approval_for_over_for_plus_against"] or 0) >= hos["approval_threshold_bps"] / 1e4
+        add("C20", "HSP-029 (issuance 2.5% -> 1.6% over 24 months) passed the House of Stake vote closing 2026-11-02 (The Defiant: 18 for, 1 against while live)", "gov.houseofstake.org/proposals/29; thedefiant.io",
+            f"vote.dao proposal 29 status {hos['status']}: for {hos['for_venear']:,.0f} veNEAR ({hos['for_votes']} votes), against {hos['against_venear']:,.0f} ({hos['against_votes']}), abstain {hos['abstain_venear']:,.0f} ({hos['abstain_votes']}); turnout {hos['turnout']:.1%} of {hos['snapshot_total_venear']:,.0f} veNEAR (quorum {hos['quorum_threshold_bps']/100:.0f}%), approval {hos['approval_for_over_for_plus_against']:.2%} (threshold {hos['approval_threshold_bps']/100:.2f}%)",
+            "veNEAR", "PASS" if passed else "FAIL", "data/snapshots/<date>/hos_proposals.json (RPC call_function vote.dao.get_proposal)",
+            f"Passing the vote changes nothing yet: {hos['timelock_days']:.0f}-day timelock, then validators must adopt the protocol upgrade, then a ~90-day buffer, then a 24-month ramp of ~3.75 bps/month. 1.6% is a 2029 number; params.yaml carries an end-2027 ramp point.")
+    except FileNotFoundError:
+        pass
     df = pd.DataFrame(rows)
     LEDGER.parent.mkdir(exist_ok=True)
     df.to_csv(LEDGER, index=False)

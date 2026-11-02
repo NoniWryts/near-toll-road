@@ -9,6 +9,7 @@
   "issuance_scenarios": {
    "current_cap": 0.025,
    "hsp029_target": 0.016,
+   "hsp029_ramp_end_2027": 0.0213,
    "realized_trailing": 0.024617987754915294
   },
   "capture_scenarios": {
@@ -56,12 +57,14 @@
    "near_ai_staked_near": "1.0e6",
    "etf_near_held": "16.84e6",
    "issuance_to_buyback_ratio": 6,
-   "hsp029_staking_ratio": 0.4271
+   "hsp029_staking_ratio": 0.4271,
+   "hsp029_for_votes_reported": 18
   }
  },
  "current_volume_usd_per_day": 130406943.66666667,
  "breakeven_measured_current_cap": 717563268.3980395,
  "breakeven_measured_hsp029": 459240491.7747453,
+ "breakeven_measured_hsp029_ramp_2027": 611363904.6751298,
  "breakeven_measured_buyback_only_current_cap": 1122525982.3564432,
  "coverage_observed_near_30d": 0.10643521135223422,
  "coverage_observed_usd_30d": 0.10549978294191317

@@ -25,7 +25,7 @@ Re-read the live rules file before submitting; dates and rules may change.
 
 ## Before sending
 1. `make refresh && make report && make check` on the day of submission so the snapshot is fresh.
-2. Update `params.yaml` with the HSP-029 result (vote closed 2026-11-02 16:48Z).
+2. HSP-029 result is in (`params.yaml`, ledger C20); `make refresh` re-reads `vote.dao` so the status moves from Timelock when it executes.
 3. Make the repo public, enable GitHub Pages from `dashboard/`, confirm the pages open logged out.
 4. Daniel posts the demo on X and pastes the link.
 5. Print the payload, get a yes, send once.

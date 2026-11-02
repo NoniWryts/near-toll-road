@@ -6,7 +6,7 @@
 
 **Thesis.** NEAR has turned a cross-chain product, NEAR Intents, into a measurable revenue line for the token: a fee on every swap is converted to NEAR and swept on-chain into a buyback wallet. If that revenue grows to cover the value of new NEAR issuance, NEAR becomes one of the few Layer-1 tokens whose supply is paid for by a product rather than by holders. That is the long-term case.
 
-**Where it stands today.** The mechanism is real and visible on-chain (ledger C01). It is also small: in the last 30 days NEAR bought back {{bb30_near}} NEAR against {{iss30_near_m}}M NEAR issued, a coverage of **{{cov30}}**. Issuance runs {{iss_x_bb}}x buybacks. At the measured fee rate ({{fee_bps}} bps of volume) and capture rate ({{cap30}}), Intents would need **${{be_cap_m}}M of volume per day** to cover 2.5% issuance, versus ${{vol_day_m}}M today, a {{be_mult}}x gap. If HSP-029 cuts issuance to 1.6%, the bar drops to ${{be_hsp_m}}M per day ({{be_mult_hsp}}x).
+**Where it stands today.** The mechanism is real and visible on-chain (ledger C01). It is also small: in the last 30 days NEAR bought back {{bb30_near}} NEAR against {{iss30_near_m}}M NEAR issued, a coverage of **{{cov30}}**. Issuance runs {{iss_x_bb}}x buybacks. At the measured fee rate ({{fee_bps}} bps of volume) and capture rate ({{cap30}}), Intents would need **${{be_cap_m}}M of volume per day** to cover 2.5% issuance, versus ${{vol_day_m}}M today, a {{be_mult}}x gap. HSP-029 passed on Nov 2, 2026 (ledger C20: {{hos_for_m}}M veNEAR for, {{hos_against}} against, turnout {{hos_turnout}}). It does not cut issuance to 1.6% at once: after a 14-day timelock, a validator upgrade and a ~90-day buffer, the cap ramps down by about 3.75 bps a month for 24 months. At the end of 2027 the cap is near {{ramp_2027}}, where breakeven is ${{be_ramp_m}}M per day; at the 1.6% end point (2029) it is ${{be_hsp_m}}M per day ({{be_mult_hsp}}x today's volume).
 
 **Kill criteria** (set now, before the data moves):
 1. Trailing-90-day capture below 20% *and* 30-day volume below $120M/day at the end of Q2 2027: the flywheel thesis fails.
@@ -50,7 +50,7 @@ At ${{price}} NEAR's market cap is ${{mcap_b}}B. On annualised 30-day figures th
 
 ## 6. Variant perception
 
-The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The more useful lens is a settlement business with a visible P&L. That lens is less flattering today (coverage {{cov30}}) but it is the only one that can be checked monthly, and it is the one where NEAR's own governance is now acting: HSP-029 attacks the denominator (issuance), the near.com share attacks the numerator (capture).
+The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The more useful lens is a settlement business with a visible P&L. That lens is less flattering today (coverage {{cov30}}) but it is the only one that can be checked monthly, and it is the one where NEAR's own governance is now acting: HSP-029, now passed, attacks the denominator (issuance), the near.com share attacks the numerator (capture).
 
 ## 7. Risks and honest limits
 
@@ -70,4 +70,4 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 
 ## 9. Time horizon and how to re-check
 
-Three to five years for the thesis; a quarterly re-run of `make refresh && make report` for the evidence. The next scheduled test is the HSP-029 result (Nov 2, 2026): update `params.yaml` with the outcome, re-run, and the breakeven table moves.
+Three to five years for the thesis; a quarterly re-run of `make refresh && make report` for the evidence. The HSP-029 vote has passed (C20); the next tests are the validator upgrade that activates it, and whether realised issuance (network page) starts to fall in 2027. `pipeline/fetch_hos.py` reads the proposal state from `vote.dao` on every refresh.

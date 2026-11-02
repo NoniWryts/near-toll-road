@@ -14,13 +14,14 @@ Everything is regenerated from committed, dated snapshots. No API keys are neede
 |---|---|
 | `make setup` | dependencies installed (pandas, pyarrow, plotly, pyyaml, requests, pytest) |
 | `make report` | `reports/tables/*.csv`, `dashboard/*.html` (10 pages), `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
-| `make check` | the 19-row claims ledger re-verified (9 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL) and 13 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
+| `make check` | the 20-row claims ledger re-verified (10 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL) and 13 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
 | `make serve` then open http://localhost:5300 | the dashboard, one page per question with an evidence map on the start page: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, Chain Signatures callers, Intents vs every DefiLlama bridge and swap aggregator, developers vs peer chains, comparables, 2030 scenarios, the ledger |
 | edit `params.yaml` (e.g. `capture_rate: 0.5`), `make model` | `reports/tables/breakeven.csv` and the printed breakeven volume move |
 | `make refresh` | today's data pulled from NearBlocks, NEAR RPC, FastNear, DefiLlama, CoinGecko, nearstats and revenue.near.org into `data/snapshots/<today>/` with a `manifest.json` (source URL, fetch time, sha256, row count); keyed sources (Dune) skip cleanly |
 | `python -m pipeline.fetch_signer` | a time-boxed sample of `v1.signer` receipts (Chain Signatures): who calls `sign`, how often; `SIGNER_PAGES` sets the sample size |
 | `python -m pipeline.fetch_opendevdata` | Electric Capital's `eco_mads.parquet` (77 MB, cached in `data/raw/`) reduced to 13 peer chains in `opendevdata_mads.parquet` |
 | `python -m pipeline.fetch_llama_aggregators` | DefiLlama's swap-aggregator, bridge-aggregator and DEX-overview lists, 1,816 rows, the comparison set for Intents |
+| `python -m pipeline.fetch_hos` | HSP-029's live state from the `vote.dao` contract over RPC: status, for/against/abstain in veNEAR, turnout (ledger C20) |
 | `python -m pipeline.fetch_buybacks` | every receipt that ever touched `buybacks.multisignature.near`, 3,119 rows, the primary record behind the buyback numbers |
 
 ## What is in the repo
@@ -49,7 +50,8 @@ thesis/risk_register.md     risks with the metric that monitors each
 | NEAR bought back | 282,241 NEAR ($1.37M) | 3,073 TRANSFER receipts from `intents.near` since 2026-04-23 (NearBlocks) |
 | NEAR issued | 2.65M NEAR, 2.46% annualised | NearBlocks daily `total_supply` difference |
 | Coverage | 10.6% | the two rows above |
-| Breakeven volume | $718M/day at 2.5%, $459M/day at 1.6% | `models/breakeven.py` |
+| Breakeven volume | $718M/day at 2.5%; $611M/day at the end-2027 ramp point (2.13%); $459M/day at 1.6% (2029) | `models/breakeven.py` |
+| HSP-029 | passed Nov 2, 2026: 3.29M veNEAR for, 0 against, 1,071 abstain, turnout 62% (status Timelock) | `vote.dao` via RPC, ledger C20 |
 | Staking | 45.2% of supply, 375 validators, Nakamoto coefficient 9 | NEAR RPC `validators` |
 | Chain Signatures | ~16.9k `sign` calls/day, 92% from NEAR's own bridge and FastAuth contracts | sample of `v1.signer` receipts (NearBlocks) |
 | Intents vs peers | rank 1 of 30 bridge aggregators (41% of list volume); rank 6 of 144 swap aggregators | DefiLlama overview lists, one volume definition |

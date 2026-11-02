@@ -6,7 +6,7 @@
 
 **Thesis.** NEAR has turned a cross-chain product, NEAR Intents, into a measurable revenue line for the token: a fee on every swap is converted to NEAR and swept on-chain into a buyback wallet. If that revenue grows to cover the value of new NEAR issuance, NEAR becomes one of the few Layer-1 tokens whose supply is paid for by a product rather than by holders. That is the long-term case.
 
-**Where it stands today.** The mechanism is real and visible on-chain (ledger C01). It is also small: in the last 30 days NEAR bought back 282,241 NEAR against 2.65M NEAR issued, a coverage of **10.6%**. Issuance runs 9.4x buybacks. At the measured fee rate (16.0 bps of volume) and capture rate (34.2%), Intents would need **$718M of volume per day** to cover 2.5% issuance, versus $130M today, a 5.5x gap. If HSP-029 cuts issuance to 1.6%, the bar drops to $459M per day (3.5x).
+**Where it stands today.** The mechanism is real and visible on-chain (ledger C01). It is also small: in the last 30 days NEAR bought back 282,241 NEAR against 2.65M NEAR issued, a coverage of **10.6%**. Issuance runs 9.4x buybacks. At the measured fee rate (16.0 bps of volume) and capture rate (34.2%), Intents would need **$718M of volume per day** to cover 2.5% issuance, versus $130M today, a 5.5x gap. HSP-029 passed on Nov 2, 2026 (ledger C20: 3.29M veNEAR for, 0 veNEAR against, turnout 62%). It does not cut issuance to 1.6% at once: after a 14-day timelock, a validator upgrade and a ~90-day buffer, the cap ramps down by about 3.75 bps a month for 24 months. At the end of 2027 the cap is near 2.13%, where breakeven is $611M per day; at the 1.6% end point (2029) it is $459M per day (3.5x today's volume).
 
 **Kill criteria** (set now, before the data moves):
 1. Trailing-90-day capture below 20% *and* 30-day volume below $120M/day at the end of Q2 2027: the flywheel thesis fails.
@@ -50,7 +50,7 @@ At $4.38 NEAR's market cap is $5.74B. On annualised 30-day figures that is 75x I
 
 ## 6. Variant perception
 
-The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The more useful lens is a settlement business with a visible P&L. That lens is less flattering today (coverage 10.6%) but it is the only one that can be checked monthly, and it is the one where NEAR's own governance is now acting: HSP-029 attacks the denominator (issuance), the near.com share attacks the numerator (capture).
+The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The more useful lens is a settlement business with a visible P&L. That lens is less flattering today (coverage 10.6%) but it is the only one that can be checked monthly, and it is the one where NEAR's own governance is now acting: HSP-029, now passed, attacks the denominator (issuance), the near.com share attacks the numerator (capture).
 
 ## 7. Risks and honest limits
 
@@ -64,7 +64,7 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 - **BigQuery not run.** The track prompt points at the NEAR public BigQuery dataset. The three queries are in `sql/` and run with a GCP project; this snapshot used NearBlocks for the same daily series because docs.near.org notes the dataset's NEAR Lake source was deprecated on 2026-03-24, so recent dates need checking before they are trusted.
 - **Unverifiable from public data**: confidential TVL, NEAR AI inference staking, ETF holdings (ledger C12 to C14).
 
-## 8. Claims ledger (9 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL)
+## 8. Claims ledger (10 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL)
 
 | id | status | claim | observed |
 |---|---|---|---|
@@ -87,7 +87,8 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 | C17 | PASS | Chain Signatures is used in production (NEAR docs, Messari); scale and who uses it are not published | ~16,857 sign calls/day (extrapolated from 7,489 receipts over 3.5 h); lifetime receipts 26,383,939; 92% of sign calls come from NEAR's own bridge/FastAuth contracts |
 | C18 | PASS | NEAR Intents is the largest cross-chain swap/bridge venue by volume (near.org and Intents team framing) | 30d volume $3.86B. Ranked against DefiLlama's bridge aggregators: 1 of 30 (next: LI.FI Bridge Aggregator $1.41B; 0x Bridge Aggregator $1.05B; SOCKET Protocol $0.96B). Against swap aggregators: 6 of 144 (leader Jupiter Aggregator $13.4B). Among DefiLlama's own Bridge-category venues: next Unit $1.99B; Maya Protocol $0.53B; TeleSwap $0.04B. Rank 17 of 1100 in the whole DEX-volume overview |
 | C19 | FAIL | NEAR's developer ecosystem is growing (recurring ecosystem framing in NEAR Foundation posts) | Electric Capital monthly-active developers 582 on 2026-10-24 vs 805 a year earlier (-28%) and 1453 four years earlier (-60%); full-time 278 vs 262 (+6%); rank 9 of 13 peer chains, rank 7 on full-time |
+| C20 | PASS | HSP-029 (issuance 2.5% -> 1.6% over 24 months) passed the House of Stake vote closing 2026-11-02 (The Defiant: 18 for, 1 against while live) | vote.dao proposal 29 status Timelock: for 3,287,729 veNEAR (32 votes), against 0 (1), abstain 1,071 (3); turnout 62.3% of 5,274,745 veNEAR (quorum 35%), approval 100.00% (threshold 66.67%) |
 
 ## 9. Time horizon and how to re-check
 
-Three to five years for the thesis; a quarterly re-run of `make refresh && make report` for the evidence. The next scheduled test is the HSP-029 result (Nov 2, 2026): update `params.yaml` with the outcome, re-run, and the breakeven table moves.
+Three to five years for the thesis; a quarterly re-run of `make refresh && make report` for the evidence. The HSP-029 vote has passed (C20); the next tests are the validator upgrade that activates it, and whether realised issuance (network page) starts to fall in 2027. `pipeline/fetch_hos.py` reads the proposal state from `vote.dao` on every refresh.

@@ -87,6 +87,7 @@ def run(snap: Path) -> dict:
     summary = {"params_used": p, "current_volume_usd_per_day": vol_day,
                "breakeven_measured_current_cap": float(be[(be.issuance_scenario == "current_cap") & (be.capture_scenario == "measured_30d") & (be.deployment == "all_captured_revenue")].breakeven_volume_usd_per_day.iloc[0]),
                "breakeven_measured_hsp029": float(be[(be.issuance_scenario == "hsp029_target") & (be.capture_scenario == "measured_30d") & (be.deployment == "all_captured_revenue")].breakeven_volume_usd_per_day.iloc[0]),
+               "breakeven_measured_hsp029_ramp_2027": float(be[(be.issuance_scenario == "hsp029_ramp_end_2027") & (be.capture_scenario == "measured_30d") & (be.deployment == "all_captured_revenue")].breakeven_volume_usd_per_day.iloc[0]) if "hsp029_ramp_end_2027" in set(be.issuance_scenario) else None,
                "breakeven_measured_buyback_only_current_cap": float(be[(be.issuance_scenario == "current_cap") & (be.capture_scenario == "measured_30d") & (be.deployment == "buyback_wallet_only")].breakeven_volume_usd_per_day.iloc[0]),
                "coverage_observed_near_30d": kpis["coverage_near_30d"], "coverage_observed_usd_30d": kpis["coverage_usd_30d"]}
     (TABLES / "model_summary.json").write_text(json.dumps(summary, indent=1, default=float))
@@ -103,6 +104,8 @@ def main():
     print(f"current Intents volume      ${s['current_volume_usd_per_day']/1e6:,.0f}M/day")
     print(f"breakeven, 2.5% cap          ${s['breakeven_measured_current_cap']/1e6:,.0f}M/day (all captured revenue)")
     print(f"breakeven, HSP-029 1.6%      ${s['breakeven_measured_hsp029']/1e6:,.0f}M/day")
+    if s.get("breakeven_measured_hsp029_ramp_2027"):
+        print(f"breakeven, HSP-029 ramp end-2027 (2.13%): ${s['breakeven_measured_hsp029_ramp_2027']/1e6:,.0f}M/day")
     print(f"breakeven, buyback wallet only, 2.5%: ${s['breakeven_measured_buyback_only_current_cap']/1e6:,.0f}M/day")
     print(f"observed coverage 30d: {s['coverage_observed_near_30d']:.1%} (NEAR terms), {s['coverage_observed_usd_30d']:.1%} (USD)")
 

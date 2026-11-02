@@ -177,6 +177,13 @@
    ],
    "license": "CC BY 4.0 (https://github.com/electric-capital/open-dev-data)",
    "b3sum_eco_mads": "8e1b14a802a95d84d4d2f5c523ba0102181e2a5ed240b5e38f77a66a9cd52750"
+  },
+  "hos_proposals.json": {
+   "source": "https://rpc.mainnet.fastnear.com call_function vote.dao.get_proposal",
+   "fetched_at": "2026-11-02T17:49:51Z",
+   "rows": 1,
+   "sha256": "0df021dac496739721465f5c1e6c7ebbd495406fc7e2d44372bc1fbe98a9e3a7",
+   "note": "House of Stake voting contract state, read at fetch time"
   }
  }
 }

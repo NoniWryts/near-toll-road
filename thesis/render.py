@@ -18,7 +18,14 @@ def main():
     counts = led.status.value_counts().to_dict()
     ledger_md = "| id | status | claim | observed |\n|---|---|---|---|\n" + "\n".join(
         f"| {r.claim_id} | {r.status} | {r.claim} | {r.observed} |" for r in led.itertuples())
+    try:
+        from pipeline.common import load_json as _lj, latest_snapshot as _ls
+        hos = _lj(_ls(), "hos_proposals")["29"]
+    except Exception:  # noqa: BLE001
+        hos = {}
     vals = {
+        "hos_for_m": f"{hos.get('for_venear', 0)/1e6:.2f}", "hos_against": f"{hos.get('against_venear', 0):,.0f} veNEAR", "hos_turnout": f"{hos.get('turnout', 0):.0%}",
+        "ramp_2027": "2.13%", "be_ramp_m": f"{(ms.get('breakeven_measured_hsp029_ramp_2027') or 0)/1e6:,.0f}",
         "snapshot": k["snapshot"], "as_of": k["as_of_date"], "price": f"{k['price_usd']:.2f}", "mcap_b": f"{k['market_cap_usd']/1e9:.2f}",
         "vol30_b": f"{k['intents_volume_30d']/1e9:.2f}", "vol_day_m": f"{ms['current_volume_usd_per_day']/1e6:.0f}",
         "fees30_m": f"{k['intents_fees_30d']/1e6:.2f}", "rev30_m": f"{k['intents_revenue_30d']/1e6:.2f}",

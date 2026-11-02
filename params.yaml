@@ -8,7 +8,8 @@ buyback_share_of_revenue: measured  # NEAR swept to buybacks.multisignature.near
 window_days: 30                     # trailing window for "current" rates
 issuance_scenarios:                 # annual issuance as a share of total supply
   current_cap: 0.025                # protocol max_inflation_rate = 1/40 (RPC protocol config)
-  hsp029_target: 0.016              # HSP-029 proposal; House of Stake vote closes 2026-11-02; needs validator upgrade
+  hsp029_target: 0.016              # HSP-029 PASSED 2026-11-02 (vote.dao proposal 29, status Timelock); reached ~24 months after a ~90-day buffer, so not before early 2029
+  hsp029_ramp_end_2027: 0.0213      # where the per-epoch ramp sits at end-2027: 2.5% minus 3.75 bps/month for ~10 months (timelock to ~Nov 16, buffer ~90 days, ramp from ~Feb 2027)
   realized_trailing: measured       # trailing-30d change in total supply, annualised
 capture_scenarios:
   conservative: 0.164               # lifetime capture reported in NEAR's Q3 update (Oct 6, 2026)
@@ -34,3 +35,4 @@ reported_claims:                    # figures other people published; the ledger
   etf_near_held: 16.84e6            # nrretf.com, Oct 28 2026 (reported in blueprint)
   issuance_to_buyback_ratio: 6      # Sal Ternullo on Bankless, Oct 6 2026 (~$13M issued vs ~$1.9M bought, 30d)
   hsp029_staking_ratio: 0.4271      # HSP-029 text, block 216,701,043 (Sep 22 2026)
+  hsp029_for_votes_reported: 18     # The Defiant, live count during the vote (18 for, 1 against)

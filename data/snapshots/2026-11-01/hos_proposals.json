@@ -1,0 +1,25 @@
+{
+ "29": {
+  "id": 29,
+  "title": "Establish a 24-Month Issuance Ramp to a 1.6% Target Rate Of NEAR Token Emissions",
+  "status": "Timelock",
+  "proposer_id": "svrnaiemissions.near",
+  "voting_start": 1792428488.461922,
+  "voting_duration_days": 14.0,
+  "timelock_days": 14.0,
+  "snapshot_block": 220563095,
+  "snapshot_total_venear": 5274745.1547832405,
+  "for_venear": 3287728.662259631,
+  "against_venear": 1.5456460682699998e-05,
+  "abstain_venear": 1070.572816045589,
+  "for_votes": 32,
+  "against_votes": 1,
+  "abstain_votes": 3,
+  "turnout": 0.623499171729422,
+  "approval_for_over_for_plus_against": 0.9999999999952988,
+  "quorum_threshold_bps": 3500,
+  "approval_threshold_bps": 6667,
+  "description_head": "## Frontmatter\n\n```\nTitle: Establish a 24-Month Issuance Ramp to a 1.6% Target Rate Of NEAR Token Emissions\nDescription: Reduces NEAR's maximum protocol issuance from 2.5% to a target 1.6% target rate on a smooth 24-month per-epoch ramp, retaining the measured 90/10 split.\nAuthor: Sal Ternullo (SVRN), @salternullo\nDiscussions-to: https://houseofstake.org/proposals/cmuyez8j80000ru0sz6emyqpe\nStatus: Draft\nTrack: Decision\nType: Supermajority\nCategory: Economic Governance\nStakeholders: Validators, delegators, NEAR token holders, House of Stake\nCreated: 2026-10-07\nRequires: HSP-001\n```\n\n\n## Actiona",
+  "fetched_at": "2026-11-02T17:49:51Z"
+ }
+}

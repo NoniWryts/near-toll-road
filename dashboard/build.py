@@ -149,7 +149,7 @@ def build():
              ("NEAR bought back, 30d", f"{k['buyback_near_30d']:,.0f}", f"{money(k['buyback_usd_30d'])}; wallet holds {k['buyback_wallet_balance_near']/1e6:.2f}M NEAR, 0 staked"),
              ("NEAR issued, 30d", f"{k['issued_near_30d']/1e6:.2f}M", f"{k['realized_issuance_annualised']:.2%} annualised"),
              ("Buyback coverage of issuance", f"{k['coverage_near_30d']:.1%}", "NEAR bought / NEAR issued, same 30 days"),
-             ("Breakeven volume (2.5%)", money(ms["breakeven_measured_current_cap"], 0) + "/day", f"{money(ms['breakeven_measured_hsp029'],0)}/day at 1.6%"),
+             ("Breakeven volume (2.5%)", money(ms["breakeven_measured_current_cap"], 0) + "/day", f"{money(ms['breakeven_measured_hsp029'],0)}/day at 1.6% (HSP-029 passed Nov 2; 1.6% reached ~2029)"),
              ("Staking ratio", f"{k['staking_ratio']:.1%}", f"{k['validators']} validators, Nakamoto {k['nakamoto_coefficient_1_3']}"),
              ("Claims ledger", " / ".join(str(status_counts.get(x, 0)) for x in ("PASS", "PARTIAL", "UNVERIFIABLE", "FAIL")), "PASS / PARTIAL / UNVERIFIABLE / FAIL")]
     tiles_html = "".join(f'<div class="tile"><div class="label">{html.escape(a)}</div><div class="value">{html.escape(b)}</div><div class="sub">{html.escape(c)}</div></div>' for a, b, c in tiles)
