@@ -173,6 +173,8 @@ def build():
                       f"{comps_tab}<div class=\"note\">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}",
                       "reports/tables/comps.csv, scenarios_2030.csv", "none; these are our own numbers"),
         "ledger": ("Claims ledger", "Public claims re-tested against the snapshot. Full columns in <code>thesis/claims_ledger.csv</code>.", led_tab, "thesis/claims_ledger.csv", "all"),
+        "predictions": ("Pre-registered predictions", "Three calls written on 2026-11-04 with dates and thresholds, frozen by hash in <code>thesis/PREDICTIONS.md</code>. Re-run <code>make check</code> after 2027-03-31 and each row turns HIT or MISS.",
+                        table(pd.read_csv(T / "predictions.csv"), ["id", "call", "observed", "threshold", "settles", "status"]) if (T / "predictions.csv").exists() else "", "reports/tables/predictions.csv", "P1 P2 P3"),
     }
     order = ["index"] + list(sections)
     labels = {"index": "Start here", **{kk: v[0] for kk, v in sections.items()}}

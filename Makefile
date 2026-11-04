@@ -14,6 +14,7 @@ model:            ## run the breakeven + scenario model on the latest snapshot
 
 check:            ## re-verify every claim in the ledger against the latest snapshot
 	$(PY) -m checks.run_ledger --snapshot $(SNAP)
+	$(PY) -m checks.predictions --snapshot $(SNAP)
 	$(PY) -m pytest -q checks
 
 report: model check ## regenerate tables, figures, dashboard and THESIS.md from the snapshot

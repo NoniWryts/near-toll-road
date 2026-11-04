@@ -91,4 +91,7 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 
 ## 9. Time horizon and how to re-check
 
+Three pre-registered predictions with thresholds and a settle date of 2027-03-31 are in `thesis/PREDICTIONS.md` (frozen by hash); `make check` scores them.
+
+
 Three to five years for the thesis; a quarterly re-run of `make refresh && make report` for the evidence. The HSP-029 vote has passed (C20); the next tests are the validator upgrade that activates it, and whether realised issuance (network page) starts to fall in 2027. `pipeline/fetch_hos.py` reads the proposal state from `vote.dao` on every refresh.
