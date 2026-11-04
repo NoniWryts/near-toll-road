@@ -10,15 +10,15 @@ One complete moment: a question, a command, an answer a judge can re-run.
 | 0:25 | `dashboard/index.html` start page, tiles | "Thirty days: $3.9B of volume, $6.3M of fees, $2.1M captured, 282k NEAR bought against 2.65M issued. Coverage 10.6%." |
 | 0:40 | Breakeven page, heatmap | "Breakeven is $718M a day at 2.5% issuance, $459M if HSP-029 passes. Change `params.yaml`, re-run, the table moves." |
 | 0:55 | Issuance vs buybacks page | "The buyback wallet holds 2.15M NEAR. Zero staked, zero burned. The tokenomics post says otherwise. That is ledger row C02, red." |
-| 1:05 | Ledger page, scroll | "Nineteen public claims re-tested: nine pass, five partial, three unverifiable, two fail. The fails stay in." |
+| 1:05 | Ledger page, scroll | "Twenty public claims re-tested: ten pass, five partial, three unverifiable, two fail. Three predictions are pre-registered for March 2027. The fails stay in." |
 | 1:15 | Developers page | "Electric Capital's data says active developers are down 28% in a year. It is in the thesis, not hidden." |
-| 1:25 | `make check` green | "Thirteen tests, including the ledger. Fork it, re-run it, prove me wrong." |
+| 1:25 | `make check` green | "Fifteen tests, including the ledger and the frozen predictions. Fork it, re-run it, prove me wrong." |
 
 Keep the cursor still, no intro slide, no architecture diagram. Record at 1280x800 so the tiles fit.
 
 ## X post draft (Daniel posts; edit freely)
 
-> NEAR says Intents fees buy back NEAR. I built a repo that checks: $3.9B volume, $2.1M captured, 282k NEAR bought vs 2.65M issued in 30 days. Coverage 10.6%, breakeven $718M/day. 19 public claims re-tested, 2 fail.
+> NEAR says Intents fees buy back NEAR. I built a repo that checks: $3.9B volume, $2.1M captured, 282k NEAR bought vs 2.65M issued in 30 days. Coverage 10.6%, breakeven $718M/day. 20 public claims re-tested, 2 fail, 3 predictions pre-registered.
 >
 > Built at NEAR HACKATHON for the Investment Thesis track. One command rebuilds every chart from a dated snapshot. What claim should I test next?
 >
