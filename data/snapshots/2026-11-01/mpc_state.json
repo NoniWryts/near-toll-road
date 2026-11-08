@@ -1,0 +1,49 @@
+{
+ "state": "Running",
+ "threshold": 10,
+ "participants": [
+  "multichain-mainnet-aurora.near",
+  "near-mpc-staking4all-01.near",
+  "nodemonster.near",
+  "n1-multichain.near",
+  "everstake-mpc-1.near",
+  "stakin-mpc.near",
+  "mpch-01.near",
+  "svrn-01.near",
+  "greenfield-mpc01.near",
+  "natsai-mpc.near",
+  "hashkeympc.near",
+  "astrostakers-mainnet.near",
+  "klever-nearmpc-01.near",
+  "nansen-ai-mpc.near",
+  "bitwise-mpc01.near"
+ ],
+ "n_participants": 15,
+ "keyset_epoch": 15,
+ "domains": [
+  {
+   "id": 0,
+   "protocol": "CaitSith",
+   "purpose": "Sign",
+   "reconstruction_threshold": 10
+  },
+  {
+   "id": 1,
+   "protocol": "Frost",
+   "purpose": "Sign",
+   "reconstruction_threshold": 10
+  },
+  {
+   "id": 2,
+   "protocol": "ConfidentialKeyDerivation",
+   "purpose": "CKD",
+   "reconstruction_threshold": 10
+  },
+  {
+   "id": 3,
+   "protocol": "CaitSith",
+   "purpose": "ForeignTx",
+   "reconstruction_threshold": 10
+  }
+ ]
+}

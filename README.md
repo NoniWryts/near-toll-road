@@ -14,7 +14,7 @@ Everything is regenerated from committed, dated snapshots. No API keys are neede
 |---|---|
 | `make setup` | dependencies installed (pandas, pyarrow, plotly, pyyaml, requests, pytest) |
 | `make report` | `reports/tables/*.csv`, `dashboard/*.html` (10 pages), `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
-| `make check` | the 20-row claims ledger re-verified (10 PASS, 5 PARTIAL, 3 UNVERIFIABLE, 2 FAIL) and 15 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
+| `make check` | the 22-row claims ledger re-verified (10 PASS, 5 PARTIAL, 4 UNVERIFIABLE, 3 FAIL) and 19 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
 | `python -m checks.predictions` | three pre-registered calls (HSP-029 live in protocol, 90d capture >= 30%, 90d buyback coverage >= 15%, all by 2027-03-31) scored PENDING/HIT/MISS; the file is frozen by sha256 |
 | `make serve` then open http://localhost:5300 | the dashboard, one page per question with an evidence map on the start page: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, Chain Signatures callers, Intents vs every DefiLlama bridge and swap aggregator, developers vs peer chains, comparables, 2030 scenarios, the ledger |
 | edit `params.yaml` (e.g. `capture_rate: 0.5`), `make model` | `reports/tables/breakeven.csv` and the printed breakeven volume move |
@@ -23,6 +23,8 @@ Everything is regenerated from committed, dated snapshots. No API keys are neede
 | `python -m pipeline.fetch_opendevdata` | Electric Capital's `eco_mads.parquet` (77 MB, cached in `data/raw/`) reduced to 13 peer chains in `opendevdata_mads.parquet` |
 | `python -m pipeline.fetch_llama_aggregators` | DefiLlama's swap-aggregator, bridge-aggregator and DEX-overview lists, 1,816 rows, the comparison set for Intents |
 | `python -m pipeline.fetch_hos` | HSP-029's live state from the `vote.dao` contract over RPC: status, for/against/abstain in veNEAR, turnout (ledger C20) |
+| `python -m pipeline.fetch_intents_sample` | 180 seeded random pages of `intents.near` transactions (Sep to Oct 2026), parsed to signed intents: the source for concentration, repeat use, self-trade and solver figures on the Volume quality page. About 30 minutes on the keyless rate limit |
+| `python -m pipeline.fetch_block_sample` | 150 seeded random blocks each from March and October 2026 (neardata.xyz), counted by receiver: what makes up daily transactions and what disappeared in April |
 | `python -m pipeline.fetch_buybacks` | every receipt that ever touched `buybacks.multisignature.near`, 3,119 rows, the primary record behind the buyback numbers |
 
 ## What is in the repo
@@ -56,12 +58,14 @@ thesis/risk_register.md     risks with the metric that monitors each
 | Staking | 45.2% of supply, 375 validators, Nakamoto coefficient 9 | NEAR RPC `validators` |
 | Chain Signatures | ~16.9k `sign` calls/day, 92% from NEAR's own bridge and FastAuth contracts | sample of `v1.signer` receipts (NearBlocks) |
 | Intents vs peers | rank 1 of 30 bridge aggregators (41% of list volume); rank 6 of 144 swap aggregators | DefiLlama overview lists, one volume definition |
+| Volume quality | top 10 payout destinations hold 36% of sampled value (HHI 314); 70% of payouts are signed by per-quote accounts, so Explorer "unique users" count swaps; round trips 0.8% outside market makers | `pipeline/fetch_intents_sample.py`, ledger C21 |
+| April 2026 step-down | ~77% of the fall from 3.48M to 0.73M daily transactions is one sender, `hotwallet.kaiching` | `pipeline/fetch_block_sample.py` |
 | Developers | 582 monthly-active (down 28% y/y, 60% from 2022), 278 full-time (+6% y/y); rank 9 of 13 peer chains | Electric Capital Open Dev Data, 2026-10-24 |
 
 ## Honest limits
 
 - Confidential Intents volume and TVL are NEAR-reported; no public indexer sees the private shard. The volume series here includes them as reported.
-- Sender-level data (concentration, repeat use) needs the Intents Explorer partner token; it is a listed gap, not a filled one.
+- Sender-level figures come from a 1.2% time sample of `intents.near` transactions, not the full Explorer feed; repeat-use figures are lower bounds, and payouts routed through `omni.bridge.near` (33% of value) are excluded from destination concentration.
 - NEAR AI inference staking and the Bitwise ETF holdings are marked UNVERIFIABLE because no public, machine-readable source exists.
 - Developer counts cover public GitHub commits in repos Electric Capital maps to NEAR; private and non-GitHub work is invisible.
 - The cross-protocol ranking uses DefiLlama's lists only. Canonical bridges (Across, Stargate, Wormhole, CCTP) sit behind a paid endpoint and exchange flows are not counted.

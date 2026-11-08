@@ -142,6 +142,18 @@ def build(snap: Path) -> pd.DataFrame:
             f"Passing the vote changes nothing yet: {hos['timelock_days']:.0f}-day timelock, then validators must adopt the protocol upgrade, then a ~90-day buffer, then a 24-month ramp of ~3.75 bps/month. 1.6% is a 2029 number; params.yaml carries an end-2027 ramp point.")
     except FileNotFoundError:
         pass
+    # C21 Explorer "unique users" vs per-quote accounts
+    if "vq_perquote_share" in k and "vq_explorer_unique_users_30d" in k:
+        add("C21", f"NEAR Intents served ~{k['vq_explorer_unique_users_30d']:,} unique users in 30 days (Explorer feed as mirrored by nearstats.org)", "nearstats.org (Intents Explorer API mirror)",
+            f"{k['vq_explorer_unique_users_30d']:,} 'users' for {k['vq_explorer_swaps_30d_count']:,} swaps; on-chain sample: {k['vq_perquote_share']:.0%} of payout value signed by per-quote 64-hex accounts; {k['vq_dest_n']:,} distinct payout destinations in {k['vq_payouts']:,} sampled payouts, top 10 destinations {k['vq_dest_top10']:.0%} of value (excluding bridge-routed payouts, {k['vq_bridge_route_share']:.0%})",
+            "accounts", "FAIL", "data/snapshots/<date>/intents_sample.parquet; reports/tables/vq_signer_kinds.csv, vq_top_destinations.csv",
+            "The 'user' count is a count of 1Click quote accounts, one per swap; it cannot measure people. The Explorer swap feed also covers only part of reported volume (" + f"{k.get('vq_explorer_share_of_total',0):.0%}" + " over the same 30 days).")
+    # C22 confidential share of volume
+    if "vq_conf_share_first" in k:
+        add("C22", "A large share of Intents volume is confidential (NEAR revenue dashboard series; NearStats residual)", "revenue.near.org; nearstats.org",
+            f"confidential residual {k['vq_conf_share_first']:.0%} of 30-day volume as of {k['vq_conf_asof_first']}, {k['vq_conf_share_last']:.0%} as of {k['vq_conf_asof_last']}, total unchanged",
+            "share", "UNVERIFIABLE", "none",
+            "Confidential volume is a residual between two NEAR-run series; when the public tile series was revised the residual went to zero. No public dataset observes the private shard.")
     df = pd.DataFrame(rows)
     LEDGER.parent.mkdir(exist_ok=True)
     df.to_csv(LEDGER, index=False)

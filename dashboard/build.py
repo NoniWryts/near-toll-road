@@ -153,6 +153,76 @@ def build():
              ("Staking ratio", f"{k['staking_ratio']:.1%}", f"{k['validators']} validators, Nakamoto {k['nakamoto_coefficient_1_3']}"),
              ("Claims ledger", " / ".join(str(status_counts.get(x, 0)) for x in ("PASS", "PARTIAL", "UNVERIFIABLE", "FAIL")), "PASS / PARTIAL / UNVERIFIABLE / FAIL")]
     tiles_html = "".join(f'<div class="tile"><div class="label">{html.escape(a)}</div><div class="value">{html.escape(b)}</div><div class="sub">{html.escape(c)}</div></div>' for a, b, c in tiles)
+    # volume quality + security (built only when the samples exist)
+    vq_html = '<p class="note">no volume-quality sample in this snapshot</p>'
+    if "vq_payouts" in k:
+        pct = lambda x: f"{x:.0%}" if pd.notna(x) else ""
+        bm = pd.read_csv(T / "block_mix.csv") if (T / "block_mix.csv").exists() else None
+        fq1 = None
+        if bm is not None and len(bm):
+            fq1 = go.Figure()
+            for w, col in zip(sorted(bm.window.unique()), (C["2"], C["1"])):
+                e = bm[bm.window == w].head(8)
+                fq1.add_bar(x=e.receiver_group, y=e.est_txns_per_day, name=f"{w.split(':')[0][:7]} ({e.sampled_blocks.iloc[0]} blocks)", marker_color=col, marker_line_width=0)
+            fq1.update_layout(barmode="group", title="Transactions per day by receiving contract group, March vs October 2026 (block sample x NearBlocks daily count)", yaxis_title="est. txns/day")
+        cc = pd.DataFrame({"measure": ["payout destinations (end-user proxy)", "payout signers (mostly per-quote accounts)", "transfer signers (solvers, pools)"],
+                           "top1": [k.get("vq_dest_top1"), k.get("vq_signer_top1"), k.get("vq_solver_top1")],
+                           "top5": [k.get("vq_dest_top5"), k.get("vq_signer_top5"), k.get("vq_solver_top5")],
+                           "top10": [k.get("vq_dest_top10"), k.get("vq_signer_top10"), k.get("vq_solver_top10")],
+                           "top20": [k.get("vq_dest_top20"), k.get("vq_signer_top20"), k.get("vq_solver_top20")],
+                           "hhi": [k.get("vq_dest_hhi"), k.get("vq_signer_hhi"), k.get("vq_solver_hhi")],
+                           "n": [k.get("vq_dest_n"), k.get("vq_signer_n"), k.get("vq_solver_n")]})
+        fq2 = go.Figure()
+        for col_, nm in zip((C["1"], C["3"], C["2"]), cc.measure):
+            r = cc[cc.measure == nm].iloc[0]
+            fq2.add_bar(x=["top 1", "top 5", "top 10", "top 20"], y=[r.top1, r.top5, r.top10, r.top20], name=nm, marker_color=col_, marker_line_width=0)
+        fq2.update_layout(barmode="group", title="Concentration of sampled value: share held by the largest accounts", yaxis_tickformat=".0%")
+        chains = pd.read_csv(T / "vq_payout_chains.csv").head(10).sort_values("share")
+        fq3 = go.Figure(go.Bar(x=chains.share, y=chains.chain, orientation="h", marker_color=C["1"], marker_line_width=0, text=[pct(x) for x in chains.share], textposition="outside"))
+        fq3.update_layout(title="Where payouts go: destination chain, share of sampled payout value", xaxis_tickformat=".0%", margin=dict(l=120))
+        conf = pd.read_csv(T / "vq_confidential_reads.csv") if (T / "vq_confidential_reads.csv").exists() else pd.DataFrame()
+        aff = pd.read_csv(T / "vq_channels_affiliate.csv") if (T / "vq_channels_affiliate.csv").exists() else pd.DataFrame()
+        sol = pd.read_csv(T / "vq_solvers.csv")
+        kinds = pd.read_csv(T / "vq_signer_kinds.csv")
+        vq_html = (f"<div class=\"note\">Sample: {k['vq_pages']} random pages of <code>intents.near</code> transactions ({k['vq_txns']:,} transactions, {k['vq_sampled_hours']:.1f} hours of activity, {k['vq_sample_fraction_time']:.2%} of the window {k['vq_window']}), parsed down to {k['vq_rows']:,} signed intents. "
+                   f"Values use 1Click spot prices at fetch time, so read shares, not dollar totals.</div>"
+                   + "<h2>Q1, Q2: what makes up base-chain transactions, and what left in April</h2>"
+                   + (f"<div class=\"note\">In March, <b>{k['blk_top_pre_group']}</b> accounts received {k['blk_top_pre_share']:.0%} of sampled transactions, signed by <code>{k['blk_top_pre_signer']}</code>: about {k['blk_top_pre_daily']/1e6:.1f}M a day. In October they get about {k['blk_top_pre_post_daily']/1e3:.0f}k. That one sender explains roughly {k['blk_drop_explained']:.0%} of the fall from {k['blk_pre_daily']/1e6:.2f}M to {k['blk_post_daily']/1e6:.2f}M daily transactions. October's largest groups: {k['blk_post_top']}.</div>" if k.get("blk_drop_explained") is not None else "")
+                   + (fig_html(fq1, 420) if fq1 is not None else "")
+                   + table(bm, ["window", "receiver_group", "share", "share_p05", "share_p95", "est_txns_per_day", "top_signer_group"],
+                           {"window": lambda x: str(x)[:7], "share": pct, "share_p05": pct, "share_p95": pct, "est_txns_per_day": lambda x: f"{x:,.0f}"}) if bm is not None else "")
+        vq_html += ("<h2>Q6: concentration</h2>" + f"<div class=\"note\">{k['vq_perquote_share']:.0%} of payout value is signed by one-time 64-hex accounts that 1Click creates per quote, so counting signers counts quotes. That is why the Explorer reports {k.get('vq_explorer_unique_users_30d',0):,} \"unique users\" for {k.get('vq_explorer_swaps_30d_count',0):,} swaps. Concentration is measured on payout destinations instead. {k.get('vq_bridge_route_share',0):.0%} of payout value goes through <code>omni.bridge.near</code> (BTC, ZEC and SOL routes), whose final recipient sits inside a message this sample did not parse; destination figures cover the other {1-k.get('vq_bridge_route_share',0):.0%}.</div>"
+                    + fig_html(fq2, 360) + table(cc, ["measure", "top1", "top5", "top10", "top20", "hhi", "n"], {"top1": pct, "top5": pct, "top10": pct, "top20": pct, "hhi": lambda x: f"{x:,.0f}", "n": lambda x: f"{x:,.0f}"})
+                    + table(kinds, ["signer_kind", "share_of_payout_usd"], {"share_of_payout_usd": pct}) + fig_html(fq3, 380))
+        vq_html += ("<h2>Q7: repeat use</h2>" + f"<div class=\"note\">Of the destinations paid in the {k.get('vq_repeat_months','')} later month's sample, {k.get('vq_repeat_count_share',0):.1%} were also paid in the earlier month's sample, carrying {k.get('vq_repeat_value_share',0):.1%} of its value. With {k['vq_sample_fraction_time']:.2%} of time sampled, both are lower bounds: a repeat user is only seen if both visits land in sampled minutes. Value-weighted repeat is the more informative figure because large repeat users are the most likely to be caught twice.</div>")
+        vq_html += ("<h2>Q8: self-trade heuristic</h2>" + f"<div class=\"note\">On <code>token_diff</code> legs (direct swaps, {k['vq_tokendiff_share_of_rows']:.0%} of signed intents), {k['vq_selftrade_share']:.1%} of signer-pages show the same signer swapping A to B and B back to A inside one ~3-minute page ({k['vq_selftrade_signer_pages']} of {k['vq_tokendiff_signer_pages']}). Excluding the {k.get('vq_persistent_tokendiff_signers',0)} persistent signers seen in 20 or more random pages (market makers), the rate is {k.get('vq_selftrade_share_nonpersistent',0):.1%}. The 1Click flow hides the origin asset per user on-chain, so round-tripping there needs the Explorer feed.</div>")
+        vq_html += ("<h2>Q9: channels</h2>" + f"<div class=\"note\">The chain does not label the front-end. Two proxies: who submits the settlement transaction ({k['vq_submitter_intents_share']:.0%} by <code>intents.near</code>, the 1Click relayer), and nearstats' top affiliate fee recipients on the Explorer feed (a recent window it does not state). The largest is <code>buybacks.multisignature.near</code>, the fee recipient of near.com's own app, at {k.get('vq_top_affiliate_ratio_next',0):.1f}x the next one; then the SwapKit wallets (Ledger, Trust, Tangem) and LI.FI. The fee kept per channel is not public. <code>escrow.ai.near</code> submits a further {1-k['vq_submitter_intents_share']:.0%} of settlement transactions.</div>"
+                    + (table(aff, ["id", "transactions", "volumeUsd"], {"volumeUsd": money}) if len(aff) else "")
+                    + table(pd.read_csv(T / "vq_submitters.csv"), ["tx_submitter", "share_of_txns"], {"share_of_txns": pct}))
+        vq_html += ("<h2>Q10: confidential share</h2>" + "<div class=\"note\">nearstats derives confidential volume as NEAR's reported total minus the Explorer's public tiles. Read twice, a week apart, the same 30-day total split very differently, because the public tile series was revised. The total is stable; the split is not measurable from public data.</div>"
+                    + (table(conf, ["as_of", "alignment", "total_30d", "public_tiles_30d", "confidential_residual_30d", "confidential_share", "explorer_swaps_30d_usd", "explorer_swaps_30d_count"],
+                             {"total_30d": money, "public_tiles_30d": money, "confidential_residual_30d": money, "confidential_share": pct, "explorer_swaps_30d_usd": money, "explorer_swaps_30d_count": lambda x: f"{x:,.0f}"}) if len(conf) else ""))
+        vq_html += ("<h2>Q11: who moves the money inside Intents</h2>" + f"<div class=\"note\">Signed <code>transfer</code> intents (solvers and liquidity pools paying quote accounts) are concentrated: the top signer holds {k.get('vq_solver_top1',0):.0%} of sampled transfer value and the top 5 hold {k.get('vq_solver_top5',0):.0%}. Most top signers are unnamed 64-hex accounts, so who runs them is not public.</div>"
+                    + table(sol, ["solver", "share_of_fill_usd"], {"share_of_fill_usd": pct}))
+    sec_html = ""
+    try:
+        from pipeline.common import load_json as _lj
+        mpc = _lj(ROOT / "data" / "snapshots" / k["snapshot"], "mpc_state")
+        mp = pd.DataFrame({"participant": mpc["participants"]})
+        sec_html += (f"<h2>MPC network (Chain Signatures)</h2><div class=\"note\">Read from <code>v1.signer</code>: {mpc['n_participants']} participants, signing threshold {mpc['threshold']}. Any {mpc['threshold']} can sign; {mpc['n_participants'] - mpc['threshold'] + 1} colluding or offline operators can halt signing. Kill criterion 4 in the thesis triggers below 10 independent operators.</div>"
+                     + table(mp, ["participant"]))
+    except Exception:  # noqa: BLE001
+        pass
+    sec_html += (f"<h2>Validator concentration</h2><div class=\"note\">{k['validators']} validators; {k['nakamoto_coefficient_1_3']} control a third of stake; top-10 share {k['top10_stake_share']:.0%}.</div>{fig_html(f8, 340)}"
+                 "<h2>Incidents</h2><table><thead><tr><th>date</th><th>event</th><th>outcome</th><th>source</th></tr></thead><tbody>"
+                 "<tr><td>2026-10-01</td><td>$3.8M taken from the Omni deposit layer serving NEAR Intents</td><td>returned in full; services paused for hours</td><td>The Block, CoinDesk, NEAR postmortem</td></tr></tbody></table>"
+                 "<h2>Source caveats</h2><ul class=\"note\"><li>revenue.near.org labels its figures \"illustrative\" and differs from the wallet balance (ledger C09).</li>"
+                 "<li>The public/confidential volume split moved between two readings a week apart (Q10 on the Volume quality page).</li>"
+                 "<li>Explorer \"unique users\" count per-quote deposit accounts, not people (Q6).</li>"
+                 "<li>Developer data covers public GitHub only (C19). Cross-protocol ranks cover DefiLlama lists only (C18).</li></ul>")
+    rr = (ROOT / "thesis" / "risk_register.md").read_text().splitlines()
+    rows_ = [r.strip("|").split("|") for r in rr if r.startswith("| R")]
+    sec_html += "<h2>Risk register</h2>" + table(pd.DataFrame([[c.strip() for c in r] for r in rows_], columns=["#", "risk", "evidence", "monitor"]), ["#", "risk", "evidence", "monitor"])
     sections = {
         "flywheel": ("Fee flywheel", "Volume → gross fees → revenue captured by NEAR → NEAR bought. Revenue is recognised when swept on-chain, so monthly totals are the comparable unit.",
                      f"{fig_html(f1)}{fig_html(f2)}<div class=\"grid2\">{fig_html(f3, 320)}{fig_html(f3b, 320)}</div>",
@@ -169,6 +239,9 @@ def build():
                            fig_html(f11, 400) if f11 is not None else '<p class="note">no aggregator data in this snapshot</p>', "reports/tables/aggregators.csv", "C18"),
         "developers": ("Developers", f"Electric Capital's open dataset counts public GitHub commits in repos mapped to each ecosystem. Private repos are invisible. Source: Electric Capital Open Dev Data, CC BY 4.0, snapshot {k.get('dev_as_of','')}. Ledger C19 is red: the all-developer count is down {k.get('dev_all_chg_1y', 0):+.0%} in a year while full-time is {k.get('dev_full_time_chg_1y', 0):+.0%}.",
                        (fig_html(f10, 380) if f10 is not None else '') + (fig_html(f12, 340) if f12 is not None else ''), "reports/tables/devs_peers.csv, devs_monthly.csv", "C19"),
+        "volume-quality": ("Volume quality", "Is usage broad, recurring and organic? Answers blueprint questions 1, 2 and 6 to 11 from two seeded on-chain samples and two nearstats readings. Every figure is an estimate with its sample size shown.",
+                           vq_html, "reports/tables/block_mix.csv, vq_*.csv", "C21 C22"),
+        "security": ("Security and risks", "What could break the thesis: who can sign, who validates, what has gone wrong, and which sources disagree.", sec_html, "data/snapshots/<date>/mpc_state.json, reports/tables/validators.csv, thesis/risk_register.md", "C02 C09 C12-C14 C20"),
         "valuation": ("Valuation and 2030 scenarios", "Chain-level gas fees and revenue from DefiLlama with one definition for all three. NEAR's product revenue (Intents) is in the tiles on the start page and is not in the chain row.",
                       f"{comps_tab}<div class=\"note\">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}",
                       "reports/tables/comps.csv, scenarios_2030.csv", "none; these are our own numbers"),

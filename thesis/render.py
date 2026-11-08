@@ -25,7 +25,15 @@ def main():
         hos = {}
     vals = {
         "hos_for_m": f"{hos.get('for_venear', 0)/1e6:.2f}", "hos_against": f"{hos.get('against_venear', 0):,.0f} veNEAR", "hos_turnout": f"{hos.get('turnout', 0):.0%}",
-        "ramp_2027": "2.13%", "be_ramp_m": f"{(ms.get('breakeven_measured_hsp029_ramp_2027') or 0)/1e6:,.0f}",
+        "ramp_2027": "2.13%",
+        "vq_txns": f"{k.get('vq_txns', 0):,}", "vq_hours": f"{k.get('vq_sampled_hours', 0):.0f}", "vq_perquote": f"{k.get('vq_perquote_share', 0):.0%}",
+        "vq_users": f"{k.get('vq_explorer_unique_users_30d', 0):,}", "vq_top10": f"{k.get('vq_dest_top10', 0):.0%}", "vq_top1": f"{k.get('vq_dest_top1', 0):.0%}",
+        "vq_hhi": f"{k.get('vq_dest_hhi', 0):,.0f}", "vq_repeat_val": f"{k.get('vq_repeat_value_share', 0):.0%}", "vq_selftrade": f"{k.get('vq_selftrade_share_nonpersistent', 0):.1%}",
+        "vq_solver5": f"{k.get('vq_solver_top5', 0):.0%}", "vq_conf_first": f"{k.get('vq_conf_share_first', 0):.0%}", "vq_conf_first_date": k.get("vq_conf_asof_first", "n/a"),
+        "vq_conf_last": f"{k.get('vq_conf_share_last', 0):.0%}",
+        "blk_share": f"{k.get('blk_top_pre_share', 0):.0%}", "blk_group": k.get("blk_top_pre_group", "n/a"), "blk_signer": k.get("blk_top_pre_signer", "n/a"),
+        "blk_daily": f"{k.get('blk_top_pre_daily', 0)/1e6:.1f}M", "blk_explained": f"{(k.get('blk_drop_explained') or 0):.0%}",
+        "blk_pre": f"{k.get('blk_pre_daily', 0)/1e6:.2f}M", "blk_post": f"{k.get('blk_post_daily', 0)/1e6:.2f}M", "blk_post_top": k.get("blk_post_top", "n/a"), "be_ramp_m": f"{(ms.get('breakeven_measured_hsp029_ramp_2027') or 0)/1e6:,.0f}",
         "snapshot": k["snapshot"], "as_of": k["as_of_date"], "price": f"{k['price_usd']:.2f}", "mcap_b": f"{k['market_cap_usd']/1e9:.2f}",
         "vol30_b": f"{k['intents_volume_30d']/1e9:.2f}", "vol_day_m": f"{ms['current_volume_usd_per_day']/1e6:.0f}",
         "fees30_m": f"{k['intents_fees_30d']/1e6:.2f}", "rev30_m": f"{k['intents_revenue_30d']/1e6:.2f}",

@@ -1,0 +1,5161 @@
+{
+ "generatedAt": "2026-11-08T13:08:27.581Z",
+ "freshness": "live",
+ "warnings": [],
+ "sources": {
+  "explorerApi": "https://explorer.near-intents.org/api/v0/transactions",
+  "explorer": "https://explorer.near-intents.org/",
+  "nearblocksTxns": "https://api.nearblocks.io/v1/account/intents.near/txns?per_page=50&page=1",
+  "nearblocksStats": "https://api.nearblocks.io/v1/stats",
+  "nearRpc": "https://rpc.mainnet.near.org",
+  "oneClickTokens": "https://1click.chaindefuser.com/v0/tokens",
+  "nearOrg": "https://www.near.org/",
+  "defillamaDexs": "https://api.llama.fi/summary/dexs/near-intents",
+  "duneProtocolMetrics": "https://revenue.near.org/",
+  "intentDb": "nearstats-sqlite"
+ },
+ "sourceFetchedAt": {
+  "explorerApi": "2026-11-08T13:08:12.714Z",
+  "explorer": "2026-11-08T13:08:12.735Z",
+  "nearblocksTxns": "2026-11-08T12:41:12.692Z",
+  "nearblocksStats": "2026-11-08T13:06:42.473Z",
+  "nearRpc": "2026-11-08T13:08:12.127Z",
+  "oneClickTokens": "2026-11-08T13:08:12.320Z",
+  "defillamaDexs": "2026-11-08T13:08:12.126Z",
+  "duneProtocolMetrics": "2026-11-08T13:08:12.823Z",
+  "intentDb": "2026-11-08T13:08:12.714Z"
+ },
+ "sourceHealth": {
+  "explorerApi": {
+   "label": "NEAR Intents Explorer API",
+   "role": "primary",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:08:12.714Z",
+   "message": null
+  },
+  "intentDb": {
+   "label": "NearStats durable Intents store",
+   "role": "primary",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:08:12.714Z",
+   "message": "3,785,755 persisted Explorer API rows."
+  },
+  "explorer": {
+   "label": "NEAR Intents Explorer page",
+   "role": "primary",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:08:12.735Z",
+   "message": null
+  },
+  "nearblocksTxns": {
+   "label": "NearBlocks account transactions",
+   "role": "enrichment",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T12:41:12.692Z",
+   "message": null
+  },
+  "nearblocksStats": {
+   "label": "NearBlocks protocol stats",
+   "role": "enrichment",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:06:42.473Z",
+   "message": null
+  },
+  "nearRpc": {
+   "label": "NEAR RPC status",
+   "role": "primary",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:08:12.127Z",
+   "message": null
+  },
+  "oneClickTokens": {
+   "label": "NEAR Intents 1Click tokens",
+   "role": "primary",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:08:12.320Z",
+   "message": null
+  },
+  "defillamaDexs": {
+   "label": "DefiLlama NEAR Intents DEX aggregate",
+   "role": "primary",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:08:12.126Z",
+   "message": null
+  },
+  "duneProtocolMetrics": {
+   "label": "NEAR Intents protocol metrics",
+   "role": "primary",
+   "status": "degraded",
+   "fetchedAt": "2026-11-08T13:08:12.823Z",
+   "message": "Confidential TVL observation is delayed: source day 2026-11-07; fetch time is not measurement time."
+  },
+  "confidentialStream": {
+   "label": "Confidential Boundary stream (neardata.xyz)",
+   "role": "enrichment",
+   "status": "ok",
+   "fetchedAt": "2026-11-08T13:06:03.289Z",
+   "message": null
+  }
+ },
+ "nearPositioning": {
+  "chains": "35+ chains",
+  "assets": "150+ assets",
+  "finality": "1.2s finality",
+  "blocks": "600ms blocks",
+  "maxTps": "1M+ TPS design target",
+  "intentsVolumeClaim": "$19B+ NEAR Intents volume to date"
+ },
+ "protocol": {
+  "nearPriceUsd": 3.71,
+  "marketCapUsd": 4866417734,
+  "circulatingSupply": 1249836992,
+  "totalTransactions": 5477280514,
+  "tps": 9,
+  "avgBlockTimeSeconds": 0.5825,
+  "nodesOnline": 371,
+  "latestBlockHeight": 223620466,
+  "latestBlockTime": "2026-11-08T13:08:11.337550464Z",
+  "protocolVersion": 88,
+  "validatorCount": 100,
+  "syncing": false
+ },
+ "intents": {
+  "totals": {
+   "allTimeUsd": 37856019205.53553,
+   "volume24hUsd": 114752674.4477976,
+   "volume7dUsd": 906437455.7431072,
+   "volume30dUsd": 3882727886.2574253
+  },
+  "totalsSources": {
+   "allTimeUsd": "near-revenue:intent-volume",
+   "volume24hUsd": "near-revenue:intent-volume",
+   "volume7dUsd": "near-revenue:intent-volume",
+   "volume30dUsd": "near-revenue:intent-volume"
+  },
+  "totalsBreakdown": {
+   "basis": "public+confidential",
+   "asOfDate": "2026-11-07",
+   "public": {
+    "allTimeUsd": 37856019206,
+    "volume24hUsd": 114752674,
+    "volume7dUsd": 906437456,
+    "volume30dUsd": 3882727886
+   },
+   "confidential": {
+    "allTimeUsd": 0,
+    "volume24hUsd": 0.44779759645462036,
+    "volume7dUsd": 0,
+    "volume30dUsd": 0.25742530822753906
+   },
+   "alignment": "verified",
+   "stale": false,
+   "sources": {
+    "total": "revenue.near.org:intentVolumeSeries (NEAR)",
+    "public": "explorer.near-intents.org:volume-tiles"
+   },
+   "records": {
+    "maxDayUsd": 303419793.82832843,
+    "maxDayDate": "2026-09-17",
+    "max7dUsd": 1485418329.8713365,
+    "max7dEndDate": "2026-09-23",
+    "max30dUsd": 4835798679.287551,
+    "max30dEndDate": "2026-10-14"
+   },
+   "weekOverWeek": {
+    "endDate": "2026-11-07",
+    "days": [
+     {
+      "date": "2026-10-25",
+      "volumeUsd": 89290005.15797926
+     },
+     {
+      "date": "2026-10-26",
+      "volumeUsd": 134322214.26429942
+     },
+     {
+      "date": "2026-10-27",
+      "volumeUsd": 141264150.51097128
+     },
+     {
+      "date": "2026-10-28",
+      "volumeUsd": 112385955.68066913
+     },
+     {
+      "date": "2026-10-29",
+      "volumeUsd": 141723823.39358863
+     },
+     {
+      "date": "2026-10-30",
+      "volumeUsd": 191904556.7119849
+     },
+     {
+      "date": "2026-10-31",
+      "volumeUsd": 73433290.9863773
+     },
+     {
+      "date": "2026-11-01",
+      "volumeUsd": 81928561.926345
+     },
+     {
+      "date": "2026-11-02",
+      "volumeUsd": 155286804.1487086
+     },
+     {
+      "date": "2026-11-03",
+      "volumeUsd": 137911779.30287343
+     },
+     {
+      "date": "2026-11-04",
+      "volumeUsd": 143981404.04025266
+     },
+     {
+      "date": "2026-11-05",
+      "volumeUsd": 131020261.3553895
+     },
+     {
+      "date": "2026-11-06",
+      "volumeUsd": 141555970.5217405
+     },
+     {
+      "date": "2026-11-07",
+      "volumeUsd": 114752674.4477976
+     }
+    ],
+    "thisWeekUsd": 906437455.7431073,
+    "priorWeekUsd": 884323996.7058699,
+    "changePct": 2.5006060131366583
+   },
+   "checks": [
+    {
+     "id": "explorer-tiles",
+     "status": "pass",
+     "detail": "Fresh Explorer tiles."
+    },
+    {
+     "id": "near-series",
+     "status": "pass",
+     "detail": "NEAR series through 2026-11-07."
+    },
+    {
+     "id": "split-plausible",
+     "status": "pass",
+     "detail": "Confidential = NEAR total \u2212 public is non-negative and within share bounds."
+    },
+    {
+     "id": "split-alignment",
+     "status": "pass",
+     "detail": "Explorer tiles and NEAR's series both cover 2026-11-07 (tile day anchored by chain)."
+    },
+    {
+     "id": "defillama-daily",
+     "status": "pass",
+     "detail": "2026-11-07: NEAR 114752674 vs DefiLlama 114752674 (0.00%)."
+    },
+    {
+     "id": "confidential-vs-shield",
+     "status": "skip",
+     "detail": "split withheld \u2014 NEAR total \u2248 public"
+    },
+    {
+     "id": "confidential-reconciliation",
+     "status": "pass",
+     "detail": "2026-11-07: 193/193 tokens match the treasury's on-chain balance change exactly."
+    }
+   ],
+   "updatedAt": "2026-11-08T13:08:12.054Z"
+  },
+  "observedWindow": "Latest 100 explorer rows across ~10 minutes",
+  "recentVolumeUsd": 55422.85563487018,
+  "recentSwapCount": 100,
+  "successCount": 67,
+  "processingCount": 33,
+  "sampledUniqueUsers": 76,
+  "protocolMetrics": {
+   "totalGeneratedFeesUsd": 60195587.13118381,
+   "confidentialTvlUsd": 143164260.3822315,
+   "confidentialTvlObservation": {
+    "schemaVersion": 1,
+    "metric": "confidential_tvl_usd",
+    "basis": "near_revenue_reported",
+    "sourceId": "near-revenue:confidential-tvl",
+    "sourceUrl": "https://revenue.near.org/",
+    "sourceStatus": "verified",
+    "publicationEligible": true,
+    "valueUsd": 143164260.3822315,
+    "sourcePrecisionUsd": 0,
+    "valuePrecision": "source_numeric",
+    "observedAt": "2026-11-07",
+    "observedAtPrecision": "day",
+    "fetchedAt": "2026-11-08T13:08:12.823Z",
+    "observationId": "c912e41055ddebb2081c6f42ed04b62b957c56c42e9acc82af92e34fa19b4966",
+    "freshness": {
+     "status": "delayed",
+     "ageHours": 37.14098888888889,
+     "warnAfterHours": 24,
+     "maxAgeHours": 72
+    },
+    "history": [
+     {
+      "observedAt": "2026-02-20",
+      "valueUsd": 23.98284308106647
+     },
+     {
+      "observedAt": "2026-02-21",
+      "valueUsd": 48393.692154408964
+     },
+     {
+      "observedAt": "2026-02-22",
+      "valueUsd": 50830.66266097246
+     },
+     {
+      "observedAt": "2026-02-23",
+      "valueUsd": 102187.34430789834
+     },
+     {
+      "observedAt": "2026-02-24",
+      "valueUsd": 82090.89682952933
+     },
+     {
+      "observedAt": "2026-02-25",
+      "valueUsd": 140934.88491192868
+     },
+     {
+      "observedAt": "2026-02-26",
+      "valueUsd": 175331.88099070324
+     },
+     {
+      "observedAt": "2026-02-27",
+      "valueUsd": 250656.4681743503
+     },
+     {
+      "observedAt": "2026-02-28",
+      "valueUsd": 271481.6236349735
+     },
+     {
+      "observedAt": "2026-03-01",
+      "valueUsd": 249687.48688101658
+     },
+     {
+      "observedAt": "2026-03-02",
+      "valueUsd": 294640.4868047389
+     },
+     {
+      "observedAt": "2026-03-03",
+      "valueUsd": 681274.4263124187
+     },
+     {
+      "observedAt": "2026-03-04",
+      "valueUsd": 719963.9418263345
+     },
+     {
+      "observedAt": "2026-03-05",
+      "valueUsd": 949814.6916723583
+     },
+     {
+      "observedAt": "2026-03-06",
+      "valueUsd": 1017173.4878355482
+     },
+     {
+      "observedAt": "2026-03-07",
+      "valueUsd": 1291625.541781878
+     },
+     {
+      "observedAt": "2026-03-08",
+      "valueUsd": 1927183.5279841514
+     },
+     {
+      "observedAt": "2026-03-09",
+      "valueUsd": 1823563.1501763652
+     },
+     {
+      "observedAt": "2026-03-10",
+      "valueUsd": 1819895.0735803004
+     },
+     {
+      "observedAt": "2026-03-11",
+      "valueUsd": 2805722.41198076
+     },
+     {
+      "observedAt": "2026-03-12",
+      "valueUsd": 2776909.819868307
+     },
+     {
+      "observedAt": "2026-03-13",
+      "valueUsd": 2824066.965302181
+     },
+     {
+      "observedAt": "2026-03-14",
+      "valueUsd": 2906787.2110493756
+     },
+     {
+      "observedAt": "2026-03-15",
+      "valueUsd": 2889038.5001954576
+     },
+     {
+      "observedAt": "2026-03-16",
+      "valueUsd": 3419031.645532621
+     },
+     {
+      "observedAt": "2026-03-17",
+      "valueUsd": 3379311.370341451
+     },
+     {
+      "observedAt": "2026-03-18",
+      "valueUsd": 2766514.1153714866
+     },
+     {
+      "observedAt": "2026-03-19",
+      "valueUsd": 2341209.41635847
+     },
+     {
+      "observedAt": "2026-03-20",
+      "valueUsd": 2345360.528939135
+     },
+     {
+      "observedAt": "2026-03-21",
+      "valueUsd": 2316298.9413879793
+     },
+     {
+      "observedAt": "2026-03-22",
+      "valueUsd": 2260334.6739259693
+     },
+     {
+      "observedAt": "2026-03-23",
+      "valueUsd": 2194147.3737293533
+     },
+     {
+      "observedAt": "2026-03-24",
+      "valueUsd": 2244897.665608395
+     },
+     {
+      "observedAt": "2026-03-25",
+      "valueUsd": 2369107.1937670493
+     },
+     {
+      "observedAt": "2026-03-26",
+      "valueUsd": 2747868.017753002
+     },
+     {
+      "observedAt": "2026-03-27",
+      "valueUsd": 2744737.668746669
+     },
+     {
+      "observedAt": "2026-03-28",
+      "valueUsd": 2770322.66107612
+     },
+     {
+      "observedAt": "2026-03-29",
+      "valueUsd": 3067871.1517461794
+     },
+     {
+      "observedAt": "2026-03-30",
+      "valueUsd": 3398526.2427221774
+     },
+     {
+      "observedAt": "2026-03-31",
+      "valueUsd": 3452450.21015983
+     },
+     {
+      "observedAt": "2026-04-01",
+      "valueUsd": 3535435.8988609747
+     },
+     {
+      "observedAt": "2026-04-02",
+      "valueUsd": 4038580.0943697463
+     },
+     {
+      "observedAt": "2026-04-03",
+      "valueUsd": 4345552.674966664
+     },
+     {
+      "observedAt": "2026-04-04",
+      "valueUsd": 4846316.625703353
+     },
+     {
+      "observedAt": "2026-04-05",
+      "valueUsd": 5220157.893870334
+     },
+     {
+      "observedAt": "2026-04-06",
+      "valueUsd": 5432694.603611766
+     },
+     {
+      "observedAt": "2026-04-07",
+      "valueUsd": 6493759.253879847
+     },
+     {
+      "observedAt": "2026-04-08",
+      "valueUsd": 6486197.507179472
+     },
+     {
+      "observedAt": "2026-04-09",
+      "valueUsd": 6522294.318036627
+     },
+     {
+      "observedAt": "2026-04-10",
+      "valueUsd": 6745056.956758939
+     },
+     {
+      "observedAt": "2026-04-11",
+      "valueUsd": 6829167.35073271
+     },
+     {
+      "observedAt": "2026-04-12",
+      "valueUsd": 6560424.282070562
+     },
+     {
+      "observedAt": "2026-04-13",
+      "valueUsd": 6573803.546001106
+     },
+     {
+      "observedAt": "2026-04-14",
+      "valueUsd": 6712591.941021603
+     },
+     {
+      "observedAt": "2026-04-15",
+      "valueUsd": 6657938.66529409
+     },
+     {
+      "observedAt": "2026-04-16",
+      "valueUsd": 6727690.317765069
+     },
+     {
+      "observedAt": "2026-04-17",
+      "valueUsd": 6305546.20285858
+     },
+     {
+      "observedAt": "2026-04-18",
+      "valueUsd": 6652620.259397196
+     },
+     {
+      "observedAt": "2026-04-19",
+      "valueUsd": 6627614.478061368
+     },
+     {
+      "observedAt": "2026-04-20",
+      "valueUsd": 6584065.714231257
+     },
+     {
+      "observedAt": "2026-04-21",
+      "valueUsd": 6428466.317533514
+     },
+     {
+      "observedAt": "2026-04-22",
+      "valueUsd": 6719733.437112595
+     },
+     {
+      "observedAt": "2026-04-23",
+      "valueUsd": 6694436.779986346
+     },
+     {
+      "observedAt": "2026-04-24",
+      "valueUsd": 6784681.861083694
+     },
+     {
+      "observedAt": "2026-04-25",
+      "valueUsd": 6763205.621866225
+     },
+     {
+      "observedAt": "2026-04-26",
+      "valueUsd": 7190970.890831021
+     },
+     {
+      "observedAt": "2026-04-27",
+      "valueUsd": 8328172.5204861155
+     },
+     {
+      "observedAt": "2026-04-28",
+      "valueUsd": 6665626.99973743
+     },
+     {
+      "observedAt": "2026-04-29",
+      "valueUsd": 9188449.871942172
+     },
+     {
+      "observedAt": "2026-04-30",
+      "valueUsd": 6741043.676127988
+     },
+     {
+      "observedAt": "2026-05-01",
+      "valueUsd": 6676869.85470537
+     },
+     {
+      "observedAt": "2026-05-02",
+      "valueUsd": 6958828.309310861
+     },
+     {
+      "observedAt": "2026-05-03",
+      "valueUsd": 7049515.378449737
+     },
+     {
+      "observedAt": "2026-05-04",
+      "valueUsd": 7096842.836853792
+     },
+     {
+      "observedAt": "2026-05-05",
+      "valueUsd": 7843988.070172995
+     },
+     {
+      "observedAt": "2026-05-06",
+      "valueUsd": 8331133.04443129
+     },
+     {
+      "observedAt": "2026-05-07",
+      "valueUsd": 8519238.46209226
+     },
+     {
+      "observedAt": "2026-05-08",
+      "valueUsd": 9290228.84954893
+     },
+     {
+      "observedAt": "2026-05-09",
+      "valueUsd": 9504308.23065774
+     },
+     {
+      "observedAt": "2026-05-10",
+      "valueUsd": 9442555.250010904
+     },
+     {
+      "observedAt": "2026-05-11",
+      "valueUsd": 9362918.957163
+     },
+     {
+      "observedAt": "2026-05-12",
+      "valueUsd": 9856934.76381027
+     },
+     {
+      "observedAt": "2026-05-13",
+      "valueUsd": 10737565.020569794
+     },
+     {
+      "observedAt": "2026-05-14",
+      "valueUsd": 10734391.072142798
+     },
+     {
+      "observedAt": "2026-05-15",
+      "valueUsd": 10699812.138702335
+     },
+     {
+      "observedAt": "2026-05-16",
+      "valueUsd": 10464806.587958097
+     },
+     {
+      "observedAt": "2026-05-17",
+      "valueUsd": 10597876.74438191
+     },
+     {
+      "observedAt": "2026-05-18",
+      "valueUsd": 10714395.160839038
+     },
+     {
+      "observedAt": "2026-05-19",
+      "valueUsd": 11136058.184060218
+     },
+     {
+      "observedAt": "2026-05-20",
+      "valueUsd": 12144960.98327782
+     },
+     {
+      "observedAt": "2026-05-21",
+      "valueUsd": 12870009.612955118
+     },
+     {
+      "observedAt": "2026-05-22",
+      "valueUsd": 14019143.837646434
+     },
+     {
+      "observedAt": "2026-05-23",
+      "valueUsd": 13674206.762209706
+     },
+     {
+      "observedAt": "2026-05-24",
+      "valueUsd": 14784246.224939585
+     },
+     {
+      "observedAt": "2026-05-25",
+      "valueUsd": 15826876.782232987
+     },
+     {
+      "observedAt": "2026-05-26",
+      "valueUsd": 17212208.673572343
+     },
+     {
+      "observedAt": "2026-05-27",
+      "valueUsd": 18189259.0505268
+     },
+     {
+      "observedAt": "2026-05-28",
+      "valueUsd": 17366195.984766237
+     },
+     {
+      "observedAt": "2026-05-29",
+      "valueUsd": 17895037.86300286
+     },
+     {
+      "observedAt": "2026-05-30",
+      "valueUsd": 18649210.443743758
+     },
+     {
+      "observedAt": "2026-05-31",
+      "valueUsd": 18402808.11648626
+     },
+     {
+      "observedAt": "2026-06-01",
+      "valueUsd": 18689959.44641812
+     },
+     {
+      "observedAt": "2026-06-02",
+      "valueUsd": 22687181.94610228
+     },
+     {
+      "observedAt": "2026-06-03",
+      "valueUsd": 20233681.423627365
+     },
+     {
+      "observedAt": "2026-06-04",
+      "valueUsd": 18078344.69234338
+     },
+     {
+      "observedAt": "2026-06-05",
+      "valueUsd": 15570841.653341165
+     },
+     {
+      "observedAt": "2026-06-06",
+      "valueUsd": 16341734.907955728
+     },
+     {
+      "observedAt": "2026-06-07",
+      "valueUsd": 16904736.31815888
+     },
+     {
+      "observedAt": "2026-06-08",
+      "valueUsd": 18138101.80523089
+     },
+     {
+      "observedAt": "2026-06-09",
+      "valueUsd": 18913094.87050326
+     },
+     {
+      "observedAt": "2026-06-10",
+      "valueUsd": 20729992.818984713
+     },
+     {
+      "observedAt": "2026-06-11",
+      "valueUsd": 23236999.44726404
+     },
+     {
+      "observedAt": "2026-06-12",
+      "valueUsd": 23268266.930910874
+     },
+     {
+      "observedAt": "2026-06-13",
+      "valueUsd": 25452774.722208697
+     },
+     {
+      "observedAt": "2026-06-14",
+      "valueUsd": 26685133.744041014
+     },
+     {
+      "observedAt": "2026-06-15",
+      "valueUsd": 29611137.479763873
+     },
+     {
+      "observedAt": "2026-06-16",
+      "valueUsd": 30428244.080061145
+     },
+     {
+      "observedAt": "2026-06-17",
+      "valueUsd": 30958050.539175473
+     },
+     {
+      "observedAt": "2026-06-18",
+      "valueUsd": 30911092.251114316
+     },
+     {
+      "observedAt": "2026-06-19",
+      "valueUsd": 30890799.54740389
+     },
+     {
+      "observedAt": "2026-06-20",
+      "valueUsd": 30938168.966499723
+     },
+     {
+      "observedAt": "2026-06-21",
+      "valueUsd": 31407743.50963149
+     },
+     {
+      "observedAt": "2026-06-22",
+      "valueUsd": 31128165.13807474
+     },
+     {
+      "observedAt": "2026-06-23",
+      "valueUsd": 30071396.890027802
+     },
+     {
+      "observedAt": "2026-06-24",
+      "valueUsd": 29448305.118055947
+     },
+     {
+      "observedAt": "2026-06-25",
+      "valueUsd": 28724389.358383663
+     },
+     {
+      "observedAt": "2026-06-26",
+      "valueUsd": 28352904.688286677
+     },
+     {
+      "observedAt": "2026-06-27",
+      "valueUsd": 28609527.61996451
+     },
+     {
+      "observedAt": "2026-06-28",
+      "valueUsd": 28302453.728057526
+     },
+     {
+      "observedAt": "2026-06-29",
+      "valueUsd": 29819711.415820543
+     },
+     {
+      "observedAt": "2026-06-30",
+      "valueUsd": 28568034.10183922
+     },
+     {
+      "observedAt": "2026-07-01",
+      "valueUsd": 30188541.96471397
+     },
+     {
+      "observedAt": "2026-07-02",
+      "valueUsd": 31449574.031635206
+     },
+     {
+      "observedAt": "2026-07-03",
+      "valueUsd": 31784337.168370534
+     },
+     {
+      "observedAt": "2026-07-04",
+      "valueUsd": 32213272.320544705
+     },
+     {
+      "observedAt": "2026-07-05",
+      "valueUsd": 31837967.72992746
+     },
+     {
+      "observedAt": "2026-07-06",
+      "valueUsd": 31790509.952504408
+     },
+     {
+      "observedAt": "2026-07-07",
+      "valueUsd": 33918021.93141283
+     },
+     {
+      "observedAt": "2026-07-08",
+      "valueUsd": 33108634.04668225
+     },
+     {
+      "observedAt": "2026-07-09",
+      "valueUsd": 33109501.1480481
+     },
+     {
+      "observedAt": "2026-07-10",
+      "valueUsd": 33748143.50353676
+     },
+     {
+      "observedAt": "2026-07-11",
+      "valueUsd": 34089326.27691059
+     },
+     {
+      "observedAt": "2026-07-12",
+      "valueUsd": 33533658.34469452
+     },
+     {
+      "observedAt": "2026-07-13",
+      "valueUsd": 32956098.960856874
+     },
+     {
+      "observedAt": "2026-07-14",
+      "valueUsd": 33566689.36556539
+     },
+     {
+      "observedAt": "2026-07-15",
+      "valueUsd": 36590490.70991235
+     },
+     {
+      "observedAt": "2026-07-16",
+      "valueUsd": 35436994.88719673
+     },
+     {
+      "observedAt": "2026-07-17",
+      "valueUsd": 33503205.527788993
+     },
+     {
+      "observedAt": "2026-07-18",
+      "valueUsd": 33963512.20806245
+     },
+     {
+      "observedAt": "2026-07-19",
+      "valueUsd": 33516163.541260082
+     },
+     {
+      "observedAt": "2026-07-20",
+      "valueUsd": 34004243.04426808
+     },
+     {
+      "observedAt": "2026-07-21",
+      "valueUsd": 34637620.6858003
+     },
+     {
+      "observedAt": "2026-07-22",
+      "valueUsd": 34515648.87106424
+     },
+     {
+      "observedAt": "2026-07-23",
+      "valueUsd": 34151584.827920884
+     },
+     {
+      "observedAt": "2026-07-24",
+      "valueUsd": 34490965.61206053
+     },
+     {
+      "observedAt": "2026-07-25",
+      "valueUsd": 33782044.6575738
+     },
+     {
+      "observedAt": "2026-07-26",
+      "valueUsd": 33922213.28135283
+     },
+     {
+      "observedAt": "2026-07-27",
+      "valueUsd": 33324796.7741224
+     },
+     {
+      "observedAt": "2026-07-28",
+      "valueUsd": 31438685.88724506
+     },
+     {
+      "observedAt": "2026-07-29",
+      "valueUsd": 30814807.97015126
+     },
+     {
+      "observedAt": "2026-07-30",
+      "valueUsd": 31183419.97250189
+     },
+     {
+      "observedAt": "2026-07-31",
+      "valueUsd": 31166766.692463923
+     },
+     {
+      "observedAt": "2026-08-01",
+      "valueUsd": 31075085.871843502
+     },
+     {
+      "observedAt": "2026-08-02",
+      "valueUsd": 31498671.00229891
+     },
+     {
+      "observedAt": "2026-08-03",
+      "valueUsd": 31391140.980915323
+     },
+     {
+      "observedAt": "2026-08-04",
+      "valueUsd": 31632210.129561327
+     },
+     {
+      "observedAt": "2026-08-05",
+      "valueUsd": 31866120.448041886
+     },
+     {
+      "observedAt": "2026-08-06",
+      "valueUsd": 31812509.315122712
+     },
+     {
+      "observedAt": "2026-08-07",
+      "valueUsd": 31406530.760364767
+     },
+     {
+      "observedAt": "2026-08-08",
+      "valueUsd": 30733526.689189315
+     },
+     {
+      "observedAt": "2026-08-09",
+      "valueUsd": 31104431.0091499
+     },
+     {
+      "observedAt": "2026-08-10",
+      "valueUsd": 29970992.086735457
+     },
+     {
+      "observedAt": "2026-08-11",
+      "valueUsd": 28837842.35426374
+     },
+     {
+      "observedAt": "2026-08-12",
+      "valueUsd": 29607793.101195656
+     },
+     {
+      "observedAt": "2026-08-13",
+      "valueUsd": 29851196.702286273
+     },
+     {
+      "observedAt": "2026-08-14",
+      "valueUsd": 28007308.21687805
+     },
+     {
+      "observedAt": "2026-08-15",
+      "valueUsd": 28394534.243160225
+     },
+     {
+      "observedAt": "2026-08-16",
+      "valueUsd": 28006535.534391854
+     },
+     {
+      "observedAt": "2026-08-17",
+      "valueUsd": 28261281.57949173
+     },
+     {
+      "observedAt": "2026-08-18",
+      "valueUsd": 30681791.16048849
+     },
+     {
+      "observedAt": "2026-08-19",
+      "valueUsd": 31882268.602977984
+     },
+     {
+      "observedAt": "2026-08-20",
+      "valueUsd": 33738057.160818614
+     },
+     {
+      "observedAt": "2026-08-21",
+      "valueUsd": 36154787.38919193
+     },
+     {
+      "observedAt": "2026-08-22",
+      "valueUsd": 38704362.27797166
+     },
+     {
+      "observedAt": "2026-08-23",
+      "valueUsd": 40299855.53893307
+     },
+     {
+      "observedAt": "2026-08-24",
+      "valueUsd": 41641677.167047545
+     },
+     {
+      "observedAt": "2026-08-25",
+      "valueUsd": 40725914.84538198
+     },
+     {
+      "observedAt": "2026-08-26",
+      "valueUsd": 41525392.399568565
+     },
+     {
+      "observedAt": "2026-08-27",
+      "valueUsd": 41509041.77025141
+     },
+     {
+      "observedAt": "2026-08-28",
+      "valueUsd": 49386014.31843699
+     },
+     {
+      "observedAt": "2026-08-29",
+      "valueUsd": 50878713.2448406
+     },
+     {
+      "observedAt": "2026-08-30",
+      "valueUsd": 53330147.586792745
+     },
+     {
+      "observedAt": "2026-08-31",
+      "valueUsd": 52593456.33822875
+     },
+     {
+      "observedAt": "2026-09-01",
+      "valueUsd": 52183038.2170833
+     },
+     {
+      "observedAt": "2026-09-02",
+      "valueUsd": 50408099.58810208
+     },
+     {
+      "observedAt": "2026-09-03",
+      "valueUsd": 52921026.998643115
+     },
+     {
+      "observedAt": "2026-09-04",
+      "valueUsd": 55905101.51980761
+     },
+     {
+      "observedAt": "2026-09-05",
+      "valueUsd": 59536629.469717525
+     },
+     {
+      "observedAt": "2026-09-06",
+      "valueUsd": 65301604.62162559
+     },
+     {
+      "observedAt": "2026-09-07",
+      "valueUsd": 66062905.607028194
+     },
+     {
+      "observedAt": "2026-09-08",
+      "valueUsd": 63307467.24445239
+     },
+     {
+      "observedAt": "2026-09-09",
+      "valueUsd": 66568252.21758102
+     },
+     {
+      "observedAt": "2026-09-10",
+      "valueUsd": 66718332.840775415
+     },
+     {
+      "observedAt": "2026-09-11",
+      "valueUsd": 71695807.26115015
+     },
+     {
+      "observedAt": "2026-09-12",
+      "valueUsd": 70361600.57507472
+     },
+     {
+      "observedAt": "2026-09-13",
+      "valueUsd": 72354012.85658418
+     },
+     {
+      "observedAt": "2026-09-14",
+      "valueUsd": 71972106.09226151
+     },
+     {
+      "observedAt": "2026-09-15",
+      "valueUsd": 70785298.40532252
+     },
+     {
+      "observedAt": "2026-09-16",
+      "valueUsd": 71444839.62532023
+     },
+     {
+      "observedAt": "2026-09-17",
+      "valueUsd": 79035795.94389203
+     },
+     {
+      "observedAt": "2026-09-18",
+      "valueUsd": 90518821.41473815
+     },
+     {
+      "observedAt": "2026-09-19",
+      "valueUsd": 97896460.19416963
+     },
+     {
+      "observedAt": "2026-09-20",
+      "valueUsd": 100546725.52184188
+     },
+     {
+      "observedAt": "2026-09-21",
+      "valueUsd": 113248972.55817764
+     },
+     {
+      "observedAt": "2026-09-22",
+      "valueUsd": 131003924.27027895
+     },
+     {
+      "observedAt": "2026-09-23",
+      "valueUsd": 135376614.7670042
+     },
+     {
+      "observedAt": "2026-09-24",
+      "valueUsd": 149360182.8467076
+     },
+     {
+      "observedAt": "2026-09-25",
+      "valueUsd": 171360929.4082715
+     },
+     {
+      "observedAt": "2026-09-26",
+      "valueUsd": 173514657.91842228
+     },
+     {
+      "observedAt": "2026-09-27",
+      "valueUsd": 187260119.2420619
+     },
+     {
+      "observedAt": "2026-09-28",
+      "valueUsd": 183457109.56322834
+     },
+     {
+      "observedAt": "2026-09-29",
+      "valueUsd": 156431871.19615605
+     },
+     {
+      "observedAt": "2026-09-30",
+      "valueUsd": 160896681.71043098
+     },
+     {
+      "observedAt": "2026-10-01",
+      "valueUsd": 155013825.19607863
+     },
+     {
+      "observedAt": "2026-10-02",
+      "valueUsd": 150893663.3166626
+     },
+     {
+      "observedAt": "2026-10-03",
+      "valueUsd": 145255038.16363493
+     },
+     {
+      "observedAt": "2026-10-04",
+      "valueUsd": 142384866.37850702
+     },
+     {
+      "observedAt": "2026-10-05",
+      "valueUsd": 144064814.54586858
+     },
+     {
+      "observedAt": "2026-10-06",
+      "valueUsd": 148624637.07676533
+     },
+     {
+      "observedAt": "2026-10-07",
+      "valueUsd": 150319804.6387148
+     },
+     {
+      "observedAt": "2026-10-08",
+      "valueUsd": 166115941.31732202
+     },
+     {
+      "observedAt": "2026-10-09",
+      "valueUsd": 158059047.9884912
+     },
+     {
+      "observedAt": "2026-10-10",
+      "valueUsd": 159646512.99696335
+     },
+     {
+      "observedAt": "2026-10-11",
+      "valueUsd": 166944600.36287054
+     },
+     {
+      "observedAt": "2026-10-12",
+      "valueUsd": 169239235.21341598
+     },
+     {
+      "observedAt": "2026-10-13",
+      "valueUsd": 159812940.18562585
+     },
+     {
+      "observedAt": "2026-10-14",
+      "valueUsd": 155723329.7521529
+     },
+     {
+      "observedAt": "2026-10-15",
+      "valueUsd": 150979602.2817026
+     },
+     {
+      "observedAt": "2026-10-16",
+      "valueUsd": 154909929.05534646
+     },
+     {
+      "observedAt": "2026-10-17",
+      "valueUsd": 151766375.9591651
+     },
+     {
+      "observedAt": "2026-10-18",
+      "valueUsd": 146834489.4820065
+     },
+     {
+      "observedAt": "2026-10-19",
+      "valueUsd": 149231255.49270713
+     },
+     {
+      "observedAt": "2026-10-20",
+      "valueUsd": 146900226.0337266
+     },
+     {
+      "observedAt": "2026-10-21",
+      "valueUsd": 153861858.23536763
+     },
+     {
+      "observedAt": "2026-10-22",
+      "valueUsd": 148432749.79506144
+     },
+     {
+      "observedAt": "2026-10-23",
+      "valueUsd": 145396513.6354658
+     },
+     {
+      "observedAt": "2026-10-24",
+      "valueUsd": 138236821.66696355
+     },
+     {
+      "observedAt": "2026-10-25",
+      "valueUsd": 136363653.53550434
+     },
+     {
+      "observedAt": "2026-10-26",
+      "valueUsd": 137584472.04538321
+     },
+     {
+      "observedAt": "2026-10-27",
+      "valueUsd": 140747660.02839985
+     },
+     {
+      "observedAt": "2026-10-28",
+      "valueUsd": 146872897.24894735
+     },
+     {
+      "observedAt": "2026-10-29",
+      "valueUsd": 144421571.89652246
+     },
+     {
+      "observedAt": "2026-10-30",
+      "valueUsd": 139145431.24078164
+     },
+     {
+      "observedAt": "2026-10-31",
+      "valueUsd": 143006229.12092558
+     },
+     {
+      "observedAt": "2026-11-01",
+      "valueUsd": 142387352.59916186
+     },
+     {
+      "observedAt": "2026-11-02",
+      "valueUsd": 140006049.293233
+     },
+     {
+      "observedAt": "2026-11-03",
+      "valueUsd": 137742072.2969528
+     },
+     {
+      "observedAt": "2026-11-04",
+      "valueUsd": 146611347.0136317
+     },
+     {
+      "observedAt": "2026-11-05",
+      "valueUsd": 145244538.45735717
+     },
+     {
+      "observedAt": "2026-11-06",
+      "valueUsd": 141881102.16576853
+     },
+     {
+      "observedAt": "2026-11-07",
+      "valueUsd": 143164260.3822315
+     }
+    ],
+    "historyCoverage": {
+     "chronological": true,
+     "complete": false,
+     "firstObservedAt": "2026-02-20",
+     "lastObservedAt": "2026-11-07"
+    },
+    "warnings": [
+     "Confidential TVL observation is delayed: source day 2026-11-07; fetch time is not measurement time."
+    ],
+    "warningCodes": [
+     "OBSERVATION_DELAYED"
+    ],
+    "provenance": {
+     "adapter": "near-revenue-confidential-chart-v1",
+     "queryId": "7586891",
+     "upstreamEndpoint": "/v1/series/confidential-tvl",
+     "upstreamHealth": "fresh",
+     "healthHttpStatus": 200,
+     "repositoryRevision": "5e800dc6303547f688c143e438caed97ff8e54fe",
+     "healthFetchedAt": "2026-11-08T13:08:12.576Z"
+    }
+   },
+   "uniqueUsers7d": 104546,
+   "updatedAt": "2026-11-08T13:08:12.823Z",
+   "sources": {
+    "totalGeneratedFeesUsd": "revenue.near.org:cumulative-fees-usd",
+    "confidentialTvlUsd": "revenue.near.org:confidential-tvl",
+    "uniqueUsers7d": "nearstats-sqlite:7d-distinct-participants"
+   },
+   "warnings": [
+    "Confidential TVL observation is delayed: source day 2026-11-07; fetch time is not measurement time."
+   ]
+  },
+  "sampledUniqueReferrals": 13,
+  "assetsObserved": 23,
+  "nearSwapTransactionCount": 100,
+  "privacyRouteSignals": 3,
+  "privacyRoutes": {
+   "signalCount": 3,
+   "sampledVolumeUsd": 126.23576773050002,
+   "shareOfSampledRoutes": 0.03,
+   "topPrivacyAsset": "ZEC",
+   "topPrivacyChain": "Zcash",
+   "confidentialEndpointSignals": 0,
+   "caveat": "Privacy-route signals come from privacy-asset routes or explicit confidential endpoint flags; they are not confirmed confidential transaction counts."
+  },
+  "largestSwap24h": {
+   "originSymbol": "USDT",
+   "destinationSymbol": "ETH",
+   "originChain": "TRON",
+   "destinationChain": "Ethereum",
+   "volumeUsd": 399703.6
+  },
+  "topSwaps": [
+   {
+    "id": "piivd7",
+    "txHash": "fY1w4o51e9Eh5avMYF5rVBDoTTfFg27LKqBwNnkDhSm",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g",
+    "destinationAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "BNB Chain",
+    "destinationChain": "TRON",
+    "amountInFormatted": "20170.0",
+    "amountOutFormatted": "20167.879897",
+    "amountInUsd": 20150.8385,
+    "amountOutUsd": 20148.72041109785,
+    "volumeUsd": 20150.8385,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:00:41.771Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "tangemswapkit.near"
+    ],
+    "signer": "0xC4a0D049B16457562aad63f6264C7aFF50fb2022",
+    "participantId": "route:1wtp7u4",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1mnbsnn",
+    "txHash": "7fs7pLrNWgZD8tiEFBUJLw9BBhk1G58rLGMCXyo4bDSQ",
+    "source": "explorer-api",
+    "originAsset": "nep141:xrp.omft.near",
+    "destinationAsset": "nep141:eth.omft.near",
+    "originSymbol": "XRP",
+    "destinationSymbol": "ETH",
+    "originChain": "XRP",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "4208.619015",
+    "amountOutFormatted": "2.168524555883913306",
+    "amountInUsd": 4881.9980574,
+    "amountOutUsd": 4851.44482166905,
+    "volumeUsd": 4881.9980574,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:01:15.253Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "swapkit.near",
+     "onekeyoky.near"
+    ],
+    "signer": "rUcZ944uA9K4oPDbK4dd3dLcEnZCxizP3H",
+    "participantId": "route:tdmcyq",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "a7lvfm",
+    "txHash": "F9SvNMunyhKnFzvsWfq6Lwfmn4665DmysgVorfxmhm4t",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:eth-0xdac17f958d2ee523a2206206994597c13d831ec7.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "TRON",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "4100.0",
+    "amountOutFormatted": "4098.875979",
+    "amountInUsd": 4096.3469,
+    "amountOutUsd": 4095.223880502711,
+    "volumeUsd": 4096.3469,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:01:52.007Z",
+    "referral": null,
+    "affiliates": [
+     "buybacks.multisignature.near"
+    ],
+    "signer": "TPynnaZTtnPmW6Gv8GKUeqDF7AvX4Z4D1t",
+    "participantId": "route:v8a8er",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "xml5xs",
+    "txHash": "4k9SvNfQsLN6cXBD92nR7brEGaSfG7rMYYkh8SVKGeGk",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "1050.0",
+    "amountOutFormatted": "3895.492157",
+    "amountInUsd": 3895.5,
+    "amountOutUsd": 3893.785931435234,
+    "volumeUsd": 3895.5,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:23.995Z",
+    "referral": "rhea",
+    "affiliates": [
+     "ndf.rhealab.near"
+    ],
+    "signer": "s3m0n.tg",
+    "participantId": "route:1kw1x58",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1n3cb1h",
+    "txHash": "DAUGHMJf7MxviDXDWjvdWs3T3B1HR2Geuq8ZbFPHDWMd",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron.omft.near",
+    "destinationAsset": "nep141:eth.omft.near",
+    "originSymbol": "TRX",
+    "destinationSymbol": "ETH",
+    "originChain": "TRON",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "10963.389366",
+    "amountOutFormatted": "1.555958474848033124",
+    "amountInUsd": 3509.27130216294,
+    "amountOutUsd": 3481.39484913348,
+    "volumeUsd": 3509.27130216294,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:05:29.662Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "TL1aB77rAuuQemdczthcyJNGLysUYEn7Gf",
+    "participantId": "route:1oasty1",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "17q9snj",
+    "txHash": "AmmJ8P43wEpnSpsU496wRCB5u3SNmapVPx74XB3R9QPB",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g",
+    "destinationAsset": "nep141:sol.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "SOL",
+    "originChain": "BNB Chain",
+    "destinationChain": "Solana",
+    "amountInFormatted": "2002.737198361071",
+    "amountOutFormatted": "22.164898671",
+    "amountInUsd": 2000.956764991728,
+    "amountOutUsd": 1983.7584310545,
+    "volumeUsd": 2000.956764991728,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:05.118Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0xC83F194B9B7D35A224f20F27d2AF2B64e77D9801",
+    "participantId": "route:12zvn06",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1cnn08q",
+    "txHash": "658g3eoRsrtDd6Wj9AnB5XLGFR2d464fcW5D1WkibtCp",
+    "source": "explorer-api",
+    "originAsset": "nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near",
+    "destinationAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "USDT",
+    "originChain": "Arbitrum",
+    "destinationChain": "TRON",
+    "amountInFormatted": "2000.0",
+    "amountOutFormatted": "2001.269773",
+    "amountInUsd": 1999.124,
+    "amountOutUsd": 1999.490644171803,
+    "volumeUsd": 1999.490644171803,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:05:23.500Z",
+    "referral": "rango",
+    "affiliates": [
+     "buybacks.multisignature.near",
+     "rangoni.near"
+    ],
+    "signer": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+    "participantId": "route:j4d0x8",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1cwjlcf",
+    "txHash": "85yKvdJ8P936YRURvN24Nid824spgS1nH7jh5kGvMc6b",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near",
+    "destinationAsset": "nep141:ltc.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "LTC",
+    "originChain": "Ethereum",
+    "destinationChain": "Litecoin",
+    "amountInFormatted": "1700.0",
+    "amountOutFormatted": "32.50961534",
+    "amountInUsd": 1699.2639,
+    "amountOutUsd": 1685.623555379,
+    "volumeUsd": 1699.2639,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:00:16.696Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0x6caF9d23A9F750A605Dfd40beBA92d1a51C2a514",
+    "participantId": "route:ygbv1n",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "qcej7j",
+    "txHash": "5fEXDSYL4LJpedgryXzXFaMH1CddTndQZhgp1JZwMZpo",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:ltc.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "LTC",
+    "originChain": "TRON",
+    "destinationChain": "Litecoin",
+    "amountInFormatted": "1510.0",
+    "amountOutFormatted": "28.8187442",
+    "amountInUsd": 1508.65761,
+    "amountOutUsd": 1494.828261654,
+    "volumeUsd": 1508.65761,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:36.545Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "TJ6FK9wrrRa5Chjco7ZWVLFBixVCMurfTJ",
+    "participantId": "route:1f0z9ew",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "tcp862",
+    "txHash": "7JadWQXbYq6a3MAiyDEGrHQBsS8H9cSjKTD9DLEsyuWB",
+    "source": "explorer-api",
+    "originAsset": "nep141:sol-c800a4bd850783ccb82c2b2c7e84175443606352.omft.near",
+    "destinationAsset": "nep141:ltc.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "LTC",
+    "originChain": "Solana",
+    "destinationChain": "Litecoin",
+    "amountInFormatted": "1485.0",
+    "amountOutFormatted": "28.5453599",
+    "amountInUsd": 1483.578855,
+    "amountOutUsd": 1480.647818013,
+    "volumeUsd": 1483.578855,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T12:57:47.178Z",
+    "referral": null,
+    "affiliates": [
+     "buybacks.multisignature.near"
+    ],
+    "signer": "Gtfq62st3SKZtLuPZ3q3P8toP8uRojn8qJUUG2HYytUU",
+    "participantId": "route:1b2buax",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   }
+  ],
+  "topReferrals": [
+   {
+    "id": "swapkit",
+    "label": "swapkit",
+    "transactions": 5730,
+    "volumeUsd": 12924850
+   },
+   {
+    "id": "lifi",
+    "label": "lifi",
+    "transactions": 1192,
+    "volumeUsd": 3756373
+   },
+   {
+    "id": "rango",
+    "label": "rango",
+    "transactions": 1256,
+    "volumeUsd": 1660898
+   },
+   {
+    "id": "zodl",
+    "label": "zodl",
+    "transactions": 247,
+    "volumeUsd": 703498
+   },
+   {
+    "id": "rhea_bridge",
+    "label": "rhea_bridge",
+    "transactions": 20,
+    "volumeUsd": 373067
+   }
+  ],
+  "topAffiliates": [
+   {
+    "id": "buybacks.multisignature.near",
+    "label": "buybacks....ure.near",
+    "transactions": 6788,
+    "volumeUsd": 10218066
+   },
+   {
+    "id": "ledgerswapkit.near",
+    "label": "ledgerswapkit.near",
+    "transactions": 913,
+    "volumeUsd": 5066117
+   },
+   {
+    "id": "trustswapkit.near",
+    "label": "trustswapkit.near",
+    "transactions": 3690,
+    "volumeUsd": 4611014
+   },
+   {
+    "id": "lifi_int.near",
+    "label": "lifi_int.near",
+    "transactions": 1192,
+    "volumeUsd": 3756373
+   },
+   {
+    "id": "tangemswapkit.near",
+    "label": "tangemswapkit.near",
+    "transactions": 632,
+    "volumeUsd": 2386471
+   }
+  ],
+  "assetFlows": [
+   {
+    "symbol": "USDT",
+    "chain": "TRON",
+    "inVolumeUsd": 6872.501518670999,
+    "outVolumeUsd": 24997.895297538507,
+    "swapCount": 26
+   },
+   {
+    "symbol": "USDT",
+    "chain": "BNB Chain",
+    "inVolumeUsd": 22154.04307124173,
+    "outVolumeUsd": 0,
+    "swapCount": 3
+   },
+   {
+    "symbol": "ETH",
+    "chain": "Ethereum",
+    "inVolumeUsd": 733.0355357523761,
+    "outVolumeUsd": 8915.43567882886,
+    "swapCount": 17
+   },
+   {
+    "symbol": "USDT",
+    "chain": "Ethereum",
+    "inVolumeUsd": 2579.088760890103,
+    "outVolumeUsd": 4118.7176,
+    "swapCount": 12
+   },
+   {
+    "symbol": "XRP",
+    "chain": "XRP",
+    "inVolumeUsd": 4887.7980574,
+    "outVolumeUsd": 505.29324957357903,
+    "swapCount": 4
+   },
+   {
+    "symbol": "LTC",
+    "chain": "Litecoin",
+    "inVolumeUsd": 5.0010564215,
+    "outVolumeUsd": 4969.871350799438,
+    "swapCount": 12
+   },
+   {
+    "symbol": "NEAR",
+    "chain": "NEAR",
+    "inVolumeUsd": 4934.331320672878,
+    "outVolumeUsd": 3.32833167,
+    "swapCount": 12
+   },
+   {
+    "symbol": "USDC",
+    "chain": "NEAR",
+    "inVolumeUsd": 3.32833167,
+    "outVolumeUsd": 4823.031320672878,
+    "swapCount": 10
+   },
+   {
+    "symbol": "USDC",
+    "chain": "Ethereum",
+    "inVolumeUsd": 3629.278308834354,
+    "outVolumeUsd": 0,
+    "swapCount": 8
+   },
+   {
+    "symbol": "TRX",
+    "chain": "TRON",
+    "inVolumeUsd": 3509.27130216294,
+    "outVolumeUsd": 7.7651081561729995,
+    "swapCount": 7
+   },
+   {
+    "symbol": "USDC",
+    "chain": "Arbitrum",
+    "inVolumeUsd": 2408.233760877123,
+    "outVolumeUsd": 408.460894732998,
+    "swapCount": 6
+   },
+   {
+    "symbol": "SOL",
+    "chain": "Solana",
+    "inVolumeUsd": 217.28693370205002,
+    "outVolumeUsd": 2326.1238046173594,
+    "swapCount": 16
+   }
+  ],
+  "chainFlows": [
+   {
+    "chain": "TRON",
+    "volumeUsd": 17693.71661326431,
+    "swapCount": 33
+   },
+   {
+    "chain": "BNB Chain",
+    "volumeUsd": 11081.51845415132,
+    "swapCount": 4
+   },
+   {
+    "chain": "Ethereum",
+    "volumeUsd": 10387.508603564265,
+    "swapCount": 40
+   },
+   {
+    "chain": "NEAR",
+    "volumeUsd": 4886.506570873334,
+    "swapCount": 27
+   },
+   {
+    "chain": "XRP",
+    "volumeUsd": 2696.54565348679,
+    "swapCount": 4
+   },
+   {
+    "chain": "Litecoin",
+    "volumeUsd": 2487.436203610469,
+    "swapCount": 12
+   },
+   {
+    "chain": "Solana",
+    "volumeUsd": 2267.1128817043355,
+    "swapCount": 27
+   },
+   {
+    "chain": "Base",
+    "volumeUsd": 1542.2042530117346,
+    "swapCount": 21
+   },
+   {
+    "chain": "Arbitrum",
+    "volumeUsd": 1526.5871061828757,
+    "swapCount": 10
+   },
+   {
+    "chain": "Dogecoin",
+    "volumeUsd": 689.6769300000001,
+    "swapCount": 5
+   }
+  ],
+  "routeFlows": [
+   {
+    "id": "4juxf8",
+    "route": "USDT -> USDT",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "BNB Chain",
+    "destinationChain": "TRON",
+    "volumeUsd": 20150.8385,
+    "swapCount": 1
+   },
+   {
+    "id": "1wscuok",
+    "route": "XRP -> ETH",
+    "originSymbol": "XRP",
+    "destinationSymbol": "ETH",
+    "originChain": "XRP",
+    "destinationChain": "Ethereum",
+    "volumeUsd": 4881.9980574,
+    "swapCount": 1
+   },
+   {
+    "id": "iwczs1",
+    "route": "NEAR -> USDC",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "volumeUsd": 4823.031320672878,
+    "swapCount": 8
+   },
+   {
+    "id": "1j80rj4",
+    "route": "USDT -> USDT",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "TRON",
+    "destinationChain": "Ethereum",
+    "volumeUsd": 4096.3469,
+    "swapCount": 1
+   },
+   {
+    "id": "574jtv",
+    "route": "TRX -> ETH",
+    "originSymbol": "TRX",
+    "destinationSymbol": "ETH",
+    "originChain": "TRON",
+    "destinationChain": "Ethereum",
+    "volumeUsd": 3509.27130216294,
+    "swapCount": 1
+   },
+   {
+    "id": "51j0hb",
+    "route": "USDT -> SOL",
+    "originSymbol": "USDT",
+    "destinationSymbol": "SOL",
+    "originChain": "BNB Chain",
+    "destinationChain": "Solana",
+    "volumeUsd": 2000.956764991728,
+    "swapCount": 1
+   },
+   {
+    "id": "yviuq8",
+    "route": "USDC -> USDT",
+    "originSymbol": "USDC",
+    "destinationSymbol": "USDT",
+    "originChain": "Arbitrum",
+    "destinationChain": "TRON",
+    "volumeUsd": 1999.490644171803,
+    "swapCount": 1
+   },
+   {
+    "id": "1ljwhss",
+    "route": "USDT -> USDT",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "Ethereum",
+    "destinationChain": "TRON",
+    "volumeUsd": 1772.832457413689,
+    "swapCount": 2
+   },
+   {
+    "id": "178e6bo",
+    "route": "USDC -> LTC",
+    "originSymbol": "USDC",
+    "destinationSymbol": "LTC",
+    "originChain": "Ethereum",
+    "destinationChain": "Litecoin",
+    "volumeUsd": 1699.2639,
+    "swapCount": 1
+   },
+   {
+    "id": "ygwbb9",
+    "route": "USDT -> LTC",
+    "originSymbol": "USDT",
+    "destinationSymbol": "LTC",
+    "originChain": "TRON",
+    "destinationChain": "Litecoin",
+    "volumeUsd": 1508.65761,
+    "swapCount": 2
+   },
+   {
+    "id": "18synwy",
+    "route": "USDT -> LTC",
+    "originSymbol": "USDT",
+    "destinationSymbol": "LTC",
+    "originChain": "Solana",
+    "destinationChain": "Litecoin",
+    "volumeUsd": 1483.578855,
+    "swapCount": 2
+   },
+   {
+    "id": "1rkkafd",
+    "route": "USDC -> DOGE",
+    "originSymbol": "USDC",
+    "destinationSymbol": "DOGE",
+    "originChain": "Ethereum",
+    "destinationChain": "Dogecoin",
+    "volumeUsd": 1279.44576,
+    "swapCount": 1
+   }
+  ],
+  "timeframes": {
+   "live": {
+    "key": "live",
+    "label": "Live",
+    "description": "Latest Explorer API feed sample",
+    "observedWindow": "Latest 100 explorer rows across ~10 minutes",
+    "volumeUsd": 55422.85563487018,
+    "swapCount": 100,
+    "uniqueUsers": 76,
+    "available": true,
+    "complete": true,
+    "assetFlows": [
+     {
+      "symbol": "USDT",
+      "chain": "TRON",
+      "inVolumeUsd": 6872.501518670999,
+      "outVolumeUsd": 24997.895297538507,
+      "swapCount": 26
+     },
+     {
+      "symbol": "USDT",
+      "chain": "BNB Chain",
+      "inVolumeUsd": 22154.04307124173,
+      "outVolumeUsd": 0,
+      "swapCount": 3
+     },
+     {
+      "symbol": "ETH",
+      "chain": "Ethereum",
+      "inVolumeUsd": 733.0355357523761,
+      "outVolumeUsd": 8915.43567882886,
+      "swapCount": 17
+     },
+     {
+      "symbol": "USDT",
+      "chain": "Ethereum",
+      "inVolumeUsd": 2579.088760890103,
+      "outVolumeUsd": 4118.7176,
+      "swapCount": 12
+     },
+     {
+      "symbol": "XRP",
+      "chain": "XRP",
+      "inVolumeUsd": 4887.7980574,
+      "outVolumeUsd": 505.29324957357903,
+      "swapCount": 4
+     },
+     {
+      "symbol": "LTC",
+      "chain": "Litecoin",
+      "inVolumeUsd": 5.0010564215,
+      "outVolumeUsd": 4969.871350799438,
+      "swapCount": 12
+     },
+     {
+      "symbol": "NEAR",
+      "chain": "NEAR",
+      "inVolumeUsd": 4934.331320672878,
+      "outVolumeUsd": 3.32833167,
+      "swapCount": 12
+     },
+     {
+      "symbol": "USDC",
+      "chain": "NEAR",
+      "inVolumeUsd": 3.32833167,
+      "outVolumeUsd": 4823.031320672878,
+      "swapCount": 10
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Ethereum",
+      "inVolumeUsd": 3629.278308834354,
+      "outVolumeUsd": 0,
+      "swapCount": 8
+     },
+     {
+      "symbol": "TRX",
+      "chain": "TRON",
+      "inVolumeUsd": 3509.27130216294,
+      "outVolumeUsd": 7.7651081561729995,
+      "swapCount": 7
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Arbitrum",
+      "inVolumeUsd": 2408.233760877123,
+      "outVolumeUsd": 408.460894732998,
+      "swapCount": 6
+     },
+     {
+      "symbol": "SOL",
+      "chain": "Solana",
+      "inVolumeUsd": 217.28693370205002,
+      "outVolumeUsd": 2326.1238046173594,
+      "swapCount": 16
+     }
+    ],
+    "chainFlows": [
+     {
+      "chain": "TRON",
+      "volumeUsd": 17693.71661326431,
+      "swapCount": 33
+     },
+     {
+      "chain": "BNB Chain",
+      "volumeUsd": 11081.51845415132,
+      "swapCount": 4
+     },
+     {
+      "chain": "Ethereum",
+      "volumeUsd": 10387.508603564265,
+      "swapCount": 40
+     },
+     {
+      "chain": "NEAR",
+      "volumeUsd": 4886.506570873334,
+      "swapCount": 27
+     },
+     {
+      "chain": "XRP",
+      "volumeUsd": 2696.54565348679,
+      "swapCount": 4
+     },
+     {
+      "chain": "Litecoin",
+      "volumeUsd": 2487.436203610469,
+      "swapCount": 12
+     },
+     {
+      "chain": "Solana",
+      "volumeUsd": 2267.1128817043355,
+      "swapCount": 27
+     },
+     {
+      "chain": "Base",
+      "volumeUsd": 1542.2042530117346,
+      "swapCount": 21
+     },
+     {
+      "chain": "Arbitrum",
+      "volumeUsd": 1526.5871061828757,
+      "swapCount": 10
+     },
+     {
+      "chain": "Dogecoin",
+      "volumeUsd": 689.6769300000001,
+      "swapCount": 5
+     }
+    ],
+    "routeFlows": [
+     {
+      "id": "4juxf8",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "BNB Chain",
+      "destinationChain": "TRON",
+      "volumeUsd": 20150.8385,
+      "swapCount": 1
+     },
+     {
+      "id": "1wscuok",
+      "route": "XRP -> ETH",
+      "originSymbol": "XRP",
+      "destinationSymbol": "ETH",
+      "originChain": "XRP",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 4881.9980574,
+      "swapCount": 1
+     },
+     {
+      "id": "iwczs1",
+      "route": "NEAR -> USDC",
+      "originSymbol": "NEAR",
+      "destinationSymbol": "USDC",
+      "originChain": "NEAR",
+      "destinationChain": "NEAR",
+      "volumeUsd": 4823.031320672878,
+      "swapCount": 8
+     },
+     {
+      "id": "1j80rj4",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 4096.3469,
+      "swapCount": 1
+     },
+     {
+      "id": "574jtv",
+      "route": "TRX -> ETH",
+      "originSymbol": "TRX",
+      "destinationSymbol": "ETH",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 3509.27130216294,
+      "swapCount": 1
+     },
+     {
+      "id": "51j0hb",
+      "route": "USDT -> SOL",
+      "originSymbol": "USDT",
+      "destinationSymbol": "SOL",
+      "originChain": "BNB Chain",
+      "destinationChain": "Solana",
+      "volumeUsd": 2000.956764991728,
+      "swapCount": 1
+     },
+     {
+      "id": "yviuq8",
+      "route": "USDC -> USDT",
+      "originSymbol": "USDC",
+      "destinationSymbol": "USDT",
+      "originChain": "Arbitrum",
+      "destinationChain": "TRON",
+      "volumeUsd": 1999.490644171803,
+      "swapCount": 1
+     },
+     {
+      "id": "1ljwhss",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 1772.832457413689,
+      "swapCount": 2
+     },
+     {
+      "id": "178e6bo",
+      "route": "USDC -> LTC",
+      "originSymbol": "USDC",
+      "destinationSymbol": "LTC",
+      "originChain": "Ethereum",
+      "destinationChain": "Litecoin",
+      "volumeUsd": 1699.2639,
+      "swapCount": 1
+     },
+     {
+      "id": "ygwbb9",
+      "route": "USDT -> LTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "LTC",
+      "originChain": "TRON",
+      "destinationChain": "Litecoin",
+      "volumeUsd": 1508.65761,
+      "swapCount": 2
+     },
+     {
+      "id": "18synwy",
+      "route": "USDT -> LTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "LTC",
+      "originChain": "Solana",
+      "destinationChain": "Litecoin",
+      "volumeUsd": 1483.578855,
+      "swapCount": 2
+     },
+     {
+      "id": "1rkkafd",
+      "route": "USDC -> DOGE",
+      "originSymbol": "USDC",
+      "destinationSymbol": "DOGE",
+      "originChain": "Ethereum",
+      "destinationChain": "Dogecoin",
+      "volumeUsd": 1279.44576,
+      "swapCount": 1
+     }
+    ],
+    "timeline": [
+     {
+      "label": "12:57",
+      "volumeUsd": 3582.917483259007,
+      "swaps": 14
+     },
+     {
+      "label": "12:58",
+      "volumeUsd": 1802.4549940247002,
+      "swaps": 6
+     },
+     {
+      "label": "12:59",
+      "volumeUsd": 2492.0221760356,
+      "swaps": 7
+     },
+     {
+      "label": "13:00",
+      "volumeUsd": 25855.261472585513,
+      "swaps": 11
+     },
+     {
+      "label": "13:01",
+      "volumeUsd": 5816.14621461933,
+      "swaps": 11
+     },
+     {
+      "label": "13:03",
+      "volumeUsd": 831.617144062466,
+      "swaps": 8
+     },
+     {
+      "label": "13:04",
+      "volumeUsd": 581.94782409917,
+      "swaps": 9
+     },
+     {
+      "label": "13:05",
+      "volumeUsd": 1959.8374149561118,
+      "swaps": 12
+     },
+     {
+      "label": "13:06",
+      "volumeUsd": 7758.239429228302,
+      "swaps": 12
+     },
+     {
+      "label": "13:07",
+      "volumeUsd": 4742.4114819999995,
+      "swaps": 10
+     }
+    ]
+   },
+   "24h": {
+    "key": "24h",
+    "label": "24 Hours",
+    "description": "Durable 24 hours Explorer API window",
+    "observedWindow": "Last 24 hours: 12,674 successful swaps, 12,668 unique users, 11/7 13:08 to 11/8 13:07 UTC",
+    "volumeUsd": 17570257.47037612,
+    "swapCount": 12674,
+    "uniqueUsers": 12668,
+    "available": true,
+    "complete": true,
+    "assetFlows": [
+     {
+      "symbol": "USDT",
+      "chain": "TRON",
+      "inVolumeUsd": 5720251.891124626,
+      "outVolumeUsd": 5511213.784948872,
+      "swapCount": 2293
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Ethereum",
+      "inVolumeUsd": 611032.2487184176,
+      "outVolumeUsd": 2510095.1695037857,
+      "swapCount": 1176
+     },
+     {
+      "symbol": "USDT",
+      "chain": "Ethereum",
+      "inVolumeUsd": 2999766.638612325,
+      "outVolumeUsd": 2354003.814331848,
+      "swapCount": 1735
+     },
+     {
+      "symbol": "USDT",
+      "chain": "BNB Chain",
+      "inVolumeUsd": 593795.1406225165,
+      "outVolumeUsd": 1432147.177461303,
+      "swapCount": 312
+     },
+     {
+      "symbol": "ETH",
+      "chain": "Ethereum",
+      "inVolumeUsd": 1161409.1802358858,
+      "outVolumeUsd": 987996.0664622387,
+      "swapCount": 2371
+     },
+     {
+      "symbol": "ZEC",
+      "chain": "Zcash",
+      "inVolumeUsd": 617300.4137800499,
+      "outVolumeUsd": 761460.6696068427,
+      "swapCount": 519
+     },
+     {
+      "symbol": "SOL",
+      "chain": "Solana",
+      "inVolumeUsd": 892423.8049098577,
+      "outVolumeUsd": 602166.6539383184,
+      "swapCount": 3447
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Solana",
+      "inVolumeUsd": 379027.7252036089,
+      "outVolumeUsd": 526366.1411531661,
+      "swapCount": 2613
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Base",
+      "inVolumeUsd": 236836.80120531752,
+      "outVolumeUsd": 394202.0468748482,
+      "swapCount": 2041
+     },
+     {
+      "symbol": "BTC",
+      "chain": "Bitcoin",
+      "inVolumeUsd": 1443353.4255392528,
+      "outVolumeUsd": 331058.59901654,
+      "swapCount": 379
+     },
+     {
+      "symbol": "USDT",
+      "chain": "Solana",
+      "inVolumeUsd": 391786.81583653594,
+      "outVolumeUsd": 308698.6609959273,
+      "swapCount": 497
+     },
+     {
+      "symbol": "2W93GQMC",
+      "chain": "BNB Chain",
+      "inVolumeUsd": 85597.59072729584,
+      "outVolumeUsd": 252981.47067007102,
+      "swapCount": 48
+     }
+    ],
+    "chainFlows": [
+     {
+      "chain": "TRON",
+      "volumeUsd": 5829480.139731344,
+      "swapCount": 3366
+     },
+     {
+      "chain": "Ethereum",
+      "volumeUsd": 5373476.345518855,
+      "swapCount": 5468
+     },
+     {
+      "chain": "Solana",
+      "volumeUsd": 1618012.9502456652,
+      "swapCount": 6618
+     },
+     {
+      "chain": "BNB Chain",
+      "volumeUsd": 1283580.396245478,
+      "swapCount": 512
+     },
+     {
+      "chain": "Bitcoin",
+      "volumeUsd": 887206.0122778964,
+      "swapCount": 379
+     },
+     {
+      "chain": "Zcash",
+      "volumeUsd": 689380.5416934462,
+      "swapCount": 519
+     },
+     {
+      "chain": "NEAR",
+      "volumeUsd": 491972.1862720861,
+      "swapCount": 1998
+     },
+     {
+      "chain": "Arbitrum",
+      "volumeUsd": 426251.12212761294,
+      "swapCount": 1160
+     },
+     {
+      "chain": "Base",
+      "volumeUsd": 347834.13815139857,
+      "swapCount": 2579
+     },
+     {
+      "chain": "XRP",
+      "volumeUsd": 265303.3694087616,
+      "swapCount": 677
+     }
+    ],
+    "routeFlows": [
+     {
+      "id": "1j80rj4",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 2291324.776740898,
+      "swapCount": 166
+     },
+     {
+      "id": "wrfrkx",
+      "route": "USDC -> USDT",
+      "originSymbol": "USDC",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 2046944.428228661,
+      "swapCount": 230
+     },
+     {
+      "id": "1ljwhss",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 1207437.1865384772,
+      "swapCount": 366
+     },
+     {
+      "id": "b9fy9g",
+      "route": "USDT -> BTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "BTC",
+      "originChain": "TRON",
+      "destinationChain": "Bitcoin",
+      "volumeUsd": 992321.780739725,
+      "swapCount": 24
+     },
+     {
+      "id": "4juxf8",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "BNB Chain",
+      "destinationChain": "TRON",
+      "volumeUsd": 948323.4961903126,
+      "swapCount": 35
+     },
+     {
+      "id": "lf600b",
+      "route": "USDT -> ETH",
+      "originSymbol": "USDT",
+      "destinationSymbol": "ETH",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 433303.7566900185,
+      "swapCount": 24
+     },
+     {
+      "id": "c2uvw1",
+      "route": "ETH -> USDT",
+      "originSymbol": "ETH",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 363194.1979245523,
+      "swapCount": 189
+     },
+     {
+      "id": "1ocvpkj",
+      "route": "USDT -> USDC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDC",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 267178.88113305386,
+      "swapCount": 37
+     },
+     {
+      "id": "8oofe2",
+      "route": "USDT -> ZEC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "ZEC",
+      "originChain": "TRON",
+      "destinationChain": "Zcash",
+      "volumeUsd": 233354.24653449576,
+      "swapCount": 19
+     },
+     {
+      "id": "186ckqh",
+      "route": "USDT -> SOL",
+      "originSymbol": "USDT",
+      "destinationSymbol": "SOL",
+      "originChain": "TRON",
+      "destinationChain": "Solana",
+      "volumeUsd": 227089.4768061034,
+      "swapCount": 65
+     },
+     {
+      "id": "alhh22",
+      "route": "USDT -> BTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "BTC",
+      "originChain": "Ethereum",
+      "destinationChain": "Bitcoin",
+      "volumeUsd": 206618.5849297203,
+      "swapCount": 26
+     },
+     {
+      "id": "1danzah",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "NEAR",
+      "volumeUsd": 202160.7340806474,
+      "swapCount": 6
+     }
+    ],
+    "timeline": [
+     {
+      "label": "13:00",
+      "volumeUsd": 2573970.4941765047,
+      "swaps": 1357
+     },
+     {
+      "label": "15:00",
+      "volumeUsd": 2175212.0868811645,
+      "swaps": 1415
+     },
+     {
+      "label": "17:00",
+      "volumeUsd": 1720389.8828157752,
+      "swaps": 1359
+     },
+     {
+      "label": "19:00",
+      "volumeUsd": 2044784.0239886655,
+      "swaps": 1599
+     },
+     {
+      "label": "21:00",
+      "volumeUsd": 1180621.7560458719,
+      "swaps": 1361
+     },
+     {
+      "label": "23:00",
+      "volumeUsd": 485539.4910750873,
+      "swaps": 924
+     },
+     {
+      "label": "01:00",
+      "volumeUsd": 508096.3796855677,
+      "swaps": 324
+     },
+     {
+      "label": "03:00",
+      "volumeUsd": 1379855.4600860588,
+      "swaps": 692
+     },
+     {
+      "label": "05:00",
+      "volumeUsd": 1101767.621211716,
+      "swaps": 692
+     },
+     {
+      "label": "07:00",
+      "volumeUsd": 1239378.3653902737,
+      "swaps": 760
+     },
+     {
+      "label": "09:00",
+      "volumeUsd": 1806149.8589799125,
+      "swaps": 1125
+     },
+     {
+      "label": "11:00",
+      "volumeUsd": 1354492.0500395212,
+      "swaps": 1066
+     }
+    ]
+   },
+   "7d": {
+    "key": "7d",
+    "label": "7 Days",
+    "description": "Durable 7 days Explorer API window",
+    "observedWindow": "Last 7 days: 104,583 successful swaps, 104,546 unique users, 11/1 13:08 to 11/8 13:07 UTC",
+    "volumeUsd": 182324309.12632197,
+    "swapCount": 104583,
+    "uniqueUsers": 104546,
+    "available": true,
+    "complete": true,
+    "assetFlows": [
+     {
+      "symbol": "USDT",
+      "chain": "TRON",
+      "inVolumeUsd": 53939721.693117335,
+      "outVolumeUsd": 47610486.993615635,
+      "swapCount": 17691
+     },
+     {
+      "symbol": "USDT",
+      "chain": "Ethereum",
+      "inVolumeUsd": 24822718.520688348,
+      "outVolumeUsd": 27232153.629483894,
+      "swapCount": 16575
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Ethereum",
+      "inVolumeUsd": 12638704.7363688,
+      "outVolumeUsd": 25478074.57020777,
+      "swapCount": 9925
+     },
+     {
+      "symbol": "USDT",
+      "chain": "BNB Chain",
+      "inVolumeUsd": 5587017.738574231,
+      "outVolumeUsd": 15444920.86276862,
+      "swapCount": 9174
+     },
+     {
+      "symbol": "ZEC",
+      "chain": "Zcash",
+      "inVolumeUsd": 9181395.047510106,
+      "outVolumeUsd": 8884094.499633407,
+      "swapCount": 3751
+     },
+     {
+      "symbol": "BTC",
+      "chain": "Bitcoin",
+      "inVolumeUsd": 13565206.50225099,
+      "outVolumeUsd": 7270653.422786145,
+      "swapCount": 2458
+     },
+     {
+      "symbol": "ETH",
+      "chain": "Ethereum",
+      "inVolumeUsd": 12832644.587373618,
+      "outVolumeUsd": 6882126.780911954,
+      "swapCount": 19978
+     },
+     {
+      "symbol": "USDT",
+      "chain": "Solana",
+      "inVolumeUsd": 3876585.338934957,
+      "outVolumeUsd": 5575423.169825359,
+      "swapCount": 3934
+     },
+     {
+      "symbol": "SOL",
+      "chain": "Solana",
+      "inVolumeUsd": 7175121.733040154,
+      "outVolumeUsd": 4409066.387392925,
+      "swapCount": 23111
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Solana",
+      "inVolumeUsd": 5583635.878066355,
+      "outVolumeUsd": 4181782.2267025714,
+      "swapCount": 18389
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Base",
+      "inVolumeUsd": 4450556.681266559,
+      "outVolumeUsd": 3698379.7409246215,
+      "swapCount": 19009
+     },
+     {
+      "symbol": "XRP",
+      "chain": "XRP",
+      "inVolumeUsd": 1489952.311368044,
+      "outVolumeUsd": 3407685.4577909927,
+      "swapCount": 4233
+     }
+    ],
+    "chainFlows": [
+     {
+      "chain": "Ethereum",
+      "volumeUsd": 55946734.84225884,
+      "swapCount": 48222
+     },
+     {
+      "chain": "TRON",
+      "volumeUsd": 51947496.49055924,
+      "swapCount": 26185
+     },
+     {
+      "chain": "Solana",
+      "volumeUsd": 16086082.110778596,
+      "swapCount": 46128
+     },
+     {
+      "chain": "BNB Chain",
+      "volumeUsd": 13648400.682890385,
+      "swapCount": 10450
+     },
+     {
+      "chain": "Bitcoin",
+      "volumeUsd": 10417929.962518567,
+      "swapCount": 2458
+     },
+     {
+      "chain": "Zcash",
+      "volumeUsd": 9032744.773571756,
+      "swapCount": 3751
+     },
+     {
+      "chain": "NEAR",
+      "volumeUsd": 6458812.369505553,
+      "swapCount": 17359
+     },
+     {
+      "chain": "Arbitrum",
+      "volumeUsd": 6289226.888011482,
+      "swapCount": 9122
+     },
+     {
+      "chain": "Base",
+      "volumeUsd": 5188046.639132455,
+      "swapCount": 26273
+     },
+     {
+      "chain": "XRP",
+      "volumeUsd": 2448818.8845795183,
+      "swapCount": 4233
+     }
+    ],
+    "routeFlows": [
+     {
+      "id": "1ljwhss",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 16022226.571711786,
+      "swapCount": 3327
+     },
+     {
+      "id": "wrfrkx",
+      "route": "USDC -> USDT",
+      "originSymbol": "USDC",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 14494883.173707534,
+      "swapCount": 1552
+     },
+     {
+      "id": "1j80rj4",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 13546781.191842662,
+      "swapCount": 1714
+     },
+     {
+      "id": "b9fy9g",
+      "route": "USDT -> BTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "BTC",
+      "originChain": "TRON",
+      "destinationChain": "Bitcoin",
+      "volumeUsd": 8314563.701842455,
+      "swapCount": 126
+     },
+     {
+      "id": "4juxf8",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "BNB Chain",
+      "destinationChain": "TRON",
+      "volumeUsd": 7598425.238291089,
+      "swapCount": 286
+     },
+     {
+      "id": "1ocvpkj",
+      "route": "USDT -> USDC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDC",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 4786013.568370186,
+      "swapCount": 308
+     },
+     {
+      "id": "1w7ek28",
+      "route": "BTC -> USDT",
+      "originSymbol": "BTC",
+      "destinationSymbol": "USDT",
+      "originChain": "Bitcoin",
+      "destinationChain": "TRON",
+      "volumeUsd": 4430091.56944553,
+      "swapCount": 490
+     },
+     {
+      "id": "rfmv70",
+      "route": "USDT -> USDC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDC",
+      "originChain": "TRON",
+      "destinationChain": "Arbitrum",
+      "volumeUsd": 4150511.288376829,
+      "swapCount": 94
+     },
+     {
+      "id": "u94fte",
+      "route": "USDC -> ETH",
+      "originSymbol": "USDC",
+      "destinationSymbol": "ETH",
+      "originChain": "Ethereum",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 3308122.4360225573,
+      "swapCount": 1272
+     },
+     {
+      "id": "ui6unq",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "BNB Chain",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 3269167.8732106374,
+      "swapCount": 152
+     },
+     {
+      "id": "lf600b",
+      "route": "USDT -> ETH",
+      "originSymbol": "USDT",
+      "destinationSymbol": "ETH",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 2713045.9461535695,
+      "swapCount": 239
+     },
+     {
+      "id": "alhh22",
+      "route": "USDT -> BTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "BTC",
+      "originChain": "Ethereum",
+      "destinationChain": "Bitcoin",
+      "volumeUsd": 2286331.8778791344,
+      "swapCount": 158
+     }
+    ],
+    "timeline": [
+     {
+      "label": "11/1",
+      "volumeUsd": 36056386.8489181,
+      "swaps": 14387
+     },
+     {
+      "label": "11/2",
+      "volumeUsd": 25850281.869925655,
+      "swaps": 14208
+     },
+     {
+      "label": "11/3",
+      "volumeUsd": 28024453.345919672,
+      "swaps": 16583
+     },
+     {
+      "label": "11/4",
+      "volumeUsd": 22916229.78317722,
+      "swaps": 11137
+     },
+     {
+      "label": "11/5",
+      "volumeUsd": 27226843.601886533,
+      "swaps": 18624
+     },
+     {
+      "label": "11/6",
+      "volumeUsd": 24679856.20611867,
+      "swaps": 16970
+     },
+     {
+      "label": "11/7",
+      "volumeUsd": 17570257.47037612,
+      "swaps": 12674
+     }
+    ]
+   },
+   "30d": {
+    "key": "30d",
+    "label": "30 Days",
+    "description": "Durable 30 days Explorer API window",
+    "observedWindow": "Last 30 days: 426,133 successful swaps, 426,025 unique users, 10/9 13:08 to 11/8 13:07 UTC",
+    "volumeUsd": 849269555.4334897,
+    "swapCount": 426133,
+    "uniqueUsers": 426025,
+    "available": true,
+    "complete": true,
+    "assetFlows": [
+     {
+      "symbol": "USDT",
+      "chain": "TRON",
+      "inVolumeUsd": 174338627.56306675,
+      "outVolumeUsd": 163329259.16849622,
+      "swapCount": 65683
+     },
+     {
+      "symbol": "USDT",
+      "chain": "Ethereum",
+      "inVolumeUsd": 122796799.73128021,
+      "outVolumeUsd": 129721068.62577122,
+      "swapCount": 70417
+     },
+     {
+      "symbol": "ZEC",
+      "chain": "Zcash",
+      "inVolumeUsd": 82006797.10694519,
+      "outVolumeUsd": 108529108.62546685,
+      "swapCount": 18703
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Ethereum",
+      "inVolumeUsd": 63539994.35085635,
+      "outVolumeUsd": 84143246.65506819,
+      "swapCount": 43316
+     },
+     {
+      "symbol": "ETH",
+      "chain": "Ethereum",
+      "inVolumeUsd": 59779152.27789286,
+      "outVolumeUsd": 59688695.861404836,
+      "swapCount": 93577
+     },
+     {
+      "symbol": "BTC",
+      "chain": "Bitcoin",
+      "inVolumeUsd": 118745483.33540747,
+      "outVolumeUsd": 45745720.37904661,
+      "swapCount": 14297
+     },
+     {
+      "symbol": "USDT",
+      "chain": "BNB Chain",
+      "inVolumeUsd": 11604069.700754326,
+      "outVolumeUsd": 30816479.93433611,
+      "swapCount": 14363
+     },
+     {
+      "symbol": "SOL",
+      "chain": "Solana",
+      "inVolumeUsd": 30543914.798862953,
+      "outVolumeUsd": 24037540.18888711,
+      "swapCount": 90086
+     },
+     {
+      "symbol": "NEAR",
+      "chain": "NEAR",
+      "inVolumeUsd": 15636268.226616737,
+      "outVolumeUsd": 23583417.417106975,
+      "swapCount": 59104
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Solana",
+      "inVolumeUsd": 25954623.471986614,
+      "outVolumeUsd": 23360881.763082977,
+      "swapCount": 49858
+     },
+     {
+      "symbol": "USDC",
+      "chain": "Arbitrum",
+      "inVolumeUsd": 17837262.374585107,
+      "outVolumeUsd": 19746153.618697327,
+      "swapCount": 20857
+     },
+     {
+      "symbol": "USDC",
+      "chain": "NEAR",
+      "inVolumeUsd": 8787156.918636035,
+      "outVolumeUsd": 14208750.30157188,
+      "swapCount": 15554
+     }
+    ],
+    "chainFlows": [
+     {
+      "chain": "Ethereum",
+      "volumeUsd": 265574955.74466276,
+      "swapCount": 215647
+     },
+     {
+      "chain": "TRON",
+      "volumeUsd": 174874354.7805524,
+      "swapCount": 101315
+     },
+     {
+      "chain": "Zcash",
+      "volumeUsd": 95267952.86620602,
+      "swapCount": 18703
+     },
+     {
+      "chain": "Bitcoin",
+      "volumeUsd": 82245601.85722704,
+      "swapCount": 14297
+     },
+     {
+      "chain": "Solana",
+      "volumeUsd": 70536353.18774971,
+      "swapCount": 159050
+     },
+     {
+      "chain": "NEAR",
+      "volumeUsd": 47712389.68253159,
+      "swapCount": 107513
+     },
+     {
+      "chain": "Arbitrum",
+      "volumeUsd": 30264974.210336447,
+      "swapCount": 38885
+     },
+     {
+      "chain": "BNB Chain",
+      "volumeUsd": 29631265.960006483,
+      "swapCount": 17730
+     },
+     {
+      "chain": "Base",
+      "volumeUsd": 23451513.563294582,
+      "swapCount": 96118
+     },
+     {
+      "chain": "XRP",
+      "volumeUsd": 8457444.062676564,
+      "swapCount": 17248
+     }
+    ],
+    "routeFlows": [
+     {
+      "id": "1j80rj4",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 62951323.94326493,
+      "swapCount": 6099
+     },
+     {
+      "id": "1ljwhss",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 60140248.33725163,
+      "swapCount": 11152
+     },
+     {
+      "id": "1nd159s",
+      "route": "ZEC -> BTC",
+      "originSymbol": "ZEC",
+      "destinationSymbol": "BTC",
+      "originChain": "Zcash",
+      "destinationChain": "Bitcoin",
+      "volumeUsd": 38388845.53006211,
+      "swapCount": 354
+     },
+     {
+      "id": "alhh22",
+      "route": "USDT -> BTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "BTC",
+      "originChain": "Ethereum",
+      "destinationChain": "Bitcoin",
+      "volumeUsd": 36694393.68780086,
+      "swapCount": 1010
+     },
+     {
+      "id": "wrfrkx",
+      "route": "USDC -> USDT",
+      "originSymbol": "USDC",
+      "destinationSymbol": "USDT",
+      "originChain": "Ethereum",
+      "destinationChain": "TRON",
+      "volumeUsd": 35186713.35487389,
+      "swapCount": 5290
+     },
+     {
+      "id": "1gw85hh",
+      "route": "ETH -> ZEC",
+      "originSymbol": "ETH",
+      "destinationSymbol": "ZEC",
+      "originChain": "Ethereum",
+      "destinationChain": "Zcash",
+      "volumeUsd": 21791972.610665455,
+      "swapCount": 1689
+     },
+     {
+      "id": "1ocvpkj",
+      "route": "USDT -> USDC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDC",
+      "originChain": "TRON",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 19891869.35799465,
+      "swapCount": 1549
+     },
+     {
+      "id": "1q6btv3",
+      "route": "ZEC -> ETH",
+      "originSymbol": "ZEC",
+      "destinationSymbol": "ETH",
+      "originChain": "Zcash",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 16368284.18503216,
+      "swapCount": 1141
+     },
+     {
+      "id": "b9fy9g",
+      "route": "USDT -> BTC",
+      "originSymbol": "USDT",
+      "destinationSymbol": "BTC",
+      "originChain": "TRON",
+      "destinationChain": "Bitcoin",
+      "volumeUsd": 16067748.40126023,
+      "swapCount": 628
+     },
+     {
+      "id": "3r0g4f",
+      "route": "ZEC -> USDC",
+      "originSymbol": "ZEC",
+      "destinationSymbol": "USDC",
+      "originChain": "Zcash",
+      "destinationChain": "Ethereum",
+      "volumeUsd": 13772310.783918032,
+      "swapCount": 736
+     },
+     {
+      "id": "4juxf8",
+      "route": "USDT -> USDT",
+      "originSymbol": "USDT",
+      "destinationSymbol": "USDT",
+      "originChain": "BNB Chain",
+      "destinationChain": "TRON",
+      "volumeUsd": 13591954.574577965,
+      "swapCount": 762
+     },
+     {
+      "id": "1w7ek28",
+      "route": "BTC -> USDT",
+      "originSymbol": "BTC",
+      "destinationSymbol": "USDT",
+      "originChain": "Bitcoin",
+      "destinationChain": "TRON",
+      "volumeUsd": 12604720.064609764,
+      "swapCount": 2396
+     }
+    ],
+    "timeline": [
+     {
+      "label": "10/9",
+      "volumeUsd": 98230966.67831141,
+      "swaps": 42635
+     },
+     {
+      "label": "10/12",
+      "volumeUsd": 90814992.81286305,
+      "swaps": 45916
+     },
+     {
+      "label": "10/15",
+      "volumeUsd": 91840914.14529112,
+      "swaps": 35814
+     },
+     {
+      "label": "10/18",
+      "volumeUsd": 86823229.57320982,
+      "swaps": 37272
+     },
+     {
+      "label": "10/21",
+      "volumeUsd": 75690573.82885079,
+      "swaps": 44088
+     },
+     {
+      "label": "10/24",
+      "volumeUsd": 82912957.95847073,
+      "swaps": 41736
+     },
+     {
+      "label": "10/27",
+      "volumeUsd": 96401723.18285589,
+      "swaps": 44700
+     },
+     {
+      "label": "10/30",
+      "volumeUsd": 80286274.97623302,
+      "swaps": 43776
+     },
+     {
+      "label": "11/2",
+      "volumeUsd": 76790964.99902254,
+      "swaps": 41928
+     },
+     {
+      "label": "11/5",
+      "volumeUsd": 69476957.27838132,
+      "swaps": 48268
+     }
+    ]
+   }
+  },
+  "chainAbstraction": {
+   "supportedChains": 39,
+   "usableAssets": 216,
+   "observedChains": 15,
+   "sampledRoutePairs": 73,
+   "sampledRouteVolumeUsd": 55422.85563487018,
+   "topRoute": "USDT -> USDT",
+   "topChain": "TRON",
+   "avgBlockTimeSeconds": 0.5825,
+   "finality": "1.2s finality"
+  },
+  "supportedAssets": {
+   "totalAssets": 216,
+   "uniqueSymbols": 119,
+   "supportedChains": 39,
+   "pricedAssets": 209,
+   "featuredAssets": [
+    {
+     "assetId": "nep141:wrap.near",
+     "symbol": "wNEAR",
+     "displaySymbol": "NEAR",
+     "blockchain": "near",
+     "chain": "NEAR",
+     "priceUsd": 3.71,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near",
+     "symbol": "USDC",
+     "displaySymbol": "USDC",
+     "blockchain": "eth",
+     "chain": "Ethereum",
+     "priceUsd": 0.999532,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:eth-0xdac17f958d2ee523a2206206994597c13d831ec7.omft.near",
+     "symbol": "USDT",
+     "displaySymbol": "USDT",
+     "blockchain": "eth",
+     "chain": "Ethereum",
+     "priceUsd": 0.999086,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:btc.omft.near",
+     "symbol": "BTC",
+     "displaySymbol": "BTC",
+     "blockchain": "btc",
+     "chain": "Bitcoin",
+     "priceUsd": 75924,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:eth.omft.near",
+     "symbol": "ETH",
+     "displaySymbol": "ETH",
+     "blockchain": "eth",
+     "chain": "Ethereum",
+     "priceUsd": 2237.52,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:sol.omft.near",
+     "symbol": "SOL",
+     "displaySymbol": "SOL",
+     "blockchain": "sol",
+     "chain": "Solana",
+     "priceUsd": 89.48,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:zec.omft.near",
+     "symbol": "ZEC",
+     "displaySymbol": "ZEC",
+     "blockchain": "zec",
+     "chain": "Zcash",
+     "priceUsd": 1270.25,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:xrp.omft.near",
+     "symbol": "XRP",
+     "displaySymbol": "XRP",
+     "blockchain": "xrp",
+     "chain": "XRP",
+     "priceUsd": 1.16,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:doge.omft.near",
+     "symbol": "DOGE",
+     "displaySymbol": "DOGE",
+     "blockchain": "doge",
+     "chain": "Dogecoin",
+     "priceUsd": 0.07124,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:ltc.omft.near",
+     "symbol": "LTC",
+     "displaySymbol": "LTC",
+     "blockchain": "ltc",
+     "chain": "Litecoin",
+     "priceUsd": 51.88,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:bch.omft.near",
+     "symbol": "BCH",
+     "displaySymbol": "BCH",
+     "blockchain": "bch",
+     "chain": "Bitcoin Cash",
+     "priceUsd": 245.95,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    },
+    {
+     "assetId": "nep141:aaaaaa20d9e0e2461697782ef11675f668207961.factory.bridge.near",
+     "symbol": "AURORA",
+     "displaySymbol": "AURORA",
+     "blockchain": "near",
+     "chain": "NEAR",
+     "priceUsd": 0.04317871,
+     "priceUpdatedAt": "2026-11-08T13:07:30.755Z"
+    }
+   ],
+   "topChains": [
+    {
+     "chain": "NEAR",
+     "assetCount": 35,
+     "pricedAssetCount": 29,
+     "sampleSymbols": [
+      "NEAR",
+      "ETH",
+      "USDC",
+      "FRAX",
+      "AURORA"
+     ]
+    },
+    {
+     "chain": "Ethereum",
+     "assetCount": 29,
+     "pricedAssetCount": 29,
+     "sampleSymbols": [
+      "USDT",
+      "XAUT",
+      "USDC",
+      "AURORA",
+      "ETH"
+     ]
+    },
+    {
+     "chain": "Solana",
+     "assetCount": 22,
+     "pricedAssetCount": 22,
+     "sampleSymbols": [
+      "SOL",
+      "$WIF",
+      "BOME",
+      "TRUMP",
+      "PENGU"
+     ]
+    },
+    {
+     "chain": "Base",
+     "assetCount": 18,
+     "pricedAssetCount": 17,
+     "sampleSymbols": [
+      "SSC1_PIT",
+      "KAITO",
+      "TITN",
+      "VVV",
+      "ETH"
+     ]
+    },
+    {
+     "chain": "Aptos",
+     "assetCount": 13,
+     "pricedAssetCount": 13,
+     "sampleSymbols": [
+      "APT",
+      "USDT",
+      "USDC",
+      "ZEC",
+      "XRP"
+     ]
+    },
+    {
+     "chain": "BNB Chain",
+     "assetCount": 10,
+     "pricedAssetCount": 10,
+     "sampleSymbols": [
+      "BNB",
+      "ASTER",
+      "USDC",
+      "USDT",
+      "SWEAT"
+     ]
+    },
+    {
+     "chain": "Gnosis",
+     "assetCount": 9,
+     "pricedAssetCount": 9,
+     "sampleSymbols": [
+      "GNO",
+      "COW",
+      "XDAI",
+      "USDC",
+      "WETH"
+     ]
+    },
+    {
+     "chain": "Arbitrum",
+     "assetCount": 7,
+     "pricedAssetCount": 7,
+     "sampleSymbols": [
+      "ARB",
+      "ETH",
+      "WETH",
+      "USDC",
+      "USDT0"
+     ]
+    }
+   ]
+  },
+  "timeline": [
+   {
+    "label": "12:57",
+    "volumeUsd": 3582.917483259007,
+    "swaps": 14
+   },
+   {
+    "label": "12:58",
+    "volumeUsd": 1802.4549940247002,
+    "swaps": 6
+   },
+   {
+    "label": "12:59",
+    "volumeUsd": 2492.0221760356,
+    "swaps": 7
+   },
+   {
+    "label": "13:00",
+    "volumeUsd": 25855.261472585513,
+    "swaps": 11
+   },
+   {
+    "label": "13:01",
+    "volumeUsd": 5816.14621461933,
+    "swaps": 11
+   },
+   {
+    "label": "13:03",
+    "volumeUsd": 831.617144062466,
+    "swaps": 8
+   },
+   {
+    "label": "13:04",
+    "volumeUsd": 581.94782409917,
+    "swaps": 9
+   },
+   {
+    "label": "13:05",
+    "volumeUsd": 1959.8374149561118,
+    "swaps": 12
+   },
+   {
+    "label": "13:06",
+    "volumeUsd": 7758.239429228302,
+    "swaps": 12
+   },
+   {
+    "label": "13:07",
+    "volumeUsd": 4742.4114819999995,
+    "swaps": 10
+   }
+  ],
+  "liveSwaps": [
+   {
+    "id": "34pftj",
+    "txHash": "FepFjNB3wu9P3hZnJ65zkvXaJrj266t3Hjcg3druaUBW",
+    "source": "explorer-api",
+    "originAsset": "nep141:base.omft.near",
+    "destinationAsset": "nep141:sol.omft.near",
+    "originSymbol": "ETH",
+    "destinationSymbol": "SOL",
+    "originChain": "Base",
+    "destinationChain": "Solana",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:07:17.213Z",
+    "referral": "lifi",
+    "affiliates": [
+     "buybacks.multisignature.near",
+     "lifi_int.near"
+    ],
+    "signer": "0x3f9d06d42cb2b04ada2d9a8cdfbf63c5206d7deb",
+    "participantId": "route:jqsvom",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "ye04i8",
+    "txHash": "c35DQjC18gQLQZeZFVQDrioLbRrgV7xYta5qDJoG1fy",
+    "source": "explorer-api",
+    "originAsset": "nep141:base.omft.near",
+    "destinationAsset": "nep141:sol.omft.near",
+    "originSymbol": "ETH",
+    "destinationSymbol": "SOL",
+    "originChain": "Base",
+    "destinationChain": "Solana",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:51.942Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "transit-swapkit.near",
+     "swapkit.near"
+    ],
+    "signer": "0xf9e343be299a641374006727910f9361862ad756",
+    "participantId": "route:1sak45o",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "v8fdjg",
+    "txHash": "8gQz48PUcfXrRxdnYRFdnokg9VtUDQDir8JPuF18jSZu",
+    "source": "explorer-api",
+    "originAsset": "nep141:token.sweat",
+    "destinationAsset": "nep141:usdt.tether-token.near",
+    "originSymbol": "SWEAT",
+    "destinationSymbol": "USDT",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:44.497Z",
+    "referral": "sweat-app",
+    "affiliates": [
+     "buybacks.multisignature.near"
+    ],
+    "signer": null,
+    "participantId": "route:ertbdo",
+    "depositType": "INTENTS",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "10l12f7",
+    "txHash": "EYVUUoWjv3XDgqymhUvKp18ZemP2YzktBLFhdfLBz4ix",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth.omft.near",
+    "destinationAsset": "nep141:tron.omft.near",
+    "originSymbol": "ETH",
+    "destinationSymbol": "TRX",
+    "originChain": "Ethereum",
+    "destinationChain": "TRON",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:41.680Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0x0158e69c8b1187a5cbc033745b21281bf4f200c9",
+    "participantId": "route:hp0py3",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1n29e0x",
+    "txHash": "4kvXAs4fKYwjtuhBfUhEftbkJtDL67Me91BJ3CKAHp7P",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "50.0",
+    "amountOutFormatted": "185.554368",
+    "amountInUsd": 185.5,
+    "amountOutUsd": 185.467528555776,
+    "volumeUsd": 185.5,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:39.234Z",
+    "referral": null,
+    "affiliates": [],
+    "signer": "irisout.near",
+    "participantId": "route:12jujop",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "4h198m",
+    "txHash": "HhezjECnm2SZgWer6vaUEuWJPYZ2boUVWJeXRPQJrgPG",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDC",
+    "originChain": "TRON",
+    "destinationChain": "Base",
+    "amountInFormatted": "662.0",
+    "amountOutFormatted": "659.835342",
+    "amountInUsd": 661.411482,
+    "amountOutUsd": 659.546334120204,
+    "volumeUsd": 661.411482,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:38.544Z",
+    "referral": "aurora-hfmj8cn56c",
+    "affiliates": [
+     "widget_collect.sputnik-dao.near",
+     "rewardsgenerator.near"
+    ],
+    "signer": null,
+    "participantId": "route:wqr9lp",
+    "depositType": "INTENTS",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1vwm3o6",
+    "txHash": "HhezjECnm2SZgWer6vaUEuWJPYZ2boUVWJeXRPQJrgPG",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDC",
+    "originChain": "TRON",
+    "destinationChain": "Base",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:38.544Z",
+    "referral": "aurora-hfmj8cn56c",
+    "affiliates": [
+     "widget_collect.sputnik-dao.near",
+     "rewardsgenerator.near"
+    ],
+    "signer": null,
+    "participantId": "route:wqr9lp",
+    "depositType": "INTENTS",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "5ip6tc",
+    "txHash": "GsddzaSTncF5JLMXemo3c1mzz6j5193c6JWNb4S8Vwoo",
+    "source": "explorer-api",
+    "originAsset": "nep141:base.omft.near",
+    "destinationAsset": "nep245:v2_1.omni.hot.tg:1117_",
+    "originSymbol": "ETH",
+    "destinationSymbol": "GRAM",
+    "originChain": "Base",
+    "destinationChain": "TON",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:30.002Z",
+    "referral": "intents.tg",
+    "affiliates": [
+     "buybacks.multisignature.near",
+     "intents.tg"
+    ],
+    "signer": "0xcae47cccc514a98dc238488d701a2a8249e06931",
+    "participantId": "route:1ubvhxw",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1xv5zvh",
+    "txHash": "FU6JEwS6g6Vcy5nu2mxn9CMVCQYPMXHdk89JzugRG8KY",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth-0xdac17f958d2ee523a2206206994597c13d831ec7.omft.near",
+    "destinationAsset": "nep141:sol-5ce3bf3a31af18be40ba30f721101b4341690186.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDC",
+    "originChain": "Ethereum",
+    "destinationChain": "Solana",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:29.809Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0x0bfacE097298F1263C398AEBA6b292DB7170c7A8",
+    "participantId": "route:1r5kawg",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "xml5xs",
+    "txHash": "4k9SvNfQsLN6cXBD92nR7brEGaSfG7rMYYkh8SVKGeGk",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "1050.0",
+    "amountOutFormatted": "3895.492157",
+    "amountInUsd": 3895.5,
+    "amountOutUsd": 3893.785931435234,
+    "volumeUsd": 3895.5,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:23.995Z",
+    "referral": "rhea",
+    "affiliates": [
+     "ndf.rhealab.near"
+    ],
+    "signer": "s3m0n.tg",
+    "participantId": "route:1kw1x58",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "bt6h05",
+    "txHash": "FPy3B7Hu1ou9Gq3tYMAu8QySH781SMySNdocxBp17SrA",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near",
+    "destinationAsset": "nep141:base.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "ETH",
+    "originChain": "Ethereum",
+    "destinationChain": "Base",
+    "amountInFormatted": "60.690536",
+    "amountOutFormatted": "0.026895320602403177",
+    "amountInUsd": 60.662132829152,
+    "amountOutUsd": 60.178817754289,
+    "volumeUsd": 60.662132829152,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:11.816Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0x7055d2048409f446B6aa4aCb2C1706f2F33a9eb4",
+    "participantId": "route:16w2f6d",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "y5z7x6",
+    "txHash": "6EkDRBijKR4TxQpkywUA7Kauup8mVefguVYdmXHdZ9Uj",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth.omft.near",
+    "destinationAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "originSymbol": "ETH",
+    "destinationSymbol": "USDT",
+    "originChain": "Ethereum",
+    "destinationChain": "TRON",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:11.498Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "tangemswapkit.near",
+     "swapkit.near"
+    ],
+    "signer": "0xbfb31b638e5fbf2c6c242ef4024db88d64755541",
+    "participantId": "route:1vz7575",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1or6lvy",
+    "txHash": "DpTUuZD1mDyDQBSV1jZ73J8CKk8uVq4oQcFFCAB6WASh",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:137_qiStmoQJDQPTebaPjgx5VBxZv6L",
+    "destinationAsset": "nep141:tron.omft.near",
+    "originSymbol": "QISTMOQJ",
+    "destinationSymbol": "TRX",
+    "originChain": "Polygon",
+    "destinationChain": "TRON",
+    "amountInFormatted": "0.5379",
+    "amountOutFormatted": "1.369516",
+    "amountInUsd": 0.5376643998,
+    "amountOutUsd": 0.43836837644,
+    "volumeUsd": 0.5376643998,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:07.478Z",
+    "referral": "gemwallet",
+    "affiliates": [
+     "0x0d9dab1a248f63b0a48965ba8435e4de7497a3dc",
+     "buybacks.multisignature.near"
+    ],
+    "signer": "0x7B32FA26a2CBCB8B6145A4C3492179Dd704Bc7E5",
+    "participantId": "route:1eqas1z",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1qk3lj6",
+    "txHash": "DpTUuZD1mDyDQBSV1jZ73J8CKk8uVq4oQcFFCAB6WASh",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:137_qiStmoQJDQPTebaPjgx5VBxZv6L",
+    "destinationAsset": "nep141:tron.omft.near",
+    "originSymbol": "QISTMOQJ",
+    "destinationSymbol": "TRX",
+    "originChain": "Polygon",
+    "destinationChain": "TRON",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:07.478Z",
+    "referral": "gemwallet",
+    "affiliates": [
+     "0x0d9dab1a248f63b0a48965ba8435e4de7497a3dc",
+     "buybacks.multisignature.near"
+    ],
+    "signer": "0x7B32FA26a2CBCB8B6145A4C3492179Dd704Bc7E5",
+    "participantId": "route:1eqas1z",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "17q9snj",
+    "txHash": "AmmJ8P43wEpnSpsU496wRCB5u3SNmapVPx74XB3R9QPB",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g",
+    "destinationAsset": "nep141:sol.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "SOL",
+    "originChain": "BNB Chain",
+    "destinationChain": "Solana",
+    "amountInFormatted": "2002.737198361071",
+    "amountOutFormatted": "22.164898671",
+    "amountInUsd": 2000.956764991728,
+    "amountOutUsd": 1983.7584310545,
+    "volumeUsd": 2000.956764991728,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:06:05.118Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0xC83F194B9B7D35A224f20F27d2AF2B64e77D9801",
+    "participantId": "route:12zvn06",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "3hsc4c",
+    "txHash": "ArhUqefQ3HXLNCGcvNNX2MnFt1ZRFH1SrCqp5N9RQzmj",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep245:v2_1.omni.hot.tg:1117_3tsdfyziyc7EJbP2aULWSKU4toBaAcN4FdTgfm5W1mC4ouR",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "TRON",
+    "destinationChain": "TON",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:04.786Z",
+    "referral": null,
+    "affiliates": [
+     "buybacks.multisignature.near"
+    ],
+    "signer": "TAFFdB2V4ZrXCt2gi6YyvgXVSAPskineco",
+    "participantId": "route:1gwvcxo",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "llipde",
+    "txHash": "AyDehU6D5LQ7pHVotWPKa5ZweoVrXhm8ZPUmoaG9xW33",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth.omft.near",
+    "destinationAsset": "nep141:eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near",
+    "originSymbol": "ETH",
+    "destinationSymbol": "USDC",
+    "originChain": "Ethereum",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:06:02.727Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0xbae346a6d508efd6e553f28636263a1dd620e50c",
+    "participantId": "route:31gmer",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "cqbl3i",
+    "txHash": "4qYJyWRWsAeNPGxdZjL1uhxJntPAtwSMNKbdFHVAzE9f",
+    "source": "explorer-api",
+    "originAsset": "nep141:sol.omft.near",
+    "destinationAsset": "nep141:eth-0xdac17f958d2ee523a2206206994597c13d831ec7.omft.near",
+    "originSymbol": "SOL",
+    "destinationSymbol": "USDT",
+    "originChain": "Solana",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:05:54.786Z",
+    "referral": null,
+    "affiliates": [
+     "buybacks.multisignature.near"
+    ],
+    "signer": "9yBKxdi2wjKyg7FPYgYka2QuXRCUuXdU1XMUCv4KEnXE",
+    "participantId": "route:h7vmv",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "d49ivd",
+    "txHash": "CVN2nEAYgamxBWRoBrcMGtE4GmCGYDtnNSNZS9UqoVbV",
+    "source": "explorer-api",
+    "originAsset": "nep141:sol.omft.near",
+    "destinationAsset": "nep141:sol.omft.near",
+    "originSymbol": "SOL",
+    "destinationSymbol": "SOL",
+    "originChain": "Solana",
+    "destinationChain": "Solana",
+    "amountInFormatted": "0.02",
+    "amountOutFormatted": "0.019888243",
+    "amountInUsd": 1.7896,
+    "amountOutUsd": 1.77959998364,
+    "volumeUsd": 1.7896,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:05:52.811Z",
+    "referral": null,
+    "affiliates": [],
+    "signer": "8h8nAJ7wn7L3vDLRTW7nM8foB2uA18jfJTz8QkcSCAGX",
+    "participantId": "route:1cvh4e0",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "109hvxx",
+    "txHash": "4aSJim9458WGYJRsYvPe2vuu6fJJXHoYLRgu2AyCS8rs",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "50.0",
+    "amountOutFormatted": "185.612619",
+    "amountInUsd": 185.5,
+    "amountOutUsd": 185.531320672878,
+    "volumeUsd": 185.531320672878,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:05:50.674Z",
+    "referral": null,
+    "affiliates": [],
+    "signer": "irisout.near",
+    "participantId": "route:6wthra",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1n3cb1h",
+    "txHash": "DAUGHMJf7MxviDXDWjvdWs3T3B1HR2Geuq8ZbFPHDWMd",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron.omft.near",
+    "destinationAsset": "nep141:eth.omft.near",
+    "originSymbol": "TRX",
+    "destinationSymbol": "ETH",
+    "originChain": "TRON",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "10963.389366",
+    "amountOutFormatted": "1.555958474848033124",
+    "amountInUsd": 3509.27130216294,
+    "amountOutUsd": 3481.39484913348,
+    "volumeUsd": 3509.27130216294,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:05:29.662Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "TL1aB77rAuuQemdczthcyJNGLysUYEn7Gf",
+    "participantId": "route:1oasty1",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1cnn08q",
+    "txHash": "658g3eoRsrtDd6Wj9AnB5XLGFR2d464fcW5D1WkibtCp",
+    "source": "explorer-api",
+    "originAsset": "nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near",
+    "destinationAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "USDT",
+    "originChain": "Arbitrum",
+    "destinationChain": "TRON",
+    "amountInFormatted": "2000.0",
+    "amountOutFormatted": "2001.269773",
+    "amountInUsd": 1999.124,
+    "amountOutUsd": 1999.490644171803,
+    "volumeUsd": 1999.490644171803,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:05:23.500Z",
+    "referral": "rango",
+    "affiliates": [
+     "buybacks.multisignature.near",
+     "rangoni.near"
+    ],
+    "signer": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+    "participantId": "route:j4d0x8",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1w9x7j4",
+    "txHash": "6S43VprrpeS6wis4bSFkhcK5sNSn6Hn7UQrrAHhYJjtX",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron.omft.near",
+    "destinationAsset": "nep141:bch.omft.near",
+    "originSymbol": "TRX",
+    "destinationSymbol": "BCH",
+    "originChain": "TRON",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:05:18.580Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "TCJ8iQEyPdgrqscu2j6QrsEajjjqFPLmJN",
+    "participantId": "route:7rhmmx",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "xxnwpf",
+    "txHash": "6S43VprrpeS6wis4bSFkhcK5sNSn6Hn7UQrrAHhYJjtX",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron.omft.near",
+    "destinationAsset": "nep141:bch.omft.near",
+    "originSymbol": "TRX",
+    "destinationSymbol": "BCH",
+    "originChain": "TRON",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:05:18.580Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "TCJ8iQEyPdgrqscu2j6QrsEajjjqFPLmJN",
+    "participantId": "route:7rhmmx",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "c1zoc5",
+    "txHash": "2gbyFX6f3uwHx3NxbbsqtV6DPPYGiTv366SWLLAyFwgJ",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "USDC",
+    "originChain": "Ethereum",
+    "destinationChain": "Base",
+    "amountInFormatted": "30.467542",
+    "amountOutFormatted": "30.220617",
+    "amountInUsd": 30.454197216604,
+    "amountOutUsd": 30.207380369754,
+    "volumeUsd": 30.454197216604,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:05:09.755Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0xe8B3a08F4D722dACEc89eDDcf66DED0C5a6119Ff",
+    "participantId": "route:142hzd2",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "91scvv",
+    "txHash": "8YMJTorR29yHBzYEpTGr1W2e24vovQnxzKrKHSWQuzcQ",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "1cs_v1:btc:native:coin",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "BTC",
+    "originChain": "NEAR",
+    "destinationChain": "Bitcoin",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:04:57.990Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "ledgerswapkit.near"
+    ],
+    "signer": "3892e47d24b1a8509d0b9325e79a04d2a05615cfedd7c5c2f469eba59e970194",
+    "participantId": "route:tipvpb",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1x4hbob",
+    "txHash": "9hAyEsTuPj4avxL9XpLpywTtGJFVchVjCkLwLBN2hp5Y",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "50.0",
+    "amountOutFormatted": "185.463116",
+    "amountInUsd": 185.5,
+    "amountOutUsd": 185.376504724828,
+    "volumeUsd": 185.5,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:55.067Z",
+    "referral": null,
+    "affiliates": [],
+    "signer": "irisout.near",
+    "participantId": "route:de7k3v",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1mkfs1y",
+    "txHash": "9hAyEsTuPj4avxL9XpLpywTtGJFVchVjCkLwLBN2hp5Y",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:04:55.067Z",
+    "referral": null,
+    "affiliates": [],
+    "signer": "irisout.near",
+    "participantId": "route:de7k3v",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "tpe0um",
+    "txHash": "5DrU7L6HBhEwGtfrtF1HeR7312XGyRAJRnYkin9YoUV3",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:137_3hpYoaLtt8MP1Z2GH1U473DMRKgr",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "3HPYOALT",
+    "destinationSymbol": "USDC",
+    "originChain": "Polygon",
+    "destinationChain": "Base",
+    "amountInFormatted": "36.69",
+    "amountOutFormatted": "36.569056",
+    "amountInUsd": 36.65628189,
+    "amountOutUsd": 36.551978250848,
+    "volumeUsd": 36.65628189,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:53.051Z",
+    "referral": "aurora-hfmj8cn56c",
+    "affiliates": [
+     "widget_collect.sputnik-dao.near",
+     "rewardsgenerator.near"
+    ],
+    "signer": null,
+    "participantId": "route:14x5rur",
+    "depositType": "INTENTS",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "ae3n5s",
+    "txHash": "7Kh3bLzmgax6AxfLGjLnEEw4nu4uAb9CBrkjH2anjtL9",
+    "source": "explorer-api",
+    "originAsset": "nep141:usdt.tether-token.near",
+    "destinationAsset": "nep245:v2_1.omni.hot.tg:56_11111111111111111111",
+    "originSymbol": "USDT",
+    "destinationSymbol": "BNB",
+    "originChain": "NEAR",
+    "destinationChain": "BNB Chain",
+    "amountInFormatted": "9.00211",
+    "amountOutFormatted": "0.012806408967683593",
+    "amountInUsd": 8.99383706091,
+    "amountOutUsd": 8.940922484878,
+    "volumeUsd": 8.99383706091,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:51.678Z",
+    "referral": "intents.tg",
+    "affiliates": [
+     "buybacks.multisignature.near",
+     "intents.tg"
+    ],
+    "signer": "devashishdubey.tg",
+    "participantId": "route:1p6sfph",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1y9pgl2",
+    "txHash": "GAMWKfGVfru6m8VenAqvrfN4vcNq4RanfhYiza6D3BAs",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth-0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.omft.near",
+    "destinationAsset": "nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "USDC",
+    "originChain": "Ethereum",
+    "destinationChain": "Arbitrum",
+    "amountInFormatted": "89.703679",
+    "amountOutFormatted": "88.977629",
+    "amountInUsd": 89.664388788598,
+    "amountOutUsd": 88.938656798498,
+    "volumeUsd": 89.664388788598,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:37.722Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0x37846925B9919E5D91F746bf93e8bca85FA2d38c",
+    "participantId": "route:eqw5in",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "qcej7j",
+    "txHash": "5fEXDSYL4LJpedgryXzXFaMH1CddTndQZhgp1JZwMZpo",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:ltc.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "LTC",
+    "originChain": "TRON",
+    "destinationChain": "Litecoin",
+    "amountInFormatted": "1510.0",
+    "amountOutFormatted": "28.8187442",
+    "amountInUsd": 1508.65761,
+    "amountOutUsd": 1494.828261654,
+    "volumeUsd": 1508.65761,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:36.545Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "TJ6FK9wrrRa5Chjco7ZWVLFBixVCMurfTJ",
+    "participantId": "route:1f0z9ew",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "7xnjqd",
+    "txHash": "5fEXDSYL4LJpedgryXzXFaMH1CddTndQZhgp1JZwMZpo",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:ltc.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "LTC",
+    "originChain": "TRON",
+    "destinationChain": "Litecoin",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:04:36.545Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "TJ6FK9wrrRa5Chjco7ZWVLFBixVCMurfTJ",
+    "participantId": "route:1f0z9ew",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "kjkmjo",
+    "txHash": "5rzRrmMQxiNj1DtVK4ci7TqZmDXrE31vAvwUgjzmzvVz",
+    "source": "explorer-api",
+    "originAsset": "nep141:sol-c800a4bd850783ccb82c2b2c7e84175443606352.omft.near",
+    "destinationAsset": "nep141:eth-0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "SHIB",
+    "originChain": "Solana",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "100.0",
+    "amountOutFormatted": "22002049.219922039597315435",
+    "amountInUsd": 99.9111,
+    "amountOutUsd": 98.349160013052,
+    "volumeUsd": 99.9111,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:26.540Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "tangemswapkit.near",
+     "swapkit.near"
+    ],
+    "signer": "5nRzZt4YFt6WpBJWeZ6hD4LAWAbPWHnQpKchaKafMgVm",
+    "participantId": "route:17lt8t1",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1dry20l",
+    "txHash": "5fM2ZidcaxoDZ4rYMyJ4m44NdBxwpFUBdjpw2x2Jr7gs",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDC",
+    "originChain": "TRON",
+    "destinationChain": "Base",
+    "amountInFormatted": "89.74505",
+    "amountOutFormatted": "89.451256",
+    "amountInUsd": 89.66526665055,
+    "amountOutUsd": 89.412076349872,
+    "volumeUsd": 89.66526665055,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:04:22.285Z",
+    "referral": "aurora-hfmj8cn56c",
+    "affiliates": [
+     "widget_collect.sputnik-dao.near",
+     "rewardsgenerator.near"
+    ],
+    "signer": null,
+    "participantId": "route:1szcsnq",
+    "depositType": "INTENTS",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "12o44kl",
+    "txHash": "5fM2ZidcaxoDZ4rYMyJ4m44NdBxwpFUBdjpw2x2Jr7gs",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDC",
+    "originChain": "TRON",
+    "destinationChain": "Base",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:04:22.285Z",
+    "referral": "aurora-hfmj8cn56c",
+    "affiliates": [
+     "widget_collect.sputnik-dao.near",
+     "rewardsgenerator.near"
+    ],
+    "signer": null,
+    "participantId": "route:1szcsnq",
+    "depositType": "INTENTS",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "x9b4r",
+    "txHash": "E6rfh3RzDuZcAkZ28eiktSFV3upZF4MQtWr2MuoxN8Vc",
+    "source": "explorer-api",
+    "originAsset": "nep141:doge.omft.near",
+    "destinationAsset": "nep141:eth.omft.near",
+    "originSymbol": "DOGE",
+    "destinationSymbol": "ETH",
+    "originChain": "Dogecoin",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:03:47.579Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "D7QGHvk5etvHq8GHPXyjyJ2n2G9v2gneEh",
+    "participantId": "route:bjdymi",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1du6zo1",
+    "txHash": "6P5BnuvnFz6TVqk2nSEq6DJGibyprxgaFDpjpxjkA7Hg",
+    "source": "explorer-api",
+    "originAsset": "nep141:zec.omft.near",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "ZEC",
+    "destinationSymbol": "USDC",
+    "originChain": "Zcash",
+    "destinationChain": "Base",
+    "amountInFormatted": "0.0594757",
+    "amountOutFormatted": "75.0",
+    "amountInUsd": 75.542465598,
+    "amountOutUsd": 74.96715,
+    "volumeUsd": 75.542465598,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:03:44.307Z",
+    "referral": "vizor",
+    "affiliates": [
+     "f6e2a398796c74b6f555dd3786c02e2792ea53d6ad4ee3a59fd95576682b27a2"
+    ],
+    "signer": null,
+    "participantId": "route:hxwwc0",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "4z0i1i",
+    "txHash": "8uzxSb9vArLN9EP9XREPwavGWDeNbHPudEmcFJCLZqgj",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:arb.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "ETH",
+    "originChain": "TRON",
+    "destinationChain": "Arbitrum",
+    "amountInFormatted": "230.0",
+    "amountOutFormatted": "0.101797972022112192",
+    "amountInUsd": 229.78863,
+    "amountOutUsd": 227.797393912761,
+    "volumeUsd": 229.78863,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:03:42.393Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "swapkit.near",
+     "onekeyoky.near"
+    ],
+    "signer": "TRpM8KKpVEPSri1Um2QGmEsJgHhX1nGWFN",
+    "participantId": "route:vl15cl",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1v1w1wr",
+    "txHash": "8uzxSb9vArLN9EP9XREPwavGWDeNbHPudEmcFJCLZqgj",
+    "source": "explorer-api",
+    "originAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "destinationAsset": "nep141:arb.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "ETH",
+    "originChain": "TRON",
+    "destinationChain": "Arbitrum",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:03:42.393Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "swapkit.near",
+     "onekeyoky.near"
+    ],
+    "signer": "TRpM8KKpVEPSri1Um2QGmEsJgHhX1nGWFN",
+    "participantId": "route:vl15cl",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1d02k3x",
+    "txHash": "EVfLf3GcHcZY37KfEZQYcBPCPwGhpYtFapkHWbdkCmRe",
+    "source": "explorer-api",
+    "originAsset": "nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near",
+    "destinationAsset": "nep141:arb.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "ETH",
+    "originChain": "Arbitrum",
+    "destinationChain": "Arbitrum",
+    "amountInFormatted": "1.45214",
+    "amountOutFormatted": "0.000642487999113394",
+    "amountInUsd": 1.45146185062,
+    "amountOutUsd": 1.437721095136,
+    "volumeUsd": 1.45146185062,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:03:30.252Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "trustswapkit.near"
+    ],
+    "signer": "0x8ddA295405dbB44027CDC38B199776C4eb4aF2CA",
+    "participantId": "route:1ihr4b8",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "mv2711",
+    "txHash": "B6pQYiFs3TvxviXXVxRnm41Rj7QfKWkQw5M85HY9QezZ",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "50.0",
+    "amountOutFormatted": "185.459588",
+    "amountInUsd": 185.5,
+    "amountOutUsd": 185.378356700456,
+    "volumeUsd": 185.5,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:03:27.610Z",
+    "referral": null,
+    "affiliates": [],
+    "signer": "irisout.near",
+    "participantId": "route:didahu",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "18a6gi",
+    "txHash": "B6pQYiFs3TvxviXXVxRnm41Rj7QfKWkQw5M85HY9QezZ",
+    "source": "explorer-api",
+    "originAsset": "nep141:wrap.near",
+    "destinationAsset": "nep141:17208628f84f5d6ad33f0da3bbbeb27ffcb398eac501a31bd6ad2011e36133a1",
+    "originSymbol": "NEAR",
+    "destinationSymbol": "USDC",
+    "originChain": "NEAR",
+    "destinationChain": "NEAR",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:03:27.610Z",
+    "referral": null,
+    "affiliates": [],
+    "signer": "irisout.near",
+    "participantId": "route:didahu",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1dmssyh",
+    "txHash": "Cs1yFjjvxYFQamd9gf857tW1cNPcZzGTSdmhRT5m8wHg",
+    "source": "explorer-api",
+    "originAsset": "nep141:eth-0xdac17f958d2ee523a2206206994597c13d831ec7.omft.near",
+    "destinationAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDC",
+    "originChain": "Ethereum",
+    "destinationChain": "Base",
+    "amountInFormatted": "85.4",
+    "amountOutFormatted": "85.128847",
+    "amountInUsd": 85.3239086,
+    "amountOutUsd": 85.091560565014,
+    "volumeUsd": 85.3239086,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:03:08.229Z",
+    "referral": "aurora-hfmj8cn56c",
+    "affiliates": [
+     "widget_collect.sputnik-dao.near",
+     "rewardsgenerator.near"
+    ],
+    "signer": null,
+    "participantId": "route:119r2fj",
+    "depositType": "INTENTS",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "12ad50t",
+    "txHash": "8fdDbKoo4tbD5SqLJvpL3kKCqvMtLQwE6baeniUeCYZX",
+    "source": "explorer-api",
+    "originAsset": "nep141:sol.omft.near",
+    "destinationAsset": "nep141:eth.omft.near",
+    "originSymbol": "SOL",
+    "destinationSymbol": "ETH",
+    "originChain": "Solana",
+    "destinationChain": "Ethereum",
+    "amountInFormatted": "1.089829813",
+    "amountOutFormatted": "0.043501770621041587",
+    "amountInUsd": 97.51797166724,
+    "amountOutUsd": 97.34565218953,
+    "volumeUsd": 97.51797166724,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:03:02.151Z",
+    "referral": "lifi",
+    "affiliates": [
+     "buybacks.multisignature.near",
+     "lifi_int.near"
+    ],
+    "signer": "4DN6rw5UNzrR9oiippzc5nqaCHNFPUQmVB7Ctt7SUtVs",
+    "participantId": "route:1w1r80g",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "14jih8v",
+    "txHash": "CrUmstV7jLYKPmuwALup1LE1CUNqajZmX8VYrF3mUqY7",
+    "source": "explorer-api",
+    "originAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "destinationAsset": "nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near",
+    "originSymbol": "USDC",
+    "destinationSymbol": "USDC",
+    "originChain": "Base",
+    "destinationChain": "Arbitrum",
+    "amountInFormatted": "318.9362",
+    "amountOutFormatted": "318.837775",
+    "amountInUsd": 318.7965059444,
+    "amountOutUsd": 318.69812405455,
+    "volumeUsd": 318.7965059444,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:02:51.566Z",
+    "referral": "cashmere",
+    "affiliates": [
+     "buybacks.multisignature.near",
+     "gmgm2.near"
+    ],
+    "signer": "0xda56f700ed7a7F1B1E9DE7BDcEc87752358c23f4",
+    "participantId": "route:1178fch",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1vgckpg",
+    "txHash": "65NTWpX7mvxm35ofKkjCQZTn9gfePVPRNmZYVFLDsK1J",
+    "source": "explorer-api",
+    "originAsset": "nep141:sol-c800a4bd850783ccb82c2b2c7e84175443606352.omft.near",
+    "destinationAsset": "nep141:doge.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "DOGE",
+    "originChain": "Solana",
+    "destinationChain": "Dogecoin",
+    "amountInFormatted": "100.0",
+    "amountOutFormatted": "1382.03478954",
+    "amountInUsd": 99.9081,
+    "amountOutUsd": 98.400877015248,
+    "volumeUsd": 99.9081,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:02:49.175Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "tangemswapkit.near",
+     "swapkit.near"
+    ],
+    "signer": "5nRzZt4YFt6WpBJWeZ6hD4LAWAbPWHnQpKchaKafMgVm",
+    "participantId": "route:1o1eemy",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1xs2u6t",
+    "txHash": "AXKWWJ6J4XjrMXu6Nbc2u9yLD1zQ37WCgkVjXGidZ3Rn",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:1117_3tsdfyziyc7EJbP2aULWSKU4toBaAcN4FdTgfm5W1mC4ouR",
+    "destinationAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "TON",
+    "destinationChain": "TRON",
+    "amountInFormatted": "5.543714",
+    "amountOutFormatted": "4.629708",
+    "amountInUsd": 5.538774550826,
+    "amountOutUsd": 4.625582930172,
+    "volumeUsd": 5.538774550826,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:02:35.244Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "keeperswapkit.near",
+     "swapkit.near"
+    ],
+    "signer": "UQAG4rP3bsgIidpPSc6rxZlbCTBqTizH-ujCa6yNYImRPFBh",
+    "participantId": "route:1it3ph5",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1mx7ivu",
+    "txHash": "AXKWWJ6J4XjrMXu6Nbc2u9yLD1zQ37WCgkVjXGidZ3Rn",
+    "source": "explorer-api",
+    "originAsset": "nep245:v2_1.omni.hot.tg:1117_3tsdfyziyc7EJbP2aULWSKU4toBaAcN4FdTgfm5W1mC4ouR",
+    "destinationAsset": "nep141:tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near",
+    "originSymbol": "USDT",
+    "destinationSymbol": "USDT",
+    "originChain": "TON",
+    "destinationChain": "TRON",
+    "amountInFormatted": "0",
+    "amountOutFormatted": "0",
+    "amountInUsd": 0,
+    "amountOutUsd": 0,
+    "volumeUsd": 0,
+    "status": "PROCESSING",
+    "createdAt": "2026-11-08T13:02:35.244Z",
+    "referral": "swapkit",
+    "affiliates": [
+     "keeperswapkit.near",
+     "swapkit.near"
+    ],
+    "signer": "UQAG4rP3bsgIidpPSc6rxZlbCTBqTizH-ujCa6yNYImRPFBh",
+    "participantId": "route:1it3ph5",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   },
+   {
+    "id": "1nueoij",
+    "txHash": "4s9beaoa3itpyadTJqgUbBqx3oN97PDTk2yr9FzMuNHa",
+    "source": "explorer-api",
+    "originAsset": "nep141:plasma-0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb.omft.near",
+    "destinationAsset": "nep141:sol-5ce3bf3a31af18be40ba30f721101b4341690186.omft.near",
+    "originSymbol": "0xB8CE59",
+    "destinationSymbol": "USDC",
+    "originChain": "Plasma",
+    "destinationChain": "Solana",
+    "amountInFormatted": "24.65",
+    "amountOutFormatted": "24.558307",
+    "amountInUsd": 24.6194833,
+    "amountOutUsd": 24.547550461534,
+    "volumeUsd": 24.6194833,
+    "status": "SUCCESS",
+    "createdAt": "2026-11-08T13:02:33.004Z",
+    "referral": null,
+    "affiliates": [
+     "buybacks.multisignature.near"
+    ],
+    "signer": "0xFcedeDe8f8D35B6CC797a4b9B6a66eacf45E82FA",
+    "participantId": "route:5j3mpf",
+    "depositType": "ORIGIN_CHAIN",
+    "recipientType": "DESTINATION_CHAIN",
+    "hasNearSwapTransaction": true
+   }
+  ]
+ },
+ "conversion": {
+  "leodexUrl": "https://leodex.io/protocols/near-intents?utm_source=nearstats&utm_medium=referral&utm_campaign=app",
+  "primaryText": "Swap"
+ },
+ "price": {
+  "currentUsd": 3.71,
+  "change24hPct": 0.49938548535337945,
+  "sparkline7d": [
+   4.38,
+   4.34,
+   4.32,
+   4.31,
+   4.28,
+   4.25,
+   4.27,
+   4.3,
+   4.25,
+   4.29,
+   4.25,
+   4.33,
+   4.3,
+   4.32,
+   4.27,
+   4.26,
+   4.14,
+   4.08,
+   4.14,
+   4.13,
+   4.12,
+   4.11,
+   4.13,
+   4.07,
+   4.08,
+   4.05,
+   3.98,
+   3.92,
+   3.88,
+   3.85,
+   3.88,
+   3.9,
+   3.89,
+   3.86,
+   3.89,
+   3.87,
+   3.85,
+   3.8,
+   3.85,
+   3.79,
+   3.76,
+   3.79,
+   3.78,
+   3.8,
+   3.84,
+   3.84,
+   3.9,
+   3.9,
+   3.88,
+   3.85,
+   3.81,
+   3.82,
+   3.82,
+   3.82,
+   3.84,
+   3.86,
+   3.84,
+   3.86,
+   3.8,
+   3.77,
+   3.74,
+   3.73,
+   3.8,
+   3.92,
+   3.93,
+   3.99,
+   4.04,
+   4.05,
+   4.09,
+   4.11,
+   4.03,
+   4.02,
+   4.18,
+   4.15,
+   4.13,
+   4.09,
+   4.12,
+   4.04,
+   4.03,
+   4.02,
+   4.08,
+   4.03,
+   4.02,
+   4.02,
+   4.05,
+   4.05,
+   4.05,
+   4.02,
+   4.03,
+   4,
+   4.04,
+   4.02,
+   4.02,
+   4.02,
+   3.94,
+   3.95,
+   3.89,
+   3.67,
+   3.79,
+   3.72,
+   3.69,
+   3.7,
+   3.72,
+   3.71,
+   3.7,
+   3.65,
+   3.72,
+   3.71,
+   3.71,
+   3.69,
+   3.67,
+   3.66,
+   3.69,
+   3.64,
+   3.73,
+   3.74,
+   3.73,
+   3.73,
+   3.76,
+   3.72,
+   3.71,
+   3.76,
+   3.77,
+   3.74,
+   3.75,
+   3.71,
+   3.71,
+   3.71,
+   3.71,
+   3.71,
+   3.72,
+   3.75,
+   3.75,
+   3.73,
+   3.76,
+   3.74,
+   3.73,
+   3.75,
+   3.74,
+   3.71,
+   3.68,
+   3.71,
+   3.7,
+   3.72,
+   3.72,
+   3.66,
+   3.65,
+   3.66,
+   3.67,
+   3.65,
+   3.65,
+   3.64,
+   3.66,
+   3.7,
+   3.69,
+   3.7,
+   3.7,
+   3.7,
+   3.67,
+   3.69,
+   3.69,
+   3.7,
+   3.7,
+   3.71,
+   3.7,
+   3.73,
+   3.71,
+   3.71
+  ],
+  "facts": {
+   "athUsd": 20.44,
+   "athDate": "2022-01-16T14:09:45.000Z",
+   "athChangePct": -81.87344,
+   "daysSinceAth": 1756,
+   "atlUsd": 0.526762,
+   "atlDate": "2020-11-04T08:09:15.000Z",
+   "atlChangePct": 603.30144,
+   "marketCapUsd": 4858604840,
+   "fdvUsd": 4858605014,
+   "marketCapRank": 22,
+   "circulatingSupply": 1311140064,
+   "totalSupply": 1311140111,
+   "volume24hUsd": 246978686,
+   "high24hUsd": 3.74,
+   "low24hUsd": 3.63,
+   "priceChangePct": {
+    "24h": 0.11595,
+    "7d": -15.36577,
+    "14d": -17.31668,
+    "30d": -23.93172,
+    "60d": 42.84254,
+    "200d": 160.0965,
+    "1y": 22.5064
+   },
+   "currentPriceUsd": 3.7,
+   "source": "coingecko",
+   "fetchedAt": "2026-11-08T12:36:57.136Z"
+  },
+  "performance": {
+   "24h": 0.49938548535337945,
+   "7d": -15.36577,
+   "1m": -24.0532241555783,
+   "3m": 131.875,
+   "ytd": 128.02704363859868,
+   "1y": 26.319373510384754,
+   "all": 217.50106974753956
+  },
+  "vsBtc": {
+   "7d": -10.749955189740357,
+   "30d": -17.357076736495884,
+   "90d": 95.32586342836451,
+   "1y": 70.18839192527764
+  },
+  "vsEth": {
+   "7d": -12.063878029977198,
+   "30d": -15.585662209954663,
+   "90d": 94.06073515745078,
+   "1y": 91.97761205155525
+  },
+  "coinlistRoi": {
+   "investmentUsd": 1000,
+   "salePriceLowUsd": 0.29,
+   "salePriceHighUsd": 0.4,
+   "valueLowUsd": 9275,
+   "valueHighUsd": 12793.103448275862,
+   "multipleLow": 9.274999999999999,
+   "multipleHigh": 12.793103448275863
+  },
+  "launchPriceUsd": 1.3659562131464684,
+  "historyDays": 2217,
+  "updatedAt": "2026-11-08T13:08:27.560Z"
+ }
+}

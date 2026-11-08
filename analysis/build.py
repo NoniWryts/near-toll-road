@@ -191,6 +191,8 @@ def build(snap: Path) -> dict:
     kpis.update(signer(snap))
     kpis.update(developers(snap))
     kpis.update(cross_protocol(snap))
+    from analysis import volume_quality
+    kpis.update(volume_quality.build(snap))
     # monthly table
     m = idaily.set_index("date").resample("MS")[["volume_usd", "fees_usd", "revenue_usd"]].sum()
     m["fee_rate_bps"] = 1e4 * m.fees_usd / m.volume_usd

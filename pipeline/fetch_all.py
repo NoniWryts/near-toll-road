@@ -2,12 +2,13 @@
 import sys, traceback
 from .common import snapshot_dir, save, utcnow
 from . import fetch_nearblocks, fetch_rpc, fetch_fastnear, fetch_defillama, fetch_coingecko, fetch_nearstats, \
-    fetch_revenue_dashboard, fetch_buybacks, fetch_dune, fetch_signer, fetch_llama_aggregators, fetch_opendevdata, fetch_bigquery, fetch_hos
+    fetch_revenue_dashboard, fetch_buybacks, fetch_dune, fetch_signer, fetch_llama_aggregators, fetch_opendevdata, fetch_bigquery, fetch_hos, fetch_mpc, fetch_oneclick_tokens, fetch_intents_sample, fetch_block_sample
 
 STEPS = [("nearblocks", fetch_nearblocks), ("rpc", fetch_rpc), ("fastnear", fetch_fastnear), ("defillama", fetch_defillama),
          ("coingecko", fetch_coingecko), ("nearstats", fetch_nearstats), ("revenue_dashboard", fetch_revenue_dashboard),
          ("buybacks", fetch_buybacks), ("signer", fetch_signer), ("llama_aggregators", fetch_llama_aggregators),
-         ("opendevdata", fetch_opendevdata), ("hos", fetch_hos), ("dune", fetch_dune), ("bigquery", fetch_bigquery)]
+         ("opendevdata", fetch_opendevdata), ("hos", fetch_hos), ("mpc", fetch_mpc), ("oneclick_tokens", fetch_oneclick_tokens), ("intents_sample", fetch_intents_sample),
+         ("block_sample", fetch_block_sample), ("dune", fetch_dune), ("bigquery", fetch_bigquery)]
 
 
 def main():

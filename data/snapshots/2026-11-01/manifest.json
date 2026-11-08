@@ -184,6 +184,69 @@
    "rows": 1,
    "sha256": "0df021dac496739721465f5c1e6c7ebbd495406fc7e2d44372bc1fbe98a9e3a7",
    "note": "House of Stake voting contract state, read at fetch time"
+  },
+  "block_sample_txns.parquet": {
+   "source": "https://mainnet.neardata.xyz/v0/block",
+   "fetched_at": "2026-11-08T13:08:16Z",
+   "rows": 4334,
+   "sha256": "eea4b22cbe6bcf95f0b1eff2e0a721a2e62d7f3c7a39be85ca8a7c4451706afd",
+   "note": "transactions in seeded random blocks, by receiver and signer",
+   "seed": 20261108,
+   "windows": "2026-03-01:2026-03-31,2026-10-01:2026-10-31",
+   "blocks_per_window": 150
+  },
+  "block_sample_blocks.parquet": {
+   "source": "https://mainnet.neardata.xyz/v0/block",
+   "fetched_at": "2026-11-08T13:08:16Z",
+   "rows": 300,
+   "sha256": "5eacd6be99de9b2049ce0914f4012b59e6173f387c89e859b2825f4b1f27ec7a",
+   "note": "one row per sampled block",
+   "seed": 20261108
+  },
+  "nearstats_summary_recheck.json": {
+   "source": "https://nearstats.org/api/near/summary",
+   "fetched_at": "2026-11-08T13:09:07Z",
+   "rows": 11,
+   "sha256": "9d094c2463d3076e5de1ea40d3e948f1f15290eb6d9bb0f171a004803f3bd9f5",
+   "note": "second reading one week later, kept to show the public/confidential split moving between reads"
+  },
+  "oneclick_tokens.parquet": {
+   "source": "https://1click.chaindefuser.com/v0/tokens",
+   "fetched_at": "2026-11-08T13:09:16Z",
+   "rows": 216,
+   "sha256": "338f997c1a73f9a07b34ecd90b4caabe6e606cdefcc9f2f6a51fc6d2c569990d",
+   "note": "asset ids, decimals and spot USD prices at fetch time"
+  },
+  "mpc_state.json": {
+   "source": "https://rpc.mainnet.fastnear.com call_function v1.signer.state",
+   "fetched_at": "2026-11-08T13:10:31Z",
+   "rows": 6,
+   "sha256": "2a0583028ee306022a499617cf806dda9e98940c49d3cb7e050370c593675f1f",
+   "note": "MPC participants and threshold at fetch time"
+  },
+  "intents_sample.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/intents.near/txns-only",
+   "fetched_at": "2026-11-08T13:21:56Z",
+   "rows": 172724,
+   "sha256": "73769de900ba1ce1c3a496c1a44cec8dfbbac3555ad5156e44f7099c9eceadaf",
+   "note": "seeded random pages of intents.near transactions, parsed to signed intents",
+   "seed": 20261108,
+   "pages_requested": 180,
+   "pages_ok": 178,
+   "window_start": "2026-09-01",
+   "window_end_exclusive": "2026-11-01",
+   "id_start": 5488784098,
+   "id_end": 5535404290,
+   "txns_sampled": 44500,
+   "sampled_minutes": 1030.8043651683502
+  },
+  "intents_sample_pages.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/intents.near/txns-only",
+   "fetched_at": "2026-11-08T13:21:56Z",
+   "rows": 180,
+   "sha256": "e2ef82b597d842179a0bf1896bdff52ee5b416a0402ed5dd7e9a9c2ec894c619",
+   "note": "one row per sampled page: cursor, size and time span",
+   "seed": 20261108
   }
  }
 }
