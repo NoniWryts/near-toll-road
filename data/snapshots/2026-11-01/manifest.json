@@ -247,6 +247,20 @@
    "sha256": "e2ef82b597d842179a0bf1896bdff52ee5b416a0402ed5dd7e9a9c2ec894c619",
    "note": "one row per sampled page: cursor, size and time span",
    "seed": 20261108
+  },
+  "custody_near_receipts.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near/receipts",
+   "fetched_at": "2026-11-09T05:12:57Z",
+   "rows": 55250,
+   "sha256": "83e8ee2d5c20780165efb10ab74c29c637db3589a58f632bfee8b5b908c486d8",
+   "note": "every receipt on tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near, 2026-10-24 to 2026-10-30 (+2h margins)"
+  },
+  "custody_tron_outflows.parquet": {
+   "source": "https://api.trongrid.io/v1/accounts/TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke/transactions/trc20",
+   "fetched_at": "2026-11-09T05:14:33Z",
+   "rows": 13898,
+   "sha256": "dbe8be7f381f58caf341f588384044076c1f7eb2ab71f4bd55db6aa83eb48694",
+   "note": "every USDT transfer out of ['TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke'], same window (+2h/+4h margins)"
   }
  }
 }

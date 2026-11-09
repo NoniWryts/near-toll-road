@@ -153,7 +153,16 @@ def build(snap: Path) -> pd.DataFrame:
         add("C22", "A large share of Intents volume is confidential (NEAR revenue dashboard series; NearStats residual)", "revenue.near.org; nearstats.org",
             f"confidential residual {k['vq_conf_share_first']:.0%} of 30-day volume as of {k['vq_conf_asof_first']}, {k['vq_conf_share_last']:.0%} as of {k['vq_conf_asof_last']}, total unchanged",
             "share", "UNVERIFIABLE", "none",
-            "Confidential volume is a residual between two NEAR-run series; when the public tile series was revised the residual went to zero. No public dataset observes the private shard.")
+            "Confidential volume is a residual between two NEAR-run series; when the public tile series was revised the residual went to zero. No public dataset observes the private shard."
+            + (f" Custody check ({k['cust_route']}, {k['cust_start']} to {k['cust_end']}, every payout): {k['cust_nopublic_share']:.1%} of {k['cust_payouts_n']:,} payouts (${k['cust_payouts_usd']/1e6:.1f}M) left the bridge wallet without a public NEAR withdrawal, so on that route the residual is not hidden payouts." if "cust_payouts_n" in k else ""))
+    # C23 destination settlement is public (Aurora docs), tested by custody reconciliation on one route
+    if "cust_payouts_n" in k:
+        st = "PARTIAL" if k["cust_public_share"] >= 0.9 else "FAIL"
+        add("C23", "Confidential swaps still settle on the destination chain as standard public transactions; only the origin and route are hidden",
+            "docs.intents.aurora.dev/confidential-intents",
+            f"{k['cust_public_share']:.1%} of {k['cust_payouts_n']:,} {k['cust_route']} payouts (${k['cust_payouts_usd']/1e6:.1f}M, {k['cust_start']} to {k['cust_end']}) traced to a public intents.near withdrawal; median bridge fee {k['cust_fee_median']:.2f} USDT, median delay {k['cust_lag_median_s']:.0f}s",
+            "share of custody outflows", st, "data/snapshots/<date>/custody_*.parquet; reports/tables/custody_daily.csv, custody_unmatched.csv",
+            "PARTIAL, not PASS: every payout from the bridge's hot wallet is public and auditable on both chains, but we cannot single out which began as confidential swaps. If confidential payouts on this route exist, they either pass through a public NEAR withdrawal (origin hidden, withdrawal visible) or leave from a wallet we have not identified. One route, one week; output that stays inside Intents never reaches custody.")
     df = pd.DataFrame(rows)
     LEDGER.parent.mkdir(exist_ok=True)
     df.to_csv(LEDGER, index=False)

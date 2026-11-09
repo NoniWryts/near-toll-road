@@ -14,7 +14,7 @@ Everything is regenerated from committed, dated snapshots. No API keys are neede
 |---|---|
 | `make setup` | dependencies installed (pandas, pyarrow, plotly, pyyaml, requests, pytest) |
 | `make report` | `reports/tables/*.csv`, `dashboard/*.html` (10 pages), `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
-| `make check` | the 22-row claims ledger re-verified (10 PASS, 5 PARTIAL, 4 UNVERIFIABLE, 3 FAIL) and 19 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
+| `make check` | the 23-row claims ledger re-verified (10 PASS, 6 PARTIAL, 4 UNVERIFIABLE, 3 FAIL) and 21 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
 | `python -m checks.predictions` | three pre-registered calls (HSP-029 live in protocol, 90d capture >= 30%, 90d buyback coverage >= 15%, all by 2027-03-31) scored PENDING/HIT/MISS; the file is frozen by sha256 |
 | `make serve` then open http://localhost:5300 | the dashboard, one page per question with an evidence map on the start page: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, Chain Signatures callers, Intents vs every DefiLlama bridge and swap aggregator, developers vs peer chains, comparables, 2030 scenarios, the ledger |
 | edit `params.yaml` (e.g. `capture_rate: 0.5`), `make model` | `reports/tables/breakeven.csv` and the printed breakeven volume move |
@@ -59,12 +59,13 @@ thesis/risk_register.md     risks with the metric that monitors each
 | Chain Signatures | ~16.9k `sign` calls/day, 92% from NEAR's own bridge and FastAuth contracts | sample of `v1.signer` receipts (NearBlocks) |
 | Intents vs peers | rank 1 of 30 bridge aggregators (41% of list volume); rank 6 of 144 swap aggregators | DefiLlama overview lists, one volume definition |
 | Volume quality | top 10 payout destinations hold 36% of sampled value (HHI 314); 70% of payouts are signed by per-quote accounts, so Explorer "unique users" count swaps; round trips 0.8% outside market makers | `pipeline/fetch_intents_sample.py`, ledger C21 |
+| Confidential vs coverage gap | all 13,749 USDT payouts ($97.0M) from the bridge's Tron wallet, Oct 24-30, matched one-to-one to a public `intents.near` withdrawal; 0 left custody unseen | `pipeline/fetch_custody.py`, `analysis/custody.py`, ledger C22-C23 |
 | April 2026 step-down | ~77% of the fall from 3.48M to 0.73M daily transactions is one sender, `hotwallet.kaiching` | `pipeline/fetch_block_sample.py` |
 | Developers | 582 monthly-active (down 28% y/y, 60% from 2022), 278 full-time (+6% y/y); rank 9 of 13 peer chains | Electric Capital Open Dev Data, 2026-10-24 |
 
 ## Honest limits
 
-- Confidential Intents volume and TVL are NEAR-reported; no public indexer sees the private shard. The volume series here includes them as reported.
+- Confidential Intents volume and TVL are NEAR-reported; no public indexer sees the private shard. The volume series here includes them as reported. The custody check bounds unseen payouts on one route (USDT on Tron, one week); other routes are not reconciled, and confidential output that stays inside Intents is invisible to any method.
 - Sender-level figures come from a 1.2% time sample of `intents.near` transactions, not the full Explorer feed; repeat-use figures are lower bounds, and payouts routed through `omni.bridge.near` (33% of value) are excluded from destination concentration.
 - NEAR AI inference staking and the Bitwise ETF holdings are marked UNVERIFIABLE because no public, machine-readable source exists.
 - Developer counts cover public GitHub commits in repos Electric Capital maps to NEAR; private and non-GitHub work is invisible.
