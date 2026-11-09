@@ -8,7 +8,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOTS = ROOT / "data" / "snapshots"
-UA = {"User-Agent": "near-toll-road/0.1 (reproducible research; github.com/ayomidate19)"}
+UA = {"User-Agent": "near-toll-road/0.1 (reproducible research; github.com/NoniWryts/near-toll-road)"}
 
 
 def utcnow() -> str:
