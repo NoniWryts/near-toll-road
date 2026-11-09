@@ -202,6 +202,20 @@ def build():
         vq_html += ("<h2>Q10: confidential share</h2>" + "<div class=\"note\">nearstats derives confidential volume as NEAR's reported total minus the Explorer's public tiles. Read twice, a week apart, the same 30-day total split very differently, because the public tile series was revised. The total is stable; the split is not measurable from public data.</div>"
                     + (table(conf, ["as_of", "alignment", "total_30d", "public_tiles_30d", "confidential_residual_30d", "confidential_share", "explorer_swaps_30d_usd", "explorer_swaps_30d_count"],
                              {"total_30d": money, "public_tiles_30d": money, "confidential_residual_30d": money, "confidential_share": pct, "explorer_swaps_30d_usd": money, "explorer_swaps_30d_count": lambda x: f"{x:,.0f}"}) if len(conf) else ""))
+        if "cust_payouts_n" in k:
+            cd = pd.read_csv(T / "custody_daily.csv")
+            fc = go.Figure()
+            for col, colr in (("matched", C["1"]), ("late match (3-24h)", C["4"]), ("no public withdrawal", C["2"])):
+                if col in cd:
+                    fc.add_bar(x=cd.date, y=cd[col], name=col, marker_color=colr, marker_line_width=0)
+            fc.update_layout(barmode="stack", title=f"{k['cust_route']}: every payout from the bridge's hot wallet, by whether a public NEAR withdrawal backs it (USD)", yaxis_title="USD paid out")
+            um = pd.read_csv(T / "custody_unmatched.csv")
+            vq_html += ("<h2>Q10b: confidential payouts or coverage gaps? A custody check</h2>"
+                        + f"<div class=\"note\">A residual cannot separate private flow from missed data, so we reconcile custody instead. Confidential swaps hide the origin and route but still pay out on the destination chain as ordinary transfers (Aurora docs). For {k['cust_route']} we read <b>every</b> USDT transfer out of the bridge's Tron hot wallet (<code>{k['cust_wallets']}</code>, TronGrid) and <b>every</b> <code>WITHDRAW_TO</code> receipt on the bridged-USDT contract (NearBlocks), {k['cust_start']} to {k['cust_end']}, and matched them one to one: same recipient, amount less a bridge fee, sent within 3 hours. "
+                        + f"<b>{k['cust_public_share']:.1%}</b> of {k['cust_payouts_n']:,} payouts ({money(k['cust_payouts_usd'])}) are backed by a public withdrawal (median fee {k['cust_fee_median']:.2f} USDT, median delay {k['cust_lag_median_s']:.0f} s). <b>{k['cust_nopublic_share']:.1%}</b> ({money(k['cust_nopublic_usd'])}, {k['cust_nopublic_n']} payouts) left custody with no public record: that is the ceiling on unseen confidential payouts from this wallet. So a confidential payout on this route either passes through a public NEAR withdrawal (origin hidden, withdrawal visible) or leaves from a separate wallet we have not identified. "
+                        + f"{k['cust_near_unpaid_n']} of {k['cust_near_withdrawals_n']:,} public withdrawals ({money(k['cust_near_unpaid_usd'])}) had no payout from this wallet: the coverage gap on our side. A confidential swap whose output stays inside Intents never reaches custody and is invisible to any method.</div>"
+                        + fig_html(fc, 360)
+                        + (table(um.head(15), ["ts", "to", "amt", "status", "lag_s"], {"amt": lambda x: f"{x:,.2f}", "lag_s": lambda x: "" if pd.isna(x) else f"{x/3600:.1f} h"}) if len(um) else ""))
         vq_html += ("<h2>Q11: who moves the money inside Intents</h2>" + f"<div class=\"note\">Signed <code>transfer</code> intents (solvers and liquidity pools paying quote accounts) are concentrated: the top signer holds {k.get('vq_solver_top1',0):.0%} of sampled transfer value and the top 5 hold {k.get('vq_solver_top5',0):.0%}. Most top signers are unnamed 64-hex accounts, so who runs them is not public.</div>"
                     + table(sol, ["solver", "share_of_fill_usd"], {"share_of_fill_usd": pct}))
     sec_html = ""
@@ -240,7 +254,7 @@ def build():
         "developers": ("Developers", f"Electric Capital's open dataset counts public GitHub commits in repos mapped to each ecosystem. Private repos are invisible. Source: Electric Capital Open Dev Data, CC BY 4.0, snapshot {k.get('dev_as_of','')}. Ledger C19 is red: the all-developer count is down {k.get('dev_all_chg_1y', 0):+.0%} in a year while full-time is {k.get('dev_full_time_chg_1y', 0):+.0%}.",
                        (fig_html(f10, 380) if f10 is not None else '') + (fig_html(f12, 340) if f12 is not None else ''), "reports/tables/devs_peers.csv, devs_monthly.csv", "C19"),
         "volume-quality": ("Volume quality", "Is usage broad, recurring and organic? Answers blueprint questions 1, 2 and 6 to 11 from two seeded on-chain samples and two nearstats readings. Every figure is an estimate with its sample size shown.",
-                           vq_html, "reports/tables/block_mix.csv, vq_*.csv", "C21 C22"),
+                           vq_html, "reports/tables/block_mix.csv, vq_*.csv, custody_*.csv", "C21 C22 C23"),
         "security": ("Security and risks", "What could break the thesis: who can sign, who validates, what has gone wrong, and which sources disagree.", sec_html, "data/snapshots/<date>/mpc_state.json, reports/tables/validators.csv, thesis/risk_register.md", "C02 C09 C12-C14 C20"),
         "valuation": ("Valuation and 2030 scenarios", "Chain-level gas fees and revenue from DefiLlama with one definition for all three. NEAR's product revenue (Intents) is in the tiles on the start page and is not in the chain row.",
                       f"{comps_tab}<div class=\"note\">2030 scenarios are arithmetic on the stated inputs, not forecasts. The bear row shows what a revenue-only valuation looks like if the flywheel stalls; it is deliberately uncomfortable.</div>{sc_tab}",
