@@ -115,13 +115,45 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
     c6 = chapter(6, "Is the traffic real?", "Mostly yes: the money is real and spread out, but user counts are inflated.",
                  f'<div class="tablewrap"><table>{rows}</table></div>', "Read from a 1.2% random sample of intents.near transactions plus a full week of Tron payouts.", "volume-quality.html")
     # 7 risks
-    risks = [("Bought NEAR isn't retired", "It sits liquid in a multisig wallet, so its signers could sell it again."),
-             ("Volume is falling", f"DefiLlama shows {k['xp_intents_chg_1m_llama']:+.0f}% month on month; breakeven needs {be/vol_day:.1f}x more."),
-             ("Fewer developers", f"{k['dev_all']} monthly-active developers, down {abs(k['dev_all_chg_1y']):.0%} in a year (full-time up {k['dev_full_time_chg_1y']:.0%})."),
-             ("Private volume is unmeasurable", f"The 'confidential' share read {k['vq_conf_share_first']:.0%} one week and 0% the next on the same total.")]
-    c7 = chapter(7, "What could break it", "Four things would weaken the thesis, and all four are tracked.",
-                 '<div class="grid2">' + "".join(f'<div class="out"><b>{a}</b><div class="sub" style="margin-top:4px">{b_}</div></div>' for a, b_ in risks) + "</div>",
-                 "We keep the bad news in. Each item links to a ledger row or a chart.", "security.html")
+    pc = lambda x: f"{x:.0%}"
+    risks = [
+        ("High", "Bought-back NEAR is not retired", "Buybacks", "issuance.html",
+         f"The {k['buyback_wallet_balance_near']/1e6:.2f}M NEAR bought so far sits liquid in a multisig wallet ({k['vq_top_affiliate']}). None of it is burned, staked or locked ({k['buyback_wallet_locked_near']:,.0f} NEAR locked; ledger C02 is FALSE).",
+         "A buyback only shrinks supply if the tokens stay out of circulation. Today the signers could sell or spend them, so our coverage figure is the best case, not a guarantee.",
+         "An on-chain burn, or a lock that only a holder vote can undo."),
+        ("High", "Swap volume is falling", "Fees", "flywheel.html",
+         f"30-day volume is {money(k['intents_volume_30d'])}, {abs(chg(last.volume_30d, prev.volume_30d)):.0%} below the 30 days before. DefiLlama's monthly change reads {k['xp_intents_chg_1m_llama']:+.0f}%.",
+         f"Every dollar of buyback starts as a swap. Breakeven already needs {be/vol_day:.1f}x today's volume, and the gap widens when traffic drops.",
+         f"Volume back above its September level, and a path toward {money(ms['breakeven_measured_hsp029'],0)} a day once HSP-029 is phased in."),
+        ("Medium", "Buybacks are a choice, not a rule", "Buybacks", "issuance.html",
+         f"Only {k['buyback_share_of_revenue_30d']:.0%} of NEAR's cut reached the buyback wallet in the last 30 days. The rest stayed in other revenue wallets.",
+         "No contract forces revenue into buybacks. The people running the wallets decide how much goes in and when, so the rate can drop without notice.",
+         "A published, on-chain sweep rule (for example: all revenue swept weekly)."),
+        ("Medium", "A few market makers fill most swaps", "Volume quality", "volume-quality.html",
+         f"The largest solver fills {k['vq_solver_top1']:.0%} of sampled swap value; the top five fill {k['vq_solver_top5']:.0%}.",
+         "If one large market maker steps back, prices on Intents get worse, users leave and fees fall. The toll road depends on a handful of operators.",
+         "The top solver's share falling below a third as new solvers join."),
+        ("Medium", "Fewer developers are building", "Developers", "developers.html",
+         f"{k['dev_all']} monthly-active developers, down {abs(k['dev_all_chg_1y']):.0%} in a year and {abs(k['dev_all_chg_4y']):.0%} from the 2022 peak of {k['dev_peak_all']:,}. Full-time developers are up {k['dev_full_time_chg_1y']:.0%} to {k['dev_full_time']}.",
+         f"New apps bring new swap traffic. NEAR ranks {k['dev_rank_all']} of {k['dev_peers_n']} peer chains on active developers, so the pipeline of future fee payers is thin.",
+         "Two quarters of growth in monthly-active developers, not just full-time ones."),
+        ("Medium", "Private volume cannot be checked", "Volume quality", "volume-quality.html",
+         f"NEAR reports part of its volume as 'confidential'. Its share read {k['vq_conf_share_first']:.0%} on {k['vq_conf_asof_first']} and 0% on {k['vq_conf_asof_last']}, on the same total.",
+         f"Nobody outside can see that private flow. Our custody check matched {k.get('cust_public_share',0):.0%} of one week of USDT payouts on Tron to public withdrawals, but other routes are not reconciled.",
+         "NEAR publishing a verifiable total for confidential volume, or more routes passing our custody check."),
+        ("Low", "The issuance cut could slip", "Predictions", "predictions.html",
+         "Holders passed HSP-029 on 2 November. It sits in a timelock until 16 November and then phases in over about two years.",
+         f"Until it is live, breakeven stays at {money(be,0)} a day. A delay or reversal keeps the bar at today's level.",
+         "The protocol's inflation setting changing on chain (our prediction P1 checks this)."),
+    ]
+    sev = {"High": "FAIL", "Medium": "PARTIAL", "Low": "UNVERIFIABLE"}
+    rcards = "".join(
+        f'<div class="risk"><div class="card-h" style="margin-bottom:6px"><div><span class="{sev[sv]}">{sv} risk</span> <b class="rt">{t}</b></div>'
+        f'<a class="more" href="{lk}">{pg} page →</a></div><div class="rg">'
+        f'<div><h3>What we see</h3>{a}</div><div><h3>Why it matters</h3>{b_}</div><div><h3>What would ease it</h3>{c}</div></div></div>'
+        for sv, t, pg, lk, a, b_, c in risks)
+    c7 = chapter(7, "What could break it", f"{len(risks)} risks, ranked. Two are serious today; all are checked against the data on every rebuild.",
+                 rcards, "We keep the bad news in. A thesis that hides its weak points can't be trusted on its strong ones.", "security.html", "All risks")
     # 8 predictions
     pr = pd.read_csv(T / "predictions.csv") if (T / "predictions.csv").exists() else pd.DataFrame()
     prow = ""
@@ -234,7 +266,7 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
                  ("The trend", "Coverage is rising month by month, still far from 100%."),
                  ("What it would take", "Set volume, fees and issuance and see when NEAR pays for itself."),
                  ("Is the traffic real?", "Real money, not one whale, but user counts are inflated."),
-                 ("What could break it", "Four risks, each tracked against the data."),
+                 ("What could break it", "Seven risks, ranked, with what would ease each one."),
                  ("Our predictions", "Three dated calls, locked until 31 March 2027."),
                  ("Check any claim", f"{len(led)} public claims about NEAR tested; {sc.get('FAIL',0)} are false.")]
     toc = ('<div class="card"><div class="card-h"><h2>The story in nine steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
