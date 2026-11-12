@@ -53,7 +53,7 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
             ("NEAR's cut", money(k["intents_revenue_30d"]), pill(chg(last.revenue_30d, prev.revenue_30d))),
             ("Buybacks cover new supply", f"{k['coverage_near_30d']:.1%}", (f'<span class="pill {"up" if cov1>=cov0 else "down"}">{"▲" if cov1>=cov0 else "▼"} {abs(cov1-cov0)*100:.1f} pts</span><span class="vs">vs prior 30 days</span>')),
             ("Volume needed to break even", money(be, 0) + "/day", f'<span class="pill flat">{be/vol_day:.1f}x today</span><span class="vs">today {money(vol_day,0)}/day</span>')]
-    kpi_html = '<div class="kpis">' + "".join(f'<div class="kpi"><div class="l">{a}</div><div class="v">{b_}</div>{c}</div>' for a, b_, c in kpis) + "</div>"
+    kpi_html = '<div class="kpis">' + "".join(f'<div class="kpi" id="kc{i}"><div class="l">{a}</div><div class="v" id="kv{i}">{b_}</div>{c}<div class="snapline" id="ks{i}"></div></div>' for i, (a, b_, c) in enumerate(kpis)) + "</div>"
 
     answer = (f'<div class="card answer"><span class="tag">The answer</span>'
               f'<div class="big">The mechanism is real, but small. For every 10 new NEAR printed to pay validators, the fee switch buys back about <b>{k["coverage_near_30d"]*10:.0f}</b>.</div>'
@@ -290,6 +290,7 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
             f'<div class="lc"><div class="l">Intents volume, last full day</div><div class="v" id="l_vol">${k["intents_volume_30d"]/30/1e6:,.0f}M</div><div class="s" id="l_vols">snapshot 30-day average</div></div>'
             f'<div class="lc"><div class="l">Buyback wallet holds</div><div class="v" id="l_bb">{k["buyback_wallet_balance_near"]/1e6:.3f}M NEAR</div><div class="s">snapshot, 0 staked or burned</div></div>'
             f'<div class="lc"><div class="l">Newest NEAR block</div><div class="v" id="l_blk">{k["block_height"]:,}</div><div class="s" id="l_blks">snapshot value</div></div></div>')
+    livenote = ('<div class="note" id="livenote" style="display:none;margin:-6px 0 18px">These five tiles are recomputed live in your browser every two minutes: volume, fees and NEAR\u2019s cut from DefiLlama; buybacks and new supply from the NEAR chain itself (the buyback wallet balance and total supply now versus 30 days ago); price from DefiLlama. They can differ slightly from the frozen snapshot the thesis is built on, which is shown under each tile.</div>')
     cov_pct = k["coverage_near_30d"] * 100
     case = ('<div class="card" style="margin:0 0 18px"><span class="tag">Why this matters</span>'
             '<p style="margin:10px 0 0">Every blockchain has to pay the computers that run it. Most pay by printing new coins. On Ethereum, 93% of what stakers earn is newly minted ETH, and on Solana it is over 90% '
@@ -301,11 +302,11 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     cov = k["coverage_near_30d"]; nfill = max(1, round(cov * 10))
     coins = "".join(f'<div class="coin{" f" if i < nfill else ""}"></div>' for i in range(10))
     answer = (f'<div class="card answer"><div class="g-wide" style="align-items:center"><div><span class="tag">The answer</span>'
-              f'<div class="big">The mechanism is real, but small. For every 10 new NEAR printed to pay validators, the fee switch buys back about <b>{nfill}</b>.</div>'
-              f'<div class="note">To pay for itself at today\'s 2.5% issuance, NEAR Intents would need about {money(be,0)} of swaps a day, {be/vol_day:.1f}x what it does now. '
+              f'<div class="big">The mechanism is real, but small. For every 10 new NEAR printed to pay validators, the fee switch buys back about <b id="a_n">{nfill}</b>.</div>'
+              f'<div class="note" id="a_note">To pay for itself at today\'s 2.5% issuance, NEAR Intents would need about {money(be,0)} of swaps a day, {be/vol_day:.1f}x what it does now. '
               f'The issuance cut passed on 2 November (HSP-029) lowers that bar to {money(ms["breakeven_measured_hsp029"],0)} a day once fully phased in (about 2029).</div></div>'
-              f'<div><h3 style="color:#c9d6e8">Every 10 new NEAR, last 30 days</h3><div class="coins">{coins}</div>'
-              f'<div class="sub"><span style="color:#9fd6cd">&#9679;</span> bought back &nbsp; <span>&#9675;</span> stays as new supply</div><div class="sub">{k["issued_near_30d"]/1e6:.2f}M printed, {k["buyback_near_30d"]/1e3:,.0f}k bought back ({cov:.1%}).</div></div></div></div>')
+              f'<div><h3 style="color:#c9d6e8">Every 10 new NEAR, last 30 days</h3><div class="coins" id="coins">{coins}</div>'
+              f'<div class="sub"><span style="color:#9fd6cd">&#9679;</span> bought back &nbsp; <span>&#9675;</span> stays as new supply</div><div class="sub" id="a_sub">{k["issued_near_30d"]/1e6:.2f}M printed, {k["buyback_near_30d"]/1e3:,.0f}k bought back ({cov:.1%}).</div></div></div></div>')
     fee_r = k["fee_rate_bps_30d"] / 1e4; capr = k["capture_30d"]; bbs = sim_data["bbshare"]
     flow = [("Swapped", "$1,000,000", "by a user moving money between chains"),
             ("Fee paid", f"${1e6*fee_r:,.0f}", f"about {fee_r*100:.2f}% of the swap"),
@@ -332,7 +333,7 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     toc = ('<div class="card"><div class="card-h"><h2>The story in ten steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
            + "".join(f'<a href="#st{i+1}"><span class="tn">{i+1}</span><span><span class="tt">{a}</span><br><span class="td">{b_}</span></span></a>' for i, (a, b_) in enumerate(toc_items))
            + '</div></div>')
-    steps = [("Overview", hero + live + case + kpi_html + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
+    steps = [("Overview", hero + live + case + kpi_html + livenote + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
              ("4 Printing vs buying", c3), ("5 Coverage", c4), ("6 What it would take", c5), ("7 Is it real?", c6), ("8 Risks", c7),
              ("9 Predictions", c8), ("10 Test claims", c9 + rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
@@ -343,7 +344,7 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
 function $(i){return document.getElementById(i)}
 function money(x){return x>=1e9?'$'+(x/1e9).toFixed(2)+'B':'$'+(x/1e6).toFixed(0)+'M'}
 function tj(u,o){return fetch(u,o).then(function(r){if(!r.ok)throw 0;return r.json()})}
-var ok=0;function load(){ok=0;function done(){ok++;L.classList.remove('off');$('lstat').textContent='Live now, '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})+', refreshes every minute'}
+var ok=0;function load(){ok=0;function done(){ok++;L.classList.remove('off');$('lstat').textContent='Live '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
 tj('https://coins.llama.fi/prices/current/coingecko:near').then(function(d){$('l_px').textContent='$'+d.coins['coingecko:near'].price.toFixed(2);$('l_px').nextElementSibling.textContent='live, from DefiLlama';done()}).catch(function(){});
 tj('https://api.llama.fi/summary/dexs/near-intents?dataType=dailyVolume').then(function(d){var c=d.change_1d;$('l_vol').textContent=money(d.total24h);
 $('l_vols').innerHTML='<span class="'+(c>=0?'up':'dn')+'">'+(c>=0?'+':'')+c.toFixed(0)+'% vs day before</span>, 7-day avg '+money(d.total7d/7);done()}).catch(function(){});
@@ -352,6 +353,34 @@ tj('https://rpc.mainnet.fastnear.com',Object.assign({body:JSON.stringify({jsonrp
 var n=Number(BigInt(d.result.amount)/BigInt('1000000000000000000'))/1e6;$('l_bb').textContent=(n/1e6).toFixed(3)+'M NEAR';var dl=Math.round(n-SNAPBB);$('l_bb').nextElementSibling.textContent='live from the chain, '+(dl>=0?'+':'')+dl.toLocaleString()+' NEAR since the snapshot';$('l_blk').textContent=d.result.block_height.toLocaleString();$('l_blks').textContent='read from the chain just now';done()}).catch(function(){});
 }
 load();setInterval(load,60000);
+})();
+</script><script>(function(){
+var SN=__SNAP__;
+function $(i){return document.getElementById(i)}
+function money(x,d){d=d==null?1:d;return x>=1e9?'$'+(x/1e9).toFixed(2)+'B':x>=1e6?'$'+(x/1e6).toFixed(d)+'M':'$'+Math.round(x).toLocaleString()}
+function rpc(m,p){return fetch('https://archival-rpc.mainnet.fastnear.com',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:m,params:p})}).then(function(r){return r.json()}).then(function(d){if(d.error)throw 0;return d.result})}
+function jf(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()})}
+function near(y){return Number(BigInt(y)/BigInt('1000000000000000000'))/1e6}
+function run(){
+Promise.all([jf('https://api.llama.fi/summary/dexs/near-intents?dataType=dailyVolume'),jf('https://api.llama.fi/summary/fees/near-intents?dataType=dailyFees'),jf('https://api.llama.fi/summary/fees/near-intents?dataType=dailyRevenue'),jf('https://coins.llama.fi/prices/current/coingecko:near'),
+rpc('status',[]).then(function(st){var H=st.sync_info.latest_block_height,T=Date.parse(st.sync_info.latest_block_time)/1000;
+return rpc('block',{block_id:H-1000000}).then(function(b0){var rate=1e6/(T-b0.header.timestamp/1e9),tg=Math.round(H-rate*30*86400);
+return Promise.all([rpc('block',{finality:'final'}),rpc('block',{block_id:tg}),rpc('query',{request_type:'view_account',finality:'final',account_id:'buybacks.multisignature.near'}),rpc('query',{request_type:'view_account',block_id:tg,account_id:'buybacks.multisignature.near'})])})})
+]).then(function(r){
+var vol=r[0].total30d,fees=r[1].total30d,rev=r[2].total30d,px=r[3].coins['coingecko:near'].price,x=r[4];
+var iss=near(x[0].header.total_supply)-near(x[1].header.total_supply),bb=near(x[2].amount)-near(x[3].amount);
+if(!(vol>0&&fees>0&&iss>0))return;
+var cov=bb/iss,volday=vol/30,be=(iss/30*px)/((fees/vol)*(rev/fees));
+var v=[money(vol),money(fees),money(rev),(cov*100).toFixed(1)+'%',money(be,0)+'/day'];
+var s=['snapshot (10 Nov): '+money(SN.vol),'snapshot: '+money(SN.fees),'snapshot: '+money(SN.cut),'snapshot: '+(SN.cov*100).toFixed(1)+'%',(be/volday).toFixed(1)+'x today’s volume; snapshot '+money(SN.be,0)];
+for(var i=0;i<5;i++){$('kv'+i).textContent=v[i];$('ks'+i).textContent=s[i];var c=$('kc'+i);c.classList.add('isl');c.querySelectorAll('.pill,.vs').forEach(function(e){e.style.display='none'})}
+var n=Math.max(0,Math.min(10,Math.round(cov*10)));$('a_n').textContent=n;
+var cs=$('coins').children;for(var j=0;j<cs.length;j++){cs[j].classList.toggle('f',j<n);cs[j].style.animation='none'}
+$('a_sub').textContent=(iss/1e6).toFixed(2)+'M printed, '+(bb/1e3).toFixed(0)+'k bought back ('+(cov*100).toFixed(1)+'%), live.';
+$('a_note').textContent='To pay for itself at today’s 2.5% issuance, NEAR Intents would need about '+money(be,0)+' of swaps a day, '+(be/volday).toFixed(1)+'x what it does now. The issuance cut passed on 2 November (HSP-029) lowers that bar to '+money(be*SN.rat,0)+' a day once fully phased in (about 2029).';
+var ln=$('livenote');if(ln)ln.style.display='block';
+}).catch(function(){});}
+run();setInterval(run,120000);
 })();
 </script><script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button[data-st]'),n=S.length,cur=0;
 var all=false,nav=document.querySelector('.stepnav');document.getElementById('stall').onclick=function(){all=!all;this.classList.toggle('on',all);this.textContent=all?'Read step by step':'Read as one page';
@@ -364,5 +393,5 @@ S[cur].querySelectorAll('.js-plotly-plot').forEach(function(g){try{Plotly.Plots.
 B.forEach(function(b,j){b.onclick=function(){go(j)}});document.getElementById('stprev').onclick=function(){go(cur-1)};document.getElementById('stnext').onclick=function(){go(cur+1)};
 document.querySelectorAll('.st a[href^="#st"]').forEach(function(a){a.onclick=function(e){e.preventDefault();go(+a.getAttribute('href').slice(3))}});
 addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
-window.addEventListener('load',function(){go(cur)});go(0)})();</script>""".replace("__SNAPBB__", str(round(k["buyback_wallet_balance_near"]))))
+window.addEventListener('load',function(){go(cur)});go(0)})();</script>""".replace("__SNAPBB__", str(round(k["buyback_wallet_balance_near"]))).replace("__SNAP__", json.dumps({"vol": k["intents_volume_30d"], "fees": k["intents_fees_30d"], "cut": k["intents_revenue_30d"], "cov": k["coverage_near_30d"], "be": be, "rat": ms["breakeven_measured_hsp029"] / be})))
     return head + top + body + foot
