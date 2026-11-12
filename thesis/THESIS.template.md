@@ -69,7 +69,7 @@ The market prices NEAR as an "AI chain" narrative or as a generic alt-L1. The mo
 - **Oct 1, 2026 exploit**: $3.8M taken from the Omni deposit layer, returned in full, services paused for hours. Cross-chain settlement has an attack surface the L1 does not.
 - **MPC and private shard trust.** Chain Signatures runs on 15 participants with threshold 10 (read from `v1.signer`); the confidential shard is permissioned.
 - **Dashboard discrepancies.** revenue.near.org calls its figures "illustrative" and counts only sweeps from `intents.near`; the chain balance is higher (ledger C09).
-- **BigQuery not run.** The track prompt points at the NEAR public BigQuery dataset. The three queries are in `sql/` and run with a GCP project; this snapshot used NearBlocks for the same daily series because docs.near.org notes the dataset's NEAR Lake source was deprecated on 2026-03-24, so recent dates need checking before they are trusted.
+- **BigQuery cross-check done, by hand.** The NEAR public BigQuery dataset is still fresh to 2026-11-10 (the March 2026 NEAR Lake deprecation did not stop it). Daily transactions and active accounts matched NearBlocks digit for digit on all 13 days compared. It also shows that only about 400 to 1,000 accounts a day send calls to `intents.near` while calls rose from about 55k to 100-300k a day, and that calls per $1M of volume swung from 600 to 2,400, so call counts are not used as a growth measure. Results are in `data/bigquery/`. The full 120-day series was not exported; only the compared days are stored.
 - **Unverifiable from public data**: confidential TVL, NEAR AI inference staking, ETF holdings (ledger C12 to C14).
 
 ## 8. Claims ledger ({{n_pass}} PASS, {{n_partial}} PARTIAL, {{n_unver}} UNVERIFIABLE, {{n_fail}} FAIL)

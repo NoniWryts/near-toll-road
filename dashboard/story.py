@@ -60,10 +60,24 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
               f'<div class="note">To pay for itself at today\'s 2.5% issuance, NEAR Intents would need about {money(be,0)} of swaps a day, {be/vol_day:.1f}x what it does now. '
               f'The issuance cut passed on Nov 2 (HSP-029) lowers that bar to {money(ms["breakeven_measured_hsp029"],0)} a day once fully phased in (~2029). Click Next to see how we got here; steps 6 and 10 let you test it yourself.</div></div>')
 
+    SRC = {1: ("<code>reports/tables/prebuyback_monthly.csv</code> and <code>prebuyback_price_index.csv</code>", "<code>analysis/prebuyback.py</code>", "NearBlocks daily network series (accounts, transactions, supply, gas fees), CoinGecko prices, DefiLlama Intents fees"),
+           2: ("<code>reports/tables/intents_daily.csv</code>", "<code>analysis/build.py</code>", "DefiLlama <code>dexs/near-intents</code> (volume), CoinGecko, DefiLlama aggregator lists for the rank"),
+           3: ("<code>reports/tables/monthly.csv</code> and <code>intents_daily.csv</code>", "<code>analysis/build.py</code>", "DefiLlama <code>fees/near-intents</code>: fees paid and the share NEAR captures"),
+           4: ("<code>reports/tables/kpis.json</code>, <code>buybacks_daily.csv</code>, <code>network_daily.csv</code>", "<code>analysis/build.py</code>", "every receipt to the buyback wallet (NearBlocks, FastNear), daily total supply (NearBlocks)"),
+           5: ("<code>reports/tables/monthly.csv</code> (column <code>coverage_near</code>)", "<code>analysis/build.py</code>", "NEAR bought back divided by NEAR issued, month by month"),
+           6: ("<code>reports/tables/breakeven.csv</code>, <code>model_summary.json</code> and the assumptions in <code>params.yaml</code>", "<code>models/breakeven.py</code>", "measured fee rate, capture rate, price and supply from the snapshot; issuance scenarios from the protocol config and HSP-029"),
+           7: ("<code>reports/tables/vq_*.csv</code>, <code>custody_daily.csv</code>", "<code>analysis/volume_quality.py</code>, <code>analysis/custody.py</code>", "a seeded sample of <code>intents.near</code> transactions, bridge payouts on Tron (TronGrid) matched to NEAR withdrawals"),
+           8: ("<code>reports/tables/kpis.json</code>, <code>devs_peers.csv</code>, <code>vq_*.csv</code>", "<code>analysis/build.py</code>, <code>checks/run_ledger.py</code>", "Electric Capital developer data, DefiLlama, NEAR RPC, the buyback wallet"),
+           9: ("<code>thesis/PREDICTIONS.md</code> (frozen by <code>PREDICTIONS.sha256</code>) and <code>reports/tables/predictions.csv</code>", "<code>checks/predictions.py</code>", "the same snapshot as every other number here"),
+           10: ("<code>thesis/claims_ledger.csv</code>", "<code>checks/run_ledger.py</code>", "each claim is re-tested against the tables above; the tester reads <code>kpis.json</code> in the browser")}
+
     def chapter(no, title, take, body, why, link, label="See the evidence"):
+        t, c, f = SRC.get(no, ("", "", ""))
+        src = (f'<div class="srcline"><b>Where this comes from.</b> Table: {t}. Code: {c}. Data: {f}. '
+               f'Rebuild everything with <code>make report</code>.</div>') if t else ""
         return (f'<div class="card"><div class="step"><div class="num">{no}</div><div style="flex:1;min-width:0">'
                 f'<div class="card-h"><h3 style="margin:0">{html.escape(title)}</h3><a class="more" href="{link}">{label} →</a></div>'
-                f'<div class="takeaway">{take}</div><div class="note">{why}</div>{body}</div></div></div>')
+                f'<div class="takeaway">{take}</div><div class="note">{why}</div>{body}{src}</div></div></div>')
 
     # 0 before the switch
     pm = pd.read_csv(T / "prebuyback_monthly.csv", parse_dates=["month"])

@@ -17,3 +17,5 @@ The pipeline records the max `block_date` returned in the manifest so a stale da
 | `daily_activity.sql` | transactions, unique signers and receivers per day | cross-check of NearBlocks `txns` and `active_accounts` (network page) |
 | `intents_callers.sql` | distinct signers and predecessor accounts calling `intents.near` per day, plus calls | the closest public proxy for "how many accounts use Intents" without the Explorer token |
 | `top_receivers.sql` | the 25 contracts receiving the most function calls in the window | what the base chain is actually used for, to explain the April 2026 step-down |
+
+**Run on 2026-11-12:** all three queries ran in the console; the dataset is fresh to 2026-11-10. Results and what they show are in `data/bigquery/`.

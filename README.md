@@ -78,7 +78,7 @@ thesis/risk_register.md     risks with the metric that monitors each
 
 ## Optional sources
 
-- **NEAR BigQuery public dataset**: queries in `sql/`, run by `pipeline/fetch_bigquery.py` when `GOOGLE_CLOUD_PROJECT` is set. Not needed for the rebuild.
+- **NEAR BigQuery public dataset**: queries in `sql/`. Run by hand on 2026-11-12: daily transactions and active accounts match NearBlocks exactly on all 13 days compared; Intents has only about 400 to 1,000 distinct calling accounts a day; results in `data/bigquery/`. Not needed for the rebuild.
 - **Dune**: `DUNE_API_KEY` enables `pipeline/fetch_dune.py`.
 - **Intents Explorer API**: partner JWT in `.env` would unlock sender-level data; see `thesis/methodology.md` known gaps.
 
