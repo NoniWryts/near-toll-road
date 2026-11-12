@@ -339,17 +339,19 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     pages = "".join(f'<div class="st" data-st="{i}">{b}</div>' for i, (_, b) in enumerate(steps))
     body = (f'<div class="storywrap"><aside class="stepper" id="stp"><button id="stall" class="allbtn">Read as one page</button><div class="sidelab">Steps</div>{tabs}</aside><div class="storymain">{pages}'
             '<div class="stepnav"><button id="stprev">&larr; Back</button><span class="sub" id="stpos"></span><button id="stnext" class="on">Next &rarr;</button></div></div></div>'
-            """<script>(function(){var L=document.getElementById('live');if(!L)return;
+            """<script>(function(){var L=document.getElementById('live');if(!L)return;var SNAPBB=__SNAPBB__;
 function $(i){return document.getElementById(i)}
 function money(x){return x>=1e9?'$'+(x/1e9).toFixed(2)+'B':'$'+(x/1e6).toFixed(0)+'M'}
 function tj(u,o){return fetch(u,o).then(function(r){if(!r.ok)throw 0;return r.json()})}
-var ok=0;function done(){ok++;L.classList.remove('off');$('lstat').textContent='Live now, '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
+var ok=0;function load(){ok=0;function done(){ok++;L.classList.remove('off');$('lstat').textContent='Live now, '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'})+', refreshes every minute'}
 tj('https://coins.llama.fi/prices/current/coingecko:near').then(function(d){$('l_px').textContent='$'+d.coins['coingecko:near'].price.toFixed(2);$('l_px').nextElementSibling.textContent='live, from DefiLlama';done()}).catch(function(){});
 tj('https://api.llama.fi/summary/dexs/near-intents?dataType=dailyVolume').then(function(d){var c=d.change_1d;$('l_vol').textContent=money(d.total24h);
 $('l_vols').innerHTML='<span class="'+(c>=0?'up':'dn')+'">'+(c>=0?'+':'')+c.toFixed(0)+'% vs day before</span>, 7-day avg '+money(d.total7d/7);done()}).catch(function(){});
 var rpc={method:'POST',headers:{'content-type':'application/json'}};
 tj('https://rpc.mainnet.fastnear.com',Object.assign({body:JSON.stringify({jsonrpc:'2.0',id:1,method:'query',params:{request_type:'view_account',finality:'final',account_id:'buybacks.multisignature.near'}})},rpc)).then(function(d){
-var n=Number(BigInt(d.result.amount)/BigInt('1000000000000000000'))/1e6;$('l_bb').textContent=(n/1e6).toFixed(3)+'M NEAR';$('l_bb').nextElementSibling.textContent='live, read from the chain';$('l_blk').textContent=d.result.block_height.toLocaleString();$('l_blks').textContent='read from the chain just now';done()}).catch(function(){});
+var n=Number(BigInt(d.result.amount)/BigInt('1000000000000000000'))/1e6;$('l_bb').textContent=(n/1e6).toFixed(3)+'M NEAR';var dl=Math.round(n-SNAPBB);$('l_bb').nextElementSibling.textContent='live from the chain, '+(dl>=0?'+':'')+dl.toLocaleString()+' NEAR since the snapshot';$('l_blk').textContent=d.result.block_height.toLocaleString();$('l_blks').textContent='read from the chain just now';done()}).catch(function(){});
+}
+load();setInterval(load,60000);
 })();
 </script><script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button[data-st]'),n=S.length,cur=0;
 var all=false,nav=document.querySelector('.stepnav');document.getElementById('stall').onclick=function(){all=!all;this.classList.toggle('on',all);this.textContent=all?'Read step by step':'Read as one page';
@@ -362,5 +364,5 @@ S[cur].querySelectorAll('.js-plotly-plot').forEach(function(g){try{Plotly.Plots.
 B.forEach(function(b,j){b.onclick=function(){go(j)}});document.getElementById('stprev').onclick=function(){go(cur-1)};document.getElementById('stnext').onclick=function(){go(cur+1)};
 document.querySelectorAll('.st a[href^="#st"]').forEach(function(a){a.onclick=function(e){e.preventDefault();go(+a.getAttribute('href').slice(3))}});
 addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
-window.addEventListener('load',function(){go(cur)});go(0)})();</script>""")
+window.addEventListener('load',function(){go(cur)});go(0)})();</script>""".replace("__SNAPBB__", str(round(k["buyback_wallet_balance_near"]))))
     return head + top + body + foot

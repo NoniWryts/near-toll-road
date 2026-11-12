@@ -242,18 +242,18 @@
    "sample_span_days": 0.1438009194675926
   },
   "custody_near_receipts.parquet": {
-   "source": "https://api.nearblocks.io/v1/account/tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near/receipts",
-   "fetched_at": "2026-11-09T05:12:57Z",
-   "rows": 55250,
-   "sha256": "83e8ee2d5c20780165efb10ab74c29c637db3589a58f632bfee8b5b908c486d8",
-   "note": "every receipt on tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near, 2026-10-24 to 2026-10-30 (+2h margins) | CARRIED FORWARD unchanged from snapshot 2026-11-01: NearBlocks rate-limited this source on 2026-11-12, so this file covers its original window, not the new snapshot date"
+   "source": "https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=crypto_near_mainnet_us&t=receipt_actions",
+   "fetched_at": "2026-11-12T20:58:06Z",
+   "rows": 22512,
+   "sha256": "527d81954ab2790ac5dbfdd81d52ea034a7e9237c003f68f4a83b496dc14d233",
+   "note": "source: NEAR BigQuery public dataset (sql/custody_withdrawals.sql, run by hand in the console 2026-11-12). every public WITHDRAW_TO ft_transfer on tron-d28a...omft.near, 2026-11-02 to 2026-11-11 UTC; withdrawals only, success status not available so all treated as successful (tx_hash = receipt_id)"
   },
   "custody_tron_outflows.parquet": {
    "source": "https://api.trongrid.io/v1/accounts/TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke/transactions/trc20",
-   "fetched_at": "2026-11-09T05:14:33Z",
-   "rows": 13898,
-   "sha256": "dbe8be7f381f58caf341f588384044076c1f7eb2ab71f4bd55db6aa83eb48694",
-   "note": "every USDT transfer out of ['TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke'], same window (+2h/+4h margins) | CARRIED FORWARD unchanged from snapshot 2026-11-01: NearBlocks rate-limited this source on 2026-11-12, so this file covers its original window, not the new snapshot date"
+   "fetched_at": "2026-11-12T20:58:06Z",
+   "rows": 20979,
+   "sha256": "aba4c24896d7f66e9ceecaa11a1e6a95b69cd67ad1e69f9e139500119fc82d57",
+   "note": "every USDT transfer out of TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke, 2026-11-03 to 2026-11-11 (+2h/+4h margins), fetched 2026-11-12"
   },
   "nearstats_summary_recheck.json": {
    "source": "https://nearstats.org/api/near/summary",
