@@ -9,7 +9,7 @@ import plotly.io as pio
 from dashboard.theme import ACCENT, ACCENT_SOFT, VIOLET, VIOLET_SOFT, GREEN, INK, MUTED
 
 AX = dict(gridcolor="#eef0f3", zeroline=False, linecolor="#e7e9ee", tickfont=dict(color=MUTED, size=11))
-BASE = dict(template="plotly_white", font=dict(family="Inter, system-ui, sans-serif", size=12, color=INK), paper_bgcolor="rgba(0,0,0,0)",
+BASE = dict(template="plotly_white", font=dict(family="Times New Roman, Times, serif", size=12, color=INK), paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)", margin=dict(l=44, r=10, t=10, b=30), hovermode="x unified", showlegend=True,
             legend=dict(orientation="h", y=1.08, x=0, yanchor="bottom", font=dict(size=12, color=MUTED)), xaxis=dict(AX, showgrid=False), yaxis=AX)
 
@@ -164,7 +164,7 @@ $('r_v').innerHTML=cov>=1?'<b>Pays for itself.</b> Buybacks take back all the ne
 ['vol','fee','cap','iss'].forEach(k=>$(k).addEventListener('input',()=>{{run();document.querySelectorAll('#presets button').forEach(b=>b.classList.remove('on'));}}));
 document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>set(b.dataset.p)));set('today');}})();
 </script>"""
-    c5 = chapter(5, "What would close the gap? Try it", "Move the sliders. The model is the same one the thesis uses.", sim,
+    c5 = chapter(5, "Scenarios", "What would it take for NEAR to pay for itself? Set the volume, fee and issuance and see.", sim,
                  "Coverage here uses all of NEAR's cut. In the last 30 days only " + f"{sim_data['bbshare']:.0%} of it reached the buyback wallet, which is why measured coverage ({k['coverage_near_30d']:.1%}) is lower.",
                  "breakeven.html", "Full breakeven tables")
 
@@ -205,10 +205,43 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
              '<div><b>3. Re-test</b><div class="sub">21 tests check the numbers and score the predictions. Change any assumption in <code>params.yaml</code> and run again.</div><code>make check</code></div></div></div>')
 
     hero = (f'<div class="head"><div><span class="tag">NEAR investment thesis</span><h1>Does NEAR\'s fee switch pay for the chain?</h1>'
-            f'<p class="lede">NEAR Intents is a toll road for cross-chain swaps, and the NEAR token owns it. We follow the money from each swap to the token, using only public on-chain data.</p></div>'
-            f'<span class="chip">Last 30 days to {k["as_of_date"]}</span></div>')
-    steps = [("Overview", hero + kpi_html + answer), ("1 Traffic", c1), ("2 The toll", c2), ("3 Printing vs buying", c3),
-             ("4 Coverage", c4), ("5 Try it", c5), ("6 Is it real?", c6), ("7 Risks", c7), ("8 Predictions", c8),
+            f'<p class="lede">NEAR Intents is a toll road for cross-chain swaps, and the NEAR token owns it. We follow the money from each swap to the token, using only public on-chain data.</p>'
+            f'<div class="byline">An on-chain investment thesis · last 30 days to {k["as_of_date"]} · NEAR block {k["block_height"]:,} · every number rebuilt from public data</div></div></div>')
+    cov = k["coverage_near_30d"]; nfill = max(1, round(cov * 10))
+    coins = "".join(f'<div class="coin{" f" if i < nfill else ""}"></div>' for i in range(10))
+    answer = (f'<div class="card answer"><div class="g-wide" style="align-items:center"><div><span class="tag">The answer</span>'
+              f'<div class="big">The mechanism is real, but small. For every 10 new NEAR printed to pay validators, the fee switch buys back about <b>{nfill}</b>.</div>'
+              f'<div class="note">To pay for itself at today\'s 2.5% issuance, NEAR Intents would need about {money(be,0)} of swaps a day, {be/vol_day:.1f}x what it does now. '
+              f'The issuance cut passed on 2 November (HSP-029) lowers that bar to {money(ms["breakeven_measured_hsp029"],0)} a day once fully phased in (about 2029).</div></div>'
+              f'<div><h3 style="color:#c9d6e8">Every 10 new NEAR, last 30 days</h3><div class="coins">{coins}</div>'
+              f'<div class="sub"><span style="color:#9fd6cd">&#9679;</span> bought back &nbsp; <span>&#9675;</span> stays as new supply</div><div class="sub">{k["issued_near_30d"]/1e6:.2f}M printed, {k["buyback_near_30d"]/1e3:,.0f}k bought back ({cov:.1%}).</div></div></div></div>')
+    fee_r = k["fee_rate_bps_30d"] / 1e4; capr = k["capture_30d"]; bbs = sim_data["bbshare"]
+    flow = [("Swapped", "$1,000,000", "by a user moving money between chains"),
+            ("Fee paid", f"${1e6*fee_r:,.0f}", f"about {fee_r*100:.2f}% of the swap"),
+            ("NEAR's cut", f"${1e6*fee_r*capr:,.0f}", f"{capr:.0%} of the fee; the rest goes to the apps that brought the swap"),
+            ("Spent buying NEAR", f"${1e6*fee_r*capr*bbs:,.0f}", f"{bbs:.0%} of NEAR's cut reached the buyback wallet")]
+    flow_html = ('<div class="card"><div class="card-h"><h2>Follow one million dollars</h2><span class="sub">Last 30 days, measured on chain</span></div>'
+                 '<div class="flow">' + "".join(f'<div>{"<span class=fx>&rarr;</span>" if i else ""}<div class="fl">{a}</div><div class="fv">{b_}</div><div class="fs">{c}</div></div>' for i, (a, b_, c) in enumerate(flow))
+                 + '</div></div>')
+    three = ('<div class="card"><div class="card-h"><h2>Three things to know</h2></div><div class="three">'
+             f'<div><h3>It is real</h3><div class="k">{k.get("cust_public_share",0):.0%} of payouts traced</div><div class="sub">Every USDT payout from the bridge\'s Tron wallet in one week ({money(k.get("cust_payouts_usd",0))}) matches a public NEAR withdrawal. The money is not invented.</div></div>'
+             f'<div><h3>It is small</h3><div class="k">{cov:.1%} of new supply</div><div class="sub">Buybacks absorb about a tenth of the NEAR printed. The rest is new supply, so each holder\'s share of NEAR still shrinks.</div></div>'
+             f'<div><h3>The bar is coming down</h3><div class="k">{money(be,0)} &rarr; {money(ms["breakeven_measured_hsp029"],0)} a day</div><div class="sub">Holders voted to cut issuance (HSP-029). Once phased in, the volume needed to pay for the chain falls by a third.</div></div>'
+             '</div></div>')
+    toc_items = [("The traffic", f"{money(vol_day,0)} of swaps a day; rank {k['xp_bridge_rank']} of {k['xp_bridge_n']} cross-chain aggregators."),
+                 ("The toll", f"Each swap pays about {k['fee_rate_bps_30d']/100:.2f}%; NEAR keeps {capr:.0%}."),
+                 ("Printing vs buying back", f"{k['issued_near_30d']/1e6:.2f}M printed, {k['buyback_near_30d']/1e3:,.0f}k bought."),
+                 ("The trend", "Coverage is rising month by month, still far from 100%."),
+                 ("What it would take", "Set volume, fees and issuance and see when NEAR pays for itself."),
+                 ("Is the traffic real?", "Real money, not one whale, but user counts are inflated."),
+                 ("What could break it", "Four risks, each tracked against the data."),
+                 ("Our predictions", "Three dated calls, locked until 31 March 2027."),
+                 ("Check any claim", f"{len(led)} public claims about NEAR tested; {sc.get('FAIL',0)} are false.")]
+    toc = ('<div class="card"><div class="card-h"><h2>The story in nine steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
+           + "".join(f'<a href="#st{i+1}"><span class="tn">{i+1}</span><span><span class="tt">{a}</span><br><span class="td">{b_}</span></span></a>' for i, (a, b_) in enumerate(toc_items))
+           + '</div></div>')
+    steps = [("Overview", hero + kpi_html + answer + flow_html + three + toc), ("1 Traffic", c1), ("2 The toll", c2), ("3 Printing vs buying", c3),
+             ("4 Coverage", c4), ("5 What it would take", c5), ("6 Is it real?", c6), ("7 Risks", c7), ("8 Predictions", c8),
              ("9 Test claims", c9), ("Rerun it", rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
     pages = "".join(f'<div class="st" data-st="{i}">{b}</div>' for i, (_, b) in enumerate(steps))
