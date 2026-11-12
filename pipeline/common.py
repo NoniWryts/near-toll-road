@@ -29,7 +29,7 @@ def latest_snapshot() -> Path:
     return dirs[-1]
 
 
-def get_json(url: str, params: dict | None = None, headers: dict | None = None, retries: int = 4, timeout: int = 60):
+def get_json(url: str, params: dict | None = None, headers: dict | None = None, retries: int = 7, timeout: int = 60):
     h = dict(UA)
     if headers:
         h.update(headers)
@@ -39,7 +39,7 @@ def get_json(url: str, params: dict | None = None, headers: dict | None = None, 
             r = requests.get(url, params=params, headers=h, timeout=timeout)
             if r.status_code == 429:
                 last = "HTTP 429 rate limited"
-                time.sleep(2 ** i * 5)
+                time.sleep(min(60, 2 ** i * 5))
                 continue
             r.raise_for_status()
             return r.json()

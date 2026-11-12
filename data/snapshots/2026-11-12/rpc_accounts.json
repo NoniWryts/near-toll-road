@@ -1,0 +1,38 @@
+{
+ "buybacks.multisignature.near": {
+  "amount_near": 2254501.677763072,
+  "locked_near": 0.0,
+  "block_height": 224224263,
+  "code_hash": "2v9kZJHN4sogHuKtKHaqYAqQBazkqH2cjY1rrjQYvNQa"
+ },
+ "fefundsadmin.sputnik-dao.near": {
+  "amount_near": 2006664.9369842063,
+  "locked_near": 0.0,
+  "block_height": 224224263,
+  "code_hash": "4zSoHkLjJWZm34Psd4Eq2WUXHELt6LxtKmUXpsZWAECp"
+ },
+ "1csfundsadmin.sputnik-dao.near": {
+  "amount_near": 270.87589141242086,
+  "locked_near": 0.0,
+  "block_height": 224224265,
+  "code_hash": "4zSoHkLjJWZm34Psd4Eq2WUXHELt6LxtKmUXpsZWAECp"
+ },
+ "intents.near": {
+  "amount_near": 136712.67543124323,
+  "locked_near": 0.0,
+  "block_height": 224224266,
+  "code_hash": "BtA1BEFNS619KkvXFsgcpQ21Tb5yMm32aaUkn7xNothk"
+ },
+ "v1.signer": {
+  "amount_near": 3185.7714771835713,
+  "locked_near": 0.0,
+  "block_height": 224224267,
+  "code_hash": "CpGX8ywXJwvWPgZFDDCTCuPJBHF7BATT51gSfc3APERJ"
+ },
+ "treasury.near": {
+  "amount_near": 1632660.588264382,
+  "locked_near": 0.0,
+  "block_height": 224224268,
+  "code_hash": "55E7imniT2uuYrECn17qJAk9fLcwQW4ftNSwmCJL5Di"
+ }
+}

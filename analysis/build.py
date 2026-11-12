@@ -222,6 +222,8 @@ def build(snap: Path) -> dict:
     monthly.to_csv(TABLES / "monthly.csv", index=False)
     comps.to_csv(TABLES / "comps.csv", index=False)
     load_df(snap, "rpc_validators").to_csv(TABLES / "validators.csv", index=False)
+    from analysis import prebuyback
+    kpis.update(prebuyback.build(snap))
     (TABLES / "kpis.json").write_text(json.dumps(kpis, indent=1))
     return kpis
 

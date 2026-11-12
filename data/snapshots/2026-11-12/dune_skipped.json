@@ -1,0 +1,9 @@
+{
+ "reason": "DUNE_API_KEY not set",
+ "queries": {
+  "intents_cumulative_volume": 5179085,
+  "intents_tvl": 7586891,
+  "intents_fees": 6162606,
+  "intents_daily_by_asset": 5175131
+ }
+}

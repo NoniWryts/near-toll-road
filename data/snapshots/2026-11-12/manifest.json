@@ -1,0 +1,266 @@
+{
+ "snapshot": "2026-11-12",
+ "files": {
+  "nearblocks_charts.parquet": {
+   "source": "https://api.nearblocks.io/v1/charts",
+   "fetched_at": "2026-11-12T14:05:11Z",
+   "rows": 2305,
+   "sha256": "216bd9c2328731e47026c463cd3d56c7d2728d4c6f6f6a90f467eb823a60b13c",
+   "note": "daily series; supply, txn_volume, txn_fee converted from yocto to NEAR"
+  },
+  "nearblocks_stats.json": {
+   "source": "https://api.nearblocks.io/v1/stats",
+   "fetched_at": "2026-11-12T14:05:12Z",
+   "rows": 17,
+   "sha256": "87eb4920c92c6d05c64c21167f097f6eabbfed39fec699ea593598bc7a5a54a4",
+   "note": "live stats incl. total_supply (yocto), near_price, nodes_online"
+  },
+  "rpc_validators.parquet": {
+   "source": "https://rpc.mainnet.fastnear.com validators",
+   "fetched_at": "2026-11-12T14:05:13Z",
+   "rows": 353,
+   "sha256": "97a4d5ff38c9c4c94daf676a1be2a3e9f7114d4e76810fa0275175c97affd9cd",
+   "note": "epoch_start_height=224221937",
+   "epoch_start_height": 224221937
+  },
+  "rpc_protocol_config.json": {
+   "source": "https://rpc.mainnet.fastnear.com EXPERIMENTAL_protocol_config",
+   "fetched_at": "2026-11-12T14:05:13Z",
+   "rows": 6,
+   "sha256": "006cac15dd223c3d49ddd989e5cb3788646d273bd4b69741cc17d3edb23839d3",
+   "note": "max_inflation_rate [1,40] = 2.5%/yr cap on total supply"
+  },
+  "rpc_accounts.json": {
+   "source": "https://rpc.mainnet.fastnear.com query view_account",
+   "fetched_at": "2026-11-12T14:05:16Z",
+   "rows": 6,
+   "sha256": "287edf997324e7860d9933a0d1c49d38229494536fc866af14d193d69e15b89c",
+   "note": "balances in NEAR; locked = staked directly"
+  },
+  "rpc_status.json": {
+   "source": "https://rpc.mainnet.fastnear.com status",
+   "fetched_at": "2026-11-12T14:05:17Z",
+   "rows": 3,
+   "sha256": "6a179b57c84ecfb3c4e1cf5e6f0459c170d726f1e15de67090920cd15dc3c359",
+   "note": ""
+  },
+  "fastnear_wallets.json": {
+   "source": "https://api.fastnear.com/v1/account",
+   "fetched_at": "2026-11-12T14:05:21Z",
+   "rows": 3,
+   "sha256": "3dce58d6be45cdebdeaccc2d9b1da99702c8923d741e0c1a6359505db10c2025",
+   "note": "staking pools (empty list = nothing delegated) and FT holdings"
+  },
+  "llama_intents_daily.parquet": {
+   "source": "https://api.llama.fi/summary/{dexs,fees}/near-intents",
+   "fetched_at": "2026-11-12T14:05:23Z",
+   "rows": 702,
+   "sha256": "43a2d9bc28105e0b4a65593c40ba38a00f3a87ff042d09c99f84dffb0fb07d94",
+   "note": "fees = protocol + affiliate fee on swaps; revenue = NEAR swept into revenue wallets (DefiLlama methodology)",
+   "methodology": {
+    "Fees": "Gross fees charged on NEAR Intents swaps - the protocol fee plus the affiliate (distribution) fee each frontend collects, summed across all integrators.",
+    "Revenue": "NEAR's net captured revenue, measured as NEAR/wNEAR swept into its revenue wallets (reconciles with revenue.near.org and the on-chain buyback). Split by destination wallet into front-end affiliate revenue and Other. Transfers between those wallets are excluded.",
+    "ProtocolRevenue": "Captured revenue held by the treasury before the 2026-02-23 buyback program.",
+    "HoldersRevenue": "Since 2026-02-23, NEAR's captured Intents revenue is used to buy back $NEAR on the open market (not burned), returning value to holders.",
+    "SupplySideRevenue": "Gross fees minus NEAR's captured revenue - the affiliate fees kept by solvers and third-party distribution channels (e.g. SwapKit)."
+   },
+   "methodologyURL": "https://github.com/DefiLlama/dimension-adapters/blob/master/fees/near-intents",
+   "totals_fees": {
+    "total24h": 233973,
+    "total7d": 1658900,
+    "total30d": 5991511,
+    "totalAllTime": 60487895.980000004
+   },
+   "totals_revenue": {
+    "total24h": 45228,
+    "total7d": 383993,
+    "total30d": 1797228,
+    "totalAllTime": 9823934.05
+   },
+   "totals_volume": {
+    "total24h": 113124728,
+    "total7d": 907115417,
+    "total30d": 3731354987,
+    "totalAllTime": 37437646850
+   }
+  },
+  "llama_chain_fees.json": {
+   "source": "https://api.llama.fi/summary/fees/{near,ethereum,solana}",
+   "fetched_at": "2026-11-12T14:05:28Z",
+   "rows": 3,
+   "sha256": "748a9cf6e67e1e63356b2ee399f272a77e992b75b2fc77d84a4e313b0effae05",
+   "note": "chain base-layer fees and revenue (gas), same DefiLlama definitions across the three"
+  },
+  "coingecko_daily.parquet": {
+   "source": "https://api.coingecko.com/api/v3/coins/{near,ethereum,solana}/market_chart",
+   "fetched_at": "2026-11-12T14:05:36Z",
+   "rows": 1095,
+   "sha256": "5086dc2ab242b0d836a8cd0aed969dfcf3b24d83d5b0273fd350108c246169f4",
+   "note": "daily close; last row is intraday"
+  },
+  "nearstats_summary.json": {
+   "source": "https://nearstats.org/api/near/summary",
+   "fetched_at": "2026-11-12T14:05:38Z",
+   "rows": 11,
+   "sha256": "ab0c316a01704e84077d51a2433e75fdd3a5322db14ce1bac201d2b77b43bdfb",
+   "note": "secondary source; confidential volume = NEAR total minus observable public swaps"
+  },
+  "revenue_dashboard.json": {
+   "source": "https://revenue.near.org/",
+   "fetched_at": "2026-11-12T14:05:39Z",
+   "rows": 3,
+   "sha256": "90ef630a5fbd6d64e3ab0911bbbf4bd3ad7c70838226d3ade694673e35db92b5",
+   "note": "scraped from the page's embedded Next.js payload; wallet NEAR amounts as the dashboard shows them"
+  },
+  "llama_aggregators.parquet": {
+   "source": "https://api.llama.fi/overview/{aggregators,bridge-aggregators}",
+   "fetched_at": "2026-11-12T14:08:35Z",
+   "rows": 1874,
+   "sha256": "d6288ad6d7aad11c6f12a285d4510ef5658087443465c64ff4d9ed0532407ac8",
+   "note": "DefiLlama aggregator, bridge-aggregator and DEX-overview volume rankings; near-intents sits in dex_overview, category Bridge",
+   "n_swap_aggregators": 207,
+   "n_bridge_aggregators": 42,
+   "n_dex_overview": 1625
+  },
+  "opendevdata_mads.parquet": {
+   "source": "https://data.opendevdata.org/snapshots/20261112T131122/eco_mads.parquet",
+   "fetched_at": "2026-11-12T14:08:39Z",
+   "rows": 44392,
+   "sha256": "8cc5b4137aa31eeebb07c817437f08b75631f00bb9d960995201c3da9381a251",
+   "note": "Electric Capital Open Dev Data, CC BY 4.0; peer set only; all_devs = >=1 commit in trailing 28 days",
+   "dataset_version": "20261112T131122",
+   "dataset_created": "2026-11-12T13:38:05.414054+00:00",
+   "peers": [
+    "Aptos",
+    "Arbitrum",
+    "Avalanche",
+    "Base",
+    "Bitcoin",
+    "Cardano",
+    "Ethereum",
+    "Internet Computer",
+    "NEAR",
+    "Polygon",
+    "Solana",
+    "Sui",
+    "TON"
+   ],
+   "license": "CC BY 4.0 (https://github.com/electric-capital/open-dev-data)",
+   "b3sum_eco_mads": "55ca7b1ef3b7b3d5eaf9139966ba2b9637699050a8ae3555dcdf9683f8d98cd8"
+  },
+  "hos_proposals.json": {
+   "source": "https://rpc.mainnet.fastnear.com call_function vote.dao.get_proposal",
+   "fetched_at": "2026-11-12T14:08:39Z",
+   "rows": 1,
+   "sha256": "a70d18c3e8119be612ad43def2b800a78951a7ae268eb7ae15f7048ece7f85ca",
+   "note": "House of Stake voting contract state, read at fetch time"
+  },
+  "mpc_state.json": {
+   "source": "https://rpc.mainnet.fastnear.com call_function v1.signer.state",
+   "fetched_at": "2026-11-12T14:08:40Z",
+   "rows": 6,
+   "sha256": "a7729ee193d1617950b8b45b28cd22fc72ccfbcccd0e1b04ad8e2b2ecb57a0e7",
+   "note": "MPC participants and threshold at fetch time"
+  },
+  "oneclick_tokens.parquet": {
+   "source": "https://1click.chaindefuser.com/v0/tokens",
+   "fetched_at": "2026-11-12T14:08:40Z",
+   "rows": 230,
+   "sha256": "abe0759c598f093303a0a78f8245165f48918ba03c40793330884ad7f42699aa",
+   "note": "asset ids, decimals and spot USD prices at fetch time"
+  },
+  "intents_sample.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/intents.near/txns-only",
+   "fetched_at": "2026-11-12T15:10:57Z",
+   "rows": 145595,
+   "sha256": "8304817e31c894692f295e79b49da15e290f35022ced301ebc1c0729edd6379b",
+   "note": "seeded random pages of intents.near transactions, parsed to signed intents",
+   "seed": 20261108,
+   "pages_requested": 180,
+   "pages_ok": 151,
+   "window_start": "2026-09-01",
+   "window_end_exclusive": "2026-11-01",
+   "id_start": 5488782044,
+   "id_end": 5535404410,
+   "txns_sampled": 37750,
+   "sampled_minutes": 853.8897289752333
+  },
+  "intents_sample_pages.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/intents.near/txns-only",
+   "fetched_at": "2026-11-12T15:10:57Z",
+   "rows": 180,
+   "sha256": "85d922a048508bf51208bac135c302b7b9161c50df0fcd038de429d807c458f7",
+   "note": "one row per sampled page: cursor, size and time span",
+   "seed": 20261108
+  },
+  "block_sample_txns.parquet": {
+   "source": "https://mainnet.neardata.xyz/v0/block",
+   "fetched_at": "2026-11-12T15:20:38Z",
+   "rows": 4438,
+   "sha256": "c0ee4acbcb36a93a6eba7bab9486029b44ebebb3338e83c1061da91902d76b58",
+   "note": "transactions in seeded random blocks, by receiver and signer",
+   "seed": 20261108,
+   "windows": "2026-03-01:2026-03-31,2026-10-01:2026-10-31",
+   "blocks_per_window": 150
+  },
+  "block_sample_blocks.parquet": {
+   "source": "https://mainnet.neardata.xyz/v0/block",
+   "fetched_at": "2026-11-12T15:20:38Z",
+   "rows": 300,
+   "sha256": "872736256fd7f6c5dc794b2c5ac49858b3bdbc1450b08c562e3b6de209933911",
+   "note": "one row per sampled block",
+   "seed": 20261108
+  },
+  "dune_skipped.json": {
+   "source": "https://dune.com/near/near-intents",
+   "fetched_at": "2026-11-12T15:20:38Z",
+   "rows": 2,
+   "sha256": "277a99f47ab72d1cb271af29afa5d397158af12e109cc44c029e3ddd1c0653da",
+   "note": ""
+  },
+  "source_health.json": {
+   "source": "pipeline.fetch_all",
+   "fetched_at": "2026-11-12T15:20:38Z",
+   "rows": 18,
+   "sha256": "8044368882b99b5a8519320506b805183d805a37641fbdb200eb3c8a08aada6d",
+   "note": "a failed source never overwrites an older file"
+  },
+  "buyback_receipts.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/buybacks.multisignature.near/receipts",
+   "fetched_at": "2026-11-12T16:20:36Z",
+   "rows": 3364,
+   "sha256": "847ceda025da7fada589bd5983bc72ebf74be25fdf8080f38bf46400dc780f9f",
+   "note": "all receipts; 3318 are TRANSFER from intents.near (the buyback sweeps)"
+  },
+  "signer_sample.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/v1.signer/txns",
+   "fetched_at": "2026-11-01T15:25:28Z",
+   "rows": 7489,
+   "sha256": "d29f84e0f2c78a8cb824a04e86962e2a28c6c2a47bed2a5265ec4fcee59affb1",
+   "note": "most recent 7489 receipts spanning 3.5 hours; lifetime receipt count 26383939 | CARRIED FORWARD unchanged from snapshot 2026-11-01: NearBlocks rate-limited this source on 2026-11-12, so this file covers its original window, not the new snapshot date",
+   "lifetime_receipts": 26383939,
+   "sample_span_days": 0.1438009194675926
+  },
+  "custody_near_receipts.parquet": {
+   "source": "https://api.nearblocks.io/v1/account/tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near/receipts",
+   "fetched_at": "2026-11-09T05:12:57Z",
+   "rows": 55250,
+   "sha256": "83e8ee2d5c20780165efb10ab74c29c637db3589a58f632bfee8b5b908c486d8",
+   "note": "every receipt on tron-d28a265909efecdcee7c5028585214ea0b96f015.omft.near, 2026-10-24 to 2026-10-30 (+2h margins) | CARRIED FORWARD unchanged from snapshot 2026-11-01: NearBlocks rate-limited this source on 2026-11-12, so this file covers its original window, not the new snapshot date"
+  },
+  "custody_tron_outflows.parquet": {
+   "source": "https://api.trongrid.io/v1/accounts/TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke/transactions/trc20",
+   "fetched_at": "2026-11-09T05:14:33Z",
+   "rows": 13898,
+   "sha256": "dbe8be7f381f58caf341f588384044076c1f7eb2ab71f4bd55db6aa83eb48694",
+   "note": "every USDT transfer out of ['TX5XiRXdyz7sdFwF5mnhT1QoGCpbkncpke'], same window (+2h/+4h margins) | CARRIED FORWARD unchanged from snapshot 2026-11-01: NearBlocks rate-limited this source on 2026-11-12, so this file covers its original window, not the new snapshot date"
+  },
+  "nearstats_summary_recheck.json": {
+   "source": "https://nearstats.org/api/near/summary",
+   "fetched_at": "2026-11-08T13:09:07Z",
+   "rows": 11,
+   "sha256": "9d094c2463d3076e5de1ea40d3e948f1f15290eb6d9bb0f171a004803f3bd9f5",
+   "note": "second reading one week later, kept to show the public/confidential split moving between reads | CARRIED FORWARD from snapshot 2026-11-01 (a one-off recheck of the nearstats figure)"
+  }
+ }
+}

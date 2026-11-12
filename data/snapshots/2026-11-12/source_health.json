@@ -1,0 +1,76 @@
+{
+ "nearblocks": {
+  "status": "ok",
+  "at": "2026-11-12T14:05:12Z"
+ },
+ "rpc": {
+  "status": "ok",
+  "at": "2026-11-12T14:05:17Z"
+ },
+ "fastnear": {
+  "status": "ok",
+  "at": "2026-11-12T14:05:21Z"
+ },
+ "defillama": {
+  "status": "ok",
+  "at": "2026-11-12T14:05:28Z"
+ },
+ "coingecko": {
+  "status": "ok",
+  "at": "2026-11-12T14:05:36Z"
+ },
+ "nearstats": {
+  "status": "ok",
+  "at": "2026-11-12T14:05:38Z"
+ },
+ "revenue_dashboard": {
+  "status": "ok",
+  "at": "2026-11-12T14:05:39Z"
+ },
+ "buybacks": {
+  "status": "ok",
+  "note": "NearBlocks rate-limited the full pull; sweeps after 2026-11-01 read from FastNear and appended to the 2026-11-01 copy (overlap of 51 sweeps matched exactly)",
+  "at": "2026-11-12T14:07:04Z"
+ },
+ "signer": {
+  "status": "carried_forward",
+  "note": "NearBlocks rate-limited; sample file carried forward unchanged from 2026-11-01",
+  "at": "2026-11-12T14:08:32Z"
+ },
+ "llama_aggregators": {
+  "status": "ok",
+  "at": "2026-11-12T14:08:35Z"
+ },
+ "opendevdata": {
+  "status": "ok",
+  "at": "2026-11-12T14:08:39Z"
+ },
+ "hos": {
+  "status": "ok",
+  "at": "2026-11-12T14:08:39Z"
+ },
+ "mpc": {
+  "status": "ok",
+  "at": "2026-11-12T14:08:40Z"
+ },
+ "oneclick_tokens": {
+  "status": "ok",
+  "at": "2026-11-12T14:08:40Z"
+ },
+ "intents_sample": {
+  "status": "ok",
+  "at": "2026-11-12T15:10:57Z"
+ },
+ "block_sample": {
+  "status": "ok",
+  "at": "2026-11-12T15:20:38Z"
+ },
+ "dune": {
+  "status": "ok",
+  "at": "2026-11-12T15:20:38Z"
+ },
+ "bigquery": {
+  "status": "ok",
+  "at": "2026-11-12T15:20:38Z"
+ }
+}

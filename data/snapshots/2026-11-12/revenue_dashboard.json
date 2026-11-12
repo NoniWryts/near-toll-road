@@ -1,0 +1,21 @@
+{
+ "wallets": [
+  {
+   "wallet": "fefundsadmin.sputnik-dao.near",
+   "near_amount": 2003855.9280461548,
+   "share_pct": 46.5
+  },
+  {
+   "wallet": "buybacks.multisignature.near",
+   "near_amount": 1751826.0572839053,
+   "share_pct": 40.6
+  },
+  {
+   "wallet": "1csfundsadmin.sputnik-dao.near",
+   "near_amount": 555348.272928576,
+   "share_pct": 12.9
+  }
+ ],
+ "kpis_found": {},
+ "says_illustrative": true
+}

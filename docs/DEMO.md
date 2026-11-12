@@ -1,28 +1,27 @@
 # Demo script (90 seconds) and X post draft
 
 ## Recording plan
-One complete moment: a question, a command, an answer a judge can re-run.
+Open the dashboard in a browser (the live GitHub Pages link or `dashboard/index.html`). No terminal needed. One question, one answer, one thing the viewer can try.
 
 | t | screen | say |
 | --- | --- | --- |
-| 0:00 | terminal, `git clone … && make setup` | "NEAR says Intents fees buy back NEAR. Does that pay for the chain? Let's not take anyone's word." |
-| 0:10 | `make report` running, tables listed | "One command: pull the snapshot, rebuild every table, chart and the thesis text." |
-| 0:25 | `dashboard/index.html` start page, tiles | "Thirty days: $3.9B of volume, $6.3M of fees, $2.1M captured, 282k NEAR bought against 2.65M issued. Coverage 10.6%." |
-| 0:40 | Breakeven page, heatmap | "Breakeven is $718M a day at 2.5% issuance, $459M if HSP-029 passes. Change `params.yaml`, re-run, the table moves." |
-| 0:55 | Issuance vs buybacks page | "The buyback wallet holds 2.15M NEAR. Zero staked, zero burned. The tokenomics post says otherwise. That is ledger row C02, red." |
-| 1:05 | Ledger page, scroll | "Twenty public claims re-tested: ten pass, five partial, three unverifiable, two fail. Three predictions are pre-registered for March 2027. The fails stay in." |
-| 1:15 | Developers page | "Electric Capital's data says active developers are down 28% in a year. It is in the thesis, not hidden." |
-| 1:25 | `make check` green | "Fifteen tests, including the ledger and the frozen predictions. Fork it, re-run it, prove me wrong." |
+| 0:00 | Overview | "NEAR says Intents fees buy back NEAR. Does that pay for the chain? We checked it on-chain instead of taking anyone's word." |
+| 0:10 | KPI row and the dark answer box | "Last 30 days: $3.8 billion of swaps, $6 million of fees, and the buybacks took back about 1 in every 10 new NEAR." |
+| 0:22 | Step 1, Before the switch | "Before the buybacks, usage had already fallen about three quarters, and Intents paid NEAR almost nothing. There was nothing to buy with." |
+| 0:38 | Step 6, What it would take | "Move the sliders. At today's volume it needs about five times more traffic to pay for itself. Drag it up and watch the box turn green." |
+| 0:55 | Step 8, Risks | "Seven risks, ranked, with what would ease each. The bought NEAR is not burned or staked; the multisig could sell it." |
+| 1:08 | Step 10, Test claims | "Twenty-three public claims, tested. Three are false. Type your own number and test it." |
+| 1:20 | Read as one page | "Everything rebuilds from public data when it is refreshed. The repo is open." |
 
-Keep the cursor still, no intro slide, no architecture diagram. Record at 1280x800 so the tiles fit.
+Keep the cursor slow, no intro slide. Record at 1440x900 so the left step list and the content both fit.
 
-## X post draft (Daniel posts; edit freely)
+## X post draft (the author posts; edit freely)
 
-> NEAR says Intents fees buy back NEAR. I built a repo that checks: $3.9B volume, $2.1M captured, 282k NEAR bought vs 2.65M issued in 30 days. Coverage 10.6%, breakeven $718M/day. 20 public claims re-tested, 2 fail, 3 predictions pre-registered.
+> NEAR says Intents fees buy back NEAR. We checked it on-chain: $3.8B of swaps in 30 days, buybacks took back about 1 in 10 new tokens. Before the switch, usage had fallen ~74% and Intents paid NEAR almost nothing. Try the numbers yourself.
 >
-> Built at NEAR HACKATHON for the Investment Thesis track. One command rebuilds every chart from a dated snapshot. What claim should I test next?
+> Built at NEAR HACKATHON, Investment Thesis track.
 >
-> repo: <url> · dashboard: <pages url>
-> @NEARProtocol #NEARHackathon @NearBuilders
+> repo: <url> · live dashboard: <pages url>
+> @NEARProtocol #NEARHackathon
 
-Under 280 characters per post if split into two; the first line must stand alone.
+Under 280 characters per post if split into two; the first line must stand alone. Attach the 90-second recording or two screenshots (Overview and Step 1).
