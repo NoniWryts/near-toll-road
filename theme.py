@@ -126,6 +126,25 @@ code{background:#efede6;padding:1px 5px;font-size:13.5px;font-family:Menlo,Conso
 .toc a{display:flex;gap:12px;text-decoration:none;padding:10px 0;border-bottom:1px solid var(--line)}
 .toc a:hover .tt{color:var(--teal)} .toc .tn{font-weight:700;color:var(--teal);min-width:22px} .toc .tt{font-weight:700} .toc .td{font-size:14px;color:var(--muted)}
 @media(max-width:980px){.kpis{grid-template-columns:repeat(2,1fr)}.kpi{border-left:0;border-top:1px solid var(--line)}.grid2,.grid3,.g-wide,.sim,.howto,.three,.toc,.flow{grid-template-columns:1fr}.flow>div+div{border-left:0;padding-left:0;border-top:1px solid var(--line)}.flow .fx{display:none}.folders{grid-template-columns:repeat(2,1fr)}h1{font-size:30px}}
+.live{display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));gap:0;background:#102a43;color:#e8eef6;border-radius:3px;margin:0 0 18px;overflow:hidden}
+.live .lh{padding:14px 18px;display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#9fd6cd;border-right:1px solid #243b55;white-space:nowrap}
+.live .dot{width:9px;height:9px;border-radius:50%;background:#2a9d8f;box-shadow:0 0 0 0 rgba(42,157,143,.7);animation:pulse 2s infinite}
+.live.off .dot{background:#8a96a3;animation:none}
+.live .lc{padding:12px 18px;border-left:1px solid #243b55;min-width:0}
+.live .lc .l{font-size:13px;color:#9fb4cf} .live .lc .v{font-size:24px;font-weight:700;color:#fff;margin:1px 0}
+.live .lc .s{font-size:12.5px;color:#9fb4cf}
+.live .up{color:#7fd6c2}.live .dn{color:#f1a6a6}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(42,157,143,.6)}70%{box-shadow:0 0 0 9px rgba(42,157,143,0)}100%{box-shadow:0 0 0 0 rgba(42,157,143,0)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+.st.in>.card,.st.in>.kpis,.st.in>.head{animation:rise .5s ease both}
+.st.in>*:nth-child(2){animation-delay:.06s}.st.in>*:nth-child(3){animation-delay:.12s}.st.in>*:nth-child(4){animation-delay:.18s}.st.in>*:nth-child(5){animation-delay:.24s}
+.coin.f{animation:pop .45s ease both}
+.card,.toc a{transition:box-shadow .2s ease,transform .2s ease}
+.toc a:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(29,53,87,.12)}
+.kpi{transition:background .2s ease}.kpi:hover{background:#f1f5f9}
+@media(max-width:980px){.live{grid-template-columns:1fr 1fr}.live .lh{grid-column:1/-1;border-right:0;border-bottom:1px solid #243b55}.live .lc{border-left:0;border-top:1px solid #243b55}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 """
 
 FONT = ""
