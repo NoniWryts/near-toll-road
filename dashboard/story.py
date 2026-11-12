@@ -232,11 +232,10 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
                  + f'</div><div class="tablewrap"><table id="ledt"><thead><tr><th style="width:5%">ID</th><th style="width:10%">Status</th><th style="width:42%">The claim and who made it</th><th>What the chain shows</th></tr></thead><tbody>{lrows}</tbody></table></div>',
                  "The ledger is re-checked every time the data is refreshed, so a claim can change from PASS to FAIL as the chain moves.", "ledger.html", "Full ledger")
 
-    rerun = (f'<div class="card"><div class="card-h"><h2>How this board stays current</h2><span class="sub">Snapshot {k["snapshot"]} · block {k["block_height"]:,}</span></div>'
-             '<div class="howto"><div><b>1. Pull fresh data</b><div class="sub">Every source is public and keyless: NEAR RPC, NearBlocks, DefiLlama, CoinGecko, TronGrid.</div><code>make refresh</code></div>'
-             '<div><b>2. Rebuild everything</b><div class="sub">Tables, the model, the claims ledger, this dashboard and the thesis text are regenerated from the new snapshot.</div><code>make report</code></div>'
-             '<div><b>3. Re-test</b><div class="sub">21 tests check the numbers and score the predictions. Change any assumption in <code>params.yaml</code> and run again.</div><code>make check</code></div></div></div>')
-
+    rerun = (f'<div class="out" style="margin-top:18px"><h3>This board keeps itself honest</h3>'
+             f'<div>Every number here is pulled from public sources (the NEAR blockchain, DefiLlama, CoinGecko, TronGrid) and rebuilt in one step. '
+             f'When the data is refreshed, the charts, the risks, the claim verdicts and the predictions all update together, so a claim that holds today can turn false tomorrow. '
+             f'This copy uses data up to {k["as_of_date"]} (NEAR block {k["block_height"]:,}).</div></div>')
     hero = (f'<div class="head"><div><span class="tag">NEAR investment thesis</span><h1>Does NEAR\'s fee switch pay for the chain?</h1>'
             f'<p class="lede">NEAR Intents is a toll road for cross-chain swaps, and the NEAR token owns it. We follow the money from each swap to the token, using only public on-chain data.</p>'
             f'<div class="byline">An on-chain investment thesis · last 30 days to {k["as_of_date"]} · NEAR block {k["block_height"]:,} · every number rebuilt from public data</div></div></div>')
@@ -275,13 +274,15 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
            + '</div></div>')
     steps = [("Overview", hero + kpi_html + answer + flow_html + three + toc), ("1 Traffic", c1), ("2 The toll", c2), ("3 Printing vs buying", c3),
              ("4 Coverage", c4), ("5 What it would take", c5), ("6 Is it real?", c6), ("7 Risks", c7), ("8 Predictions", c8),
-             ("9 Test claims", c9), ("Rerun it", rerun)]
+             ("9 Test claims", c9 + rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
     pages = "".join(f'<div class="st" data-st="{i}">{b}</div>' for i, (_, b) in enumerate(steps))
-    body = (f'<div class="stepper" id="stp">{tabs}</div>{pages}'
+    body = (f'<div class="stepper" id="stp">{tabs}<button id="stall" style="margin-left:auto">Read as one page</button></div>{pages}'
             '<div class="stepnav"><button id="stprev">&larr; Back</button><span class="sub" id="stpos"></span><button id="stnext" class="on">Next &rarr;</button></div>'
-            """<script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button'),n=S.length,cur=0;
-function go(i){cur=Math.max(0,Math.min(n-1,i));S.forEach(function(s,j){s.style.display=j===cur?'block':'none'});
+            """<script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button[data-st]'),n=S.length,cur=0;
+var all=false,nav=document.querySelector('.stepnav');document.getElementById('stall').onclick=function(){all=!all;this.classList.toggle('on',all);this.textContent=all?'Read step by step':'Read as one page';
+if(all){S.forEach(function(x){x.style.display='block'});B.forEach(function(b){b.classList.remove('on')});nav.style.display='none';document.querySelectorAll('.js-plotly-plot').forEach(function(g){try{Plotly.Plots.resize(g)}catch(e){}})}else{nav.style.display='';go(0)}};
+function go(i){if(all){S[Math.max(0,Math.min(n-1,i))].scrollIntoView({behavior:'smooth'});return}cur=Math.max(0,Math.min(n-1,i));S.forEach(function(s,j){s.style.display=j===cur?'block':'none'});
 B.forEach(function(b,j){b.classList.toggle('on',j===cur)});document.getElementById('stpos').textContent=(cur+1)+' of '+n;
 document.getElementById('stprev').style.visibility=cur?'visible':'hidden';var nx=document.getElementById('stnext');nx.style.visibility=cur<n-1?'visible':'hidden';
 if(cur<n-1)nx.innerHTML='Next: '+B[cur+1].textContent.replace(/^[0-9]+ /,'')+' &rarr;';
