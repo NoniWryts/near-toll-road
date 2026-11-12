@@ -58,7 +58,7 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
     answer = (f'<div class="card answer"><span class="tag">The answer</span>'
               f'<div class="big">The mechanism is real, but small. For every 10 new NEAR printed to pay validators, the fee switch buys back about <b>{k["coverage_near_30d"]*10:.0f}</b>.</div>'
               f'<div class="note">To pay for itself at today\'s 2.5% issuance, NEAR Intents would need about {money(be,0)} of swaps a day, {be/vol_day:.1f}x what it does now. '
-              f'The issuance cut passed on Nov 2 (HSP-029) lowers that bar to {money(ms["breakeven_measured_hsp029"],0)} a day once fully phased in (~2029). Read on for how we got here, then test it yourself at the bottom.</div></div>')
+              f'The issuance cut passed on Nov 2 (HSP-029) lowers that bar to {money(ms["breakeven_measured_hsp029"],0)} a day once fully phased in (~2029). Click Next to see how we got here; steps 5 and 9 let you test it yourself.</div></div>')
 
     def chapter(no, title, take, body, why, link, label="See the evidence"):
         return (f'<div class="card"><div class="step"><div class="num">{no}</div><div style="flex:1;min-width:0">'
@@ -158,7 +158,9 @@ $('r_cov').textContent=(cov*100).toFixed(1)+'%';$('r_bar').style.width=Math.min(
 $('r_line').textContent='NEAR earns '+f(cut).replace('M','.'+'' )+' a day vs '+f(printed)+' of new NEAR printed a day.';
 $('r_line').textContent='NEAR earns $'+Math.round(cut/1e3).toLocaleString()+'k a day against $'+Math.round(printed/1e3).toLocaleString()+'k of new NEAR printed a day.';
 $('r_be').textContent=f(be)+' a day';$('r_be2').textContent=(be/vol).toFixed(1)+'x the volume you set';
-const ok=cov>=1;$('r_v').className='verdict '+(ok?'v-pass':'v-fail');$('r_v').textContent=ok?'At these settings NEAR pays for its own security.':'At these settings NEAR is still diluting holders: printing outruns its cut.';}}
+const pc=Math.round(cov*100),cls=cov>=1?'v-pass':cov>=0.5?'v-mid':'v-fail';$('r_v').className='verdict '+cls;
+$('r_v').innerHTML=cov>=1?'<b>Pays for itself.</b> Buybacks take back all the new NEAR, so total supply stops growing and every holder keeps the same slice.':
+(cov>=0.5?'<b>Getting close.</b> ':'<b>Not there yet.</b> ')+'Buybacks take back '+pc+'% of the new NEAR. The other '+(100-pc)+'% is new supply, so each holder’s slice of NEAR keeps shrinking a little.';}}
 ['vol','fee','cap','iss'].forEach(k=>$(k).addEventListener('input',()=>{{run();document.querySelectorAll('#presets button').forEach(b=>b.classList.remove('on'));}}));
 document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>set(b.dataset.p)));set('today');}})();
 </script>"""
@@ -205,5 +207,21 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     hero = (f'<div class="head"><div><span class="tag">NEAR investment thesis</span><h1>Does NEAR\'s fee switch pay for the chain?</h1>'
             f'<p class="lede">NEAR Intents is a toll road for cross-chain swaps, and the NEAR token owns it. We follow the money from each swap to the token, using only public on-chain data.</p></div>'
             f'<span class="chip">Last 30 days to {k["as_of_date"]}</span></div>')
-    body = hero + kpi_html + answer + c1 + c2 + c3 + c4 + c5 + c6 + c7 + c8 + c9 + rerun
+    steps = [("Overview", hero + kpi_html + answer), ("1 Traffic", c1), ("2 The toll", c2), ("3 Printing vs buying", c3),
+             ("4 Coverage", c4), ("5 Try it", c5), ("6 Is it real?", c6), ("7 Risks", c7), ("8 Predictions", c8),
+             ("9 Test claims", c9), ("Rerun it", rerun)]
+    tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
+    pages = "".join(f'<div class="st" data-st="{i}">{b}</div>' for i, (_, b) in enumerate(steps))
+    body = (f'<div class="stepper" id="stp">{tabs}</div>{pages}'
+            '<div class="stepnav"><button id="stprev">&larr; Back</button><span class="sub" id="stpos"></span><button id="stnext" class="on">Next &rarr;</button></div>'
+            """<script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button'),n=S.length,cur=0;
+function go(i){cur=Math.max(0,Math.min(n-1,i));S.forEach(function(s,j){s.style.display=j===cur?'block':'none'});
+B.forEach(function(b,j){b.classList.toggle('on',j===cur)});document.getElementById('stpos').textContent=(cur+1)+' of '+n;
+document.getElementById('stprev').style.visibility=cur?'visible':'hidden';var nx=document.getElementById('stnext');nx.style.visibility=cur<n-1?'visible':'hidden';
+if(cur<n-1)nx.innerHTML='Next: '+B[cur+1].textContent.replace(/^[0-9]+ /,'')+' &rarr;';
+S[cur].querySelectorAll('.js-plotly-plot').forEach(function(g){try{Plotly.Plots.resize(g)}catch(e){}});window.scrollTo(0,0)}
+B.forEach(function(b,j){b.onclick=function(){go(j)}});document.getElementById('stprev').onclick=function(){go(cur-1)};document.getElementById('stnext').onclick=function(){go(cur+1)};
+document.querySelectorAll('.st a[href^="#st"]').forEach(function(a){a.onclick=function(e){e.preventDefault();go(+a.getAttribute('href').slice(3))}});
+addEventListener('keydown',function(e){if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+window.addEventListener('load',function(){go(cur)});go(0)})();</script>""")
     return head + top + body + foot
