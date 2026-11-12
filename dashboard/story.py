@@ -285,6 +285,11 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     hero = (f'<div class="head"><div><span class="tag">NEAR investment thesis</span><h1>Does NEAR\'s fee switch pay for the chain?</h1>'
             f'<p class="lede">NEAR Intents is a toll road for cross-chain swaps, and the NEAR token owns it. We follow the money from each swap to the token, using only public on-chain data.</p>'
             f'<div class="byline">An on-chain investment thesis · last 30 days to {k["as_of_date"]} · NEAR block {k["block_height"]:,} · every number rebuilt from public data</div></div></div>')
+    live = (f'<div class="live off" id="live"><div class="lh"><span class="dot"></span><span id="lstat">Live data unavailable, showing snapshot</span></div>'
+            f'<div class="lc"><div class="l">NEAR price</div><div class="v" id="l_px">${k["price_usd"]:.2f}</div><div class="s">snapshot value, 10 Nov</div></div>'
+            f'<div class="lc"><div class="l">Intents volume, last full day</div><div class="v" id="l_vol">${k["intents_volume_30d"]/30/1e6:,.0f}M</div><div class="s" id="l_vols">snapshot 30-day average</div></div>'
+            f'<div class="lc"><div class="l">Buyback wallet holds</div><div class="v" id="l_bb">{k["buyback_wallet_balance_near"]/1e6:.3f}M NEAR</div><div class="s">snapshot, 0 staked or burned</div></div>'
+            f'<div class="lc"><div class="l">Newest NEAR block</div><div class="v" id="l_blk">{k["block_height"]:,}</div><div class="s" id="l_blks">snapshot value</div></div></div>')
     cov_pct = k["coverage_near_30d"] * 100
     case = ('<div class="card" style="margin:0 0 18px"><span class="tag">Why this matters</span>'
             '<p style="margin:10px 0 0">Every blockchain has to pay the computers that run it. Most pay by printing new coins. On Ethereum, 93% of what stakers earn is newly minted ETH, and on Solana it is over 90% '
@@ -327,17 +332,29 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     toc = ('<div class="card"><div class="card-h"><h2>The story in ten steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
            + "".join(f'<a href="#st{i+1}"><span class="tn">{i+1}</span><span><span class="tt">{a}</span><br><span class="td">{b_}</span></span></a>' for i, (a, b_) in enumerate(toc_items))
            + '</div></div>')
-    steps = [("Overview", hero + case + kpi_html + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
+    steps = [("Overview", hero + live + case + kpi_html + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
              ("4 Printing vs buying", c3), ("5 Coverage", c4), ("6 What it would take", c5), ("7 Is it real?", c6), ("8 Risks", c7),
              ("9 Predictions", c8), ("10 Test claims", c9 + rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
     pages = "".join(f'<div class="st" data-st="{i}">{b}</div>' for i, (_, b) in enumerate(steps))
     body = (f'<div class="storywrap"><aside class="stepper" id="stp"><button id="stall" class="allbtn">Read as one page</button><div class="sidelab">Steps</div>{tabs}</aside><div class="storymain">{pages}'
             '<div class="stepnav"><button id="stprev">&larr; Back</button><span class="sub" id="stpos"></span><button id="stnext" class="on">Next &rarr;</button></div></div></div>'
-            """<script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button[data-st]'),n=S.length,cur=0;
+            """<script>(function(){var L=document.getElementById('live');if(!L)return;
+function $(i){return document.getElementById(i)}
+function money(x){return x>=1e9?'$'+(x/1e9).toFixed(2)+'B':'$'+(x/1e6).toFixed(0)+'M'}
+function tj(u,o){return fetch(u,o).then(function(r){if(!r.ok)throw 0;return r.json()})}
+var ok=0;function done(){ok++;L.classList.remove('off');$('lstat').textContent='Live now, '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
+tj('https://coins.llama.fi/prices/current/coingecko:near').then(function(d){$('l_px').textContent='$'+d.coins['coingecko:near'].price.toFixed(2);$('l_px').nextElementSibling.textContent='live, from DefiLlama';done()}).catch(function(){});
+tj('https://api.llama.fi/summary/dexs/near-intents?dataType=dailyVolume').then(function(d){var c=d.change_1d;$('l_vol').textContent=money(d.total24h);
+$('l_vols').innerHTML='<span class="'+(c>=0?'up':'dn')+'">'+(c>=0?'+':'')+c.toFixed(0)+'% vs day before</span>, 7-day avg '+money(d.total7d/7);done()}).catch(function(){});
+var rpc={method:'POST',headers:{'content-type':'application/json'}};
+tj('https://rpc.mainnet.fastnear.com',Object.assign({body:JSON.stringify({jsonrpc:'2.0',id:1,method:'query',params:{request_type:'view_account',finality:'final',account_id:'buybacks.multisignature.near'}})},rpc)).then(function(d){
+var n=Number(BigInt(d.result.amount)/BigInt('1000000000000000000'))/1e6;$('l_bb').textContent=(n/1e6).toFixed(3)+'M NEAR';$('l_bb').nextElementSibling.textContent='live, read from the chain';$('l_blk').textContent=d.result.block_height.toLocaleString();$('l_blks').textContent='read from the chain just now';done()}).catch(function(){});
+})();
+</script><script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button[data-st]'),n=S.length,cur=0;
 var all=false,nav=document.querySelector('.stepnav');document.getElementById('stall').onclick=function(){all=!all;this.classList.toggle('on',all);this.textContent=all?'Read step by step':'Read as one page';
 if(all){S.forEach(function(x){x.style.display='block'});B.forEach(function(b){b.classList.remove('on')});nav.style.display='none';document.querySelectorAll('.js-plotly-plot').forEach(function(g){try{Plotly.Plots.resize(g)}catch(e){}})}else{nav.style.display='';go(0)}};
-function go(i){if(all){S[Math.max(0,Math.min(n-1,i))].scrollIntoView({behavior:'smooth'});return}cur=Math.max(0,Math.min(n-1,i));S.forEach(function(s,j){s.style.display=j===cur?'block':'none'});
+function go(i){if(all){S[Math.max(0,Math.min(n-1,i))].scrollIntoView({behavior:'smooth'});return}cur=Math.max(0,Math.min(n-1,i));S.forEach(function(s,j){s.style.display=j===cur?'block':'none';s.classList.remove('in')});void S[cur].offsetWidth;S[cur].classList.add('in');
 B.forEach(function(b,j){b.classList.toggle('on',j===cur)});document.getElementById('stpos').textContent=(cur+1)+' of '+n;
 document.getElementById('stprev').style.visibility=cur?'visible':'hidden';var nx=document.getElementById('stnext');nx.style.visibility=cur<n-1?'visible':'hidden';
 if(cur<n-1)nx.innerHTML='Next: '+B[cur+1].textContent.replace(/^[0-9]+ /,'')+' &rarr;';
