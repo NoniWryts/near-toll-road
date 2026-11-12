@@ -10,7 +10,7 @@ from pipeline.common import ROOT, latest_snapshot
 T = ROOT / "reports" / "tables"
 OUT = ROOT / "dashboard" / "index.html"
 from dashboard.theme import PALETTE as C, page_head, topbar
-LAYOUT = dict(template="plotly_white", font=dict(family="Inter, system-ui, sans-serif", size=12, color=C["text"]), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+LAYOUT = dict(template="plotly_white", font=dict(family="Times New Roman, Times, serif", size=12, color=C["text"]), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
               margin=dict(l=48, r=16, t=70, b=40), hovermode="x unified", legend=dict(orientation="h", y=1.02, x=0, yanchor="bottom", font=dict(color=C["muted"])),
               title=dict(y=0.98, yanchor="top", x=0, xanchor="left", font=dict(size=14, color=C["text"])),
               xaxis=dict(gridcolor=C["grid"], showgrid=False, linecolor="#e7e9ee", tickfont=dict(color=C["muted"])), yaxis=dict(gridcolor=C["grid"], zeroline=False, tickfont=dict(color=C["muted"])))
@@ -68,12 +68,12 @@ def build():
     for irate, title in ((0.025, "2.5% cap (today)"), (0.016, "1.6% (HSP-029)")):
         pass
     piv = sens[sens.issuance_rate == 0.025].pivot(index="capture_rate", columns="fee_rate_bps", values="breakeven_volume_usd_per_day") / 1e6
-    f6 = go.Figure(go.Heatmap(z=piv.values, x=[f"{c} bps" for c in piv.columns], y=[f"{r:.0%}" for r in piv.index], colorscale=[[0,"#fff1eb"],[1,"#ff5a1f"]],
+    f6 = go.Figure(go.Heatmap(z=piv.values, x=[f"{c} bps" for c in piv.columns], y=[f"{r:.0%}" for r in piv.index], colorscale=[[0,"#eef3f8"],[1,"#1d3557"]],
                               text=[[f"${x:,.0f}M" for x in row] for row in piv.values], texttemplate="%{text}", hovertemplate="fee %{x}, capture %{y}: $%{z:,.0f}M/day<extra></extra>", colorbar_title="$M/day"))
     f6.update_layout(title=f"Breakeven volume per day at 2.5% issuance (today {money(ms['current_volume_usd_per_day'],0)}/day)",
                      xaxis_title="gross fee rate", yaxis_title="capture rate")
     piv2 = sens[sens.issuance_rate == 0.016].pivot(index="capture_rate", columns="fee_rate_bps", values="breakeven_volume_usd_per_day") / 1e6
-    f6b = go.Figure(go.Heatmap(z=piv2.values, x=[f"{c} bps" for c in piv2.columns], y=[f"{r:.0%}" for r in piv2.index], colorscale=[[0,"#fff1eb"],[1,"#ff5a1f"]],
+    f6b = go.Figure(go.Heatmap(z=piv2.values, x=[f"{c} bps" for c in piv2.columns], y=[f"{r:.0%}" for r in piv2.index], colorscale=[[0,"#eef3f8"],[1,"#1d3557"]],
                                text=[[f"${x:,.0f}M" for x in row] for row in piv2.values], texttemplate="%{text}", colorbar_title="$M/day"))
     f6b.update_layout(title="Same grid at 1.6% issuance (HSP-029 target)", xaxis_title="gross fee rate", yaxis_title="capture rate")
     # 7 network activity
