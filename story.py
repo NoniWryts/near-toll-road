@@ -225,10 +225,11 @@ o.style.display='block';o.className='verdict '+(ok?'v-pass':'v-fail');o.textCont
 document.querySelectorAll('#ledf button').forEach(b=>b.addEventListener('click',()=>{{document.querySelectorAll('#ledf button').forEach(x=>x.classList.toggle('on',x===b));
 document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.dataset.s==='ALL'||r.dataset.s===b.dataset.s)?'':'none');}}));}})();</script>"""
     c9 = chapter(9, "Check other people's claims, or your own", f"We tested {len(led)} public claims about NEAR against the chain. {sc.get('FAIL',0)} are false.",
-                 f'<div class="folders">{folders}</div><div class="g-wide"><div><div class="row" id="ledf" style="margin-bottom:8px">'
+                 f'<div class="folders">{folders}</div>'
+                 f'<div class="out" style="margin-bottom:18px"><h3>Test a claim yourself</h3><div class="note" style="margin-top:0">Pick a number, set a threshold, and check it against this snapshot.</div>{tester}</div>'
+                 '<h3 style="margin-top:4px">All {n} claims we tested</h3><div class="row" id="ledf" style="margin-bottom:8px">'.replace("{n}", str(len(led)))
                  + "".join(f'<button data-s="{s}"{" class=on" if s=="ALL" else ""}>{l}</button>' for s, l in (("ALL", "All"), ("PASS", "Holds up"), ("PARTIAL", "Partly"), ("UNVERIFIABLE", "Can't check"), ("FAIL", "False")))
-                 + f'</div><div class="tablewrap" style="max-height:420px;overflow-y:auto"><table id="ledt">{lrows}</table></div></div>'
-                 f'<div class="out"><h3>Test a claim</h3><div class="note" style="margin-top:0">Pick a number, set a threshold, and check it against this snapshot.</div>{tester}</div></div>',
+                 + f'</div><div class="tablewrap"><table id="ledt"><thead><tr><th style="width:5%">ID</th><th style="width:10%">Status</th><th style="width:42%">The claim and who made it</th><th>What the chain shows</th></tr></thead><tbody>{lrows}</tbody></table></div>',
                  "The ledger is re-checked every time the data is refreshed, so a claim can change from PASS to FAIL as the chain moves.", "ledger.html", "Full ledger")
 
     rerun = (f'<div class="card"><div class="card-h"><h2>How this board stays current</h2><span class="sub">Snapshot {k["snapshot"]} · block {k["block_height"]:,}</span></div>'
