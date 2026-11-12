@@ -2,6 +2,8 @@
 
 A long-term investment thesis for NEAR Protocol, built so that every number can be re-derived from the repo. NEAR Hackathon 2026, track `thesis` (Investment Thesis).
 
+**Live dashboard:** https://noniwryts.github.io/near-toll-road/ (the `dashboard/` folder, served from the `gh-pages` branch; no install needed).
+
 **The question.** Since February 2026 a cut of every NEAR Intents swap is converted to NEAR and swept on-chain into a buyback wallet. Does that revenue cover the value of new NEAR issuance, and what would have to be true for it to?
 
 **The answer today** (snapshot 2026-11-01): the mechanism is real and small. Buybacks covered about 11% of issuance over the last 30 days. Intents needs roughly 5.5x today's volume at today's fee and capture rates to break even at 2.5% issuance, or 3.5x if HSP-029 cuts issuance to 1.6%. Bought NEAR is held in a multisig, not staked or burned. The full argument, the evidence and the kill criteria are in [`thesis/THESIS.md`](thesis/THESIS.md).
@@ -13,10 +15,10 @@ Everything is regenerated from committed, dated snapshots. No API keys are neede
 | Do | See |
 |---|---|
 | `make setup` | dependencies installed (pandas, pyarrow, plotly, pyyaml, requests, pytest) |
-| `make report` | `reports/tables/*.csv`, `dashboard/*.html` (10 pages), `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
+| `make report` | `reports/tables/*.csv`, `dashboard/*.html` (13 pages), `thesis/THESIS.md` and `thesis/claims_ledger.csv` rebuilt from `data/snapshots/2026-11-01/` in under a minute |
 | `make check` | the 23-row claims ledger re-verified (10 PASS, 6 PARTIAL, 4 UNVERIFIABLE, 3 FAIL) and 21 tests passing. C19 is red because Electric Capital's data shows fewer NEAR developers, not more. C02 is red on purpose: the tokenomics post says bought NEAR is "staked or locked"; the wallet shows 0 staked |
 | `python -m checks.predictions` | three pre-registered calls (HSP-029 live in protocol, 90d capture >= 30%, 90d buyback coverage >= 15%, all by 2027-03-31) scored PENDING/HIT/MISS; the file is frozen by sha256 |
-| `make serve` then open http://localhost:5300 | the dashboard, one page per question with an evidence map on the start page: KPI tiles, fee flywheel, issuance vs buybacks, breakeven heatmaps, network fundamentals, Chain Signatures callers, Intents vs every DefiLlama bridge and swap aggregator, developers vs peer chains, comparables, 2030 scenarios, the ledger |
+| `make serve` then open http://localhost:5300 (or the live copy on GitHub Pages) | the start page tells the thesis as a nine-step story you click through (or read as one page): traffic, the toll, printing vs buying back, the coverage trend, a scenario model with sliders, whether the volume is real, seven ranked risks, frozen predictions, and a claim tester that checks any metric against the snapshot in the browser. Twelve evidence pages behind it: fee flywheel, buybacks, breakeven heatmaps, network, Chain Signatures, peers, developers, volume quality, risks, valuation, the full claims ledger, predictions |
 | edit `params.yaml` (e.g. `capture_rate: 0.5`), `make model` | `reports/tables/breakeven.csv` and the printed breakeven volume move |
 | `make refresh` | today's data pulled from NearBlocks, NEAR RPC, FastNear, DefiLlama, CoinGecko, nearstats and revenue.near.org into `data/snapshots/<today>/` with a `manifest.json` (source URL, fetch time, sha256, row count); keyed sources (Dune) skip cleanly |
 | `python -m pipeline.fetch_signer` | a time-boxed sample of `v1.signer` receipts (Chain Signatures): who calls `sign`, how often; `SIGNER_PAGES` sets the sample size |
@@ -37,7 +39,7 @@ analysis/build.py           derived tables and KPIs (reports/tables/)
 models/breakeven.py         breakeven volume, coverage, sensitivity grid, 2030 scenarios
 checks/run_ledger.py        the claims ledger: public claims re-tested against the snapshot
 checks/test_*.py            pytest: ledger integrity, model identities, data quality
-dashboard/build.py          static HTML pages from the tables (Plotly); index.html is the start page and evidence map
+dashboard/build.py          static HTML pages from the tables (Plotly); story.py builds the start page, theme.py the shared style
 thesis/THESIS.template.md   the thesis with {{placeholders}}; render.py fills them
 thesis/methodology.md       definitions and source hierarchy
 thesis/risk_register.md     risks with the metric that monitors each
