@@ -9,16 +9,16 @@ from pipeline.common import ROOT, latest_snapshot
 
 T = ROOT / "reports" / "tables"
 OUT = ROOT / "dashboard" / "index.html"
-# categorical palette (validated, dataviz reference instance): blue, orange, aqua, yellow
-C = {"1": "#2a78d6", "2": "#eb6834", "3": "#1baf7a", "4": "#eda100", "grid": "#e8e7e3", "text": "#0b0b0b", "muted": "#52514e"}
-LAYOUT = dict(template="plotly_white", font=dict(family="Inter, system-ui, sans-serif", size=13, color=C["text"]),
-              margin=dict(l=48, r=24, t=84, b=40), hovermode="x unified", legend=dict(orientation="h", y=1.04, x=0, yanchor="bottom"), title=dict(y=0.97, yanchor="top"),
-              xaxis=dict(gridcolor=C["grid"], showgrid=False), yaxis=dict(gridcolor=C["grid"], zeroline=False))
+from dashboard.theme import PALETTE as C, page_head, topbar
+LAYOUT = dict(template="plotly_white", font=dict(family="Inter, system-ui, sans-serif", size=12, color=C["text"]), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+              margin=dict(l=48, r=16, t=70, b=40), hovermode="x unified", legend=dict(orientation="h", y=1.02, x=0, yanchor="bottom", font=dict(color=C["muted"])),
+              title=dict(y=0.98, yanchor="top", x=0, xanchor="left", font=dict(size=14, color=C["text"])),
+              xaxis=dict(gridcolor=C["grid"], showgrid=False, linecolor="#e7e9ee", tickfont=dict(color=C["muted"])), yaxis=dict(gridcolor=C["grid"], zeroline=False, tickfont=dict(color=C["muted"])))
 
 
 def fig_html(fig, h=380):
     fig.update_layout(height=h, **LAYOUT)
-    return pio.to_html(fig, include_plotlyjs=False, full_html=False, config={"displaylogo": False, "responsive": True})
+    return '<div class="card">' + pio.to_html(fig, include_plotlyjs=False, full_html=False, config={"displaylogo": False, "responsive": True, "displayModeBar": False}) + '</div>'
 
 
 def money(x, d=1):
@@ -68,12 +68,12 @@ def build():
     for irate, title in ((0.025, "2.5% cap (today)"), (0.016, "1.6% (HSP-029)")):
         pass
     piv = sens[sens.issuance_rate == 0.025].pivot(index="capture_rate", columns="fee_rate_bps", values="breakeven_volume_usd_per_day") / 1e6
-    f6 = go.Figure(go.Heatmap(z=piv.values, x=[f"{c} bps" for c in piv.columns], y=[f"{r:.0%}" for r in piv.index], colorscale="Blues",
+    f6 = go.Figure(go.Heatmap(z=piv.values, x=[f"{c} bps" for c in piv.columns], y=[f"{r:.0%}" for r in piv.index], colorscale=[[0,"#fff1eb"],[1,"#ff5a1f"]],
                               text=[[f"${x:,.0f}M" for x in row] for row in piv.values], texttemplate="%{text}", hovertemplate="fee %{x}, capture %{y}: $%{z:,.0f}M/day<extra></extra>", colorbar_title="$M/day"))
     f6.update_layout(title=f"Breakeven volume per day at 2.5% issuance (today {money(ms['current_volume_usd_per_day'],0)}/day)",
                      xaxis_title="gross fee rate", yaxis_title="capture rate")
     piv2 = sens[sens.issuance_rate == 0.016].pivot(index="capture_rate", columns="fee_rate_bps", values="breakeven_volume_usd_per_day") / 1e6
-    f6b = go.Figure(go.Heatmap(z=piv2.values, x=[f"{c} bps" for c in piv2.columns], y=[f"{r:.0%}" for r in piv2.index], colorscale="Blues",
+    f6b = go.Figure(go.Heatmap(z=piv2.values, x=[f"{c} bps" for c in piv2.columns], y=[f"{r:.0%}" for r in piv2.index], colorscale=[[0,"#fff1eb"],[1,"#ff5a1f"]],
                                text=[[f"${x:,.0f}M" for x in row] for row in piv2.values], texttemplate="%{text}", colorbar_title="$M/day"))
     f6b.update_layout(title="Same grid at 1.6% issuance (HSP-029 target)", xaxis_title="gross fee rate", yaxis_title="capture rate")
     # 7 network activity
@@ -264,36 +264,21 @@ def build():
                         table(pd.read_csv(T / "predictions.csv"), ["id", "call", "observed", "threshold", "settles", "status"]) if (T / "predictions.csv").exists() else "", "reports/tables/predictions.csv", "P1 P2 P3"),
     }
     order = ["index"] + list(sections)
-    labels = {"index": "Start here", **{kk: v[0] for kk, v in sections.items()}}
+    short = {"flywheel": "Fees", "issuance": "Buybacks", "breakeven": "Breakeven", "network": "Network", "signatures": "Signatures", "cross-protocol": "Peers",
+             "developers": "Developers", "volume-quality": "Volume quality", "security": "Risks", "valuation": "Valuation", "ledger": "Claims", "predictions": "Predictions"}
+    labels = {"index": "Story", **{kk: short.get(kk, v[0]) for kk, v in sections.items()}}
 
     def nav(cur):
         return '<nav>' + "".join(f'<a href="{kk}.html"{" class=\"on\"" if kk == cur else ""}>{html.escape(labels[kk])}</a>' for kk in order) + '</nav>'
 
-    head = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Toll Road: NEAR evidence dashboard</title>
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
-<style>
-:root{{--bg:#fcfcfb;--ink:#0b0b0b;--muted:#52514e;--line:#e8e7e3;--accent:#2a78d6}}
-body{{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}}
-main{{max-width:1180px;margin:0 auto;padding:24px 16px 64px}}
-h1{{font-size:26px;margin:0 0 4px}} h2{{font-size:18px;margin:36px 0 8px;border-top:1px solid var(--line);padding-top:20px}}
-.sub,.note{{color:var(--muted);font-size:13px}} .note{{margin:4px 0 12px}}
-nav{{display:flex;flex-wrap:wrap;gap:4px 14px;margin:14px 0 6px;font-size:14px}} nav a{{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}} nav a.on{{color:var(--ink);border-color:var(--accent)}} nav a:hover{{color:var(--ink)}}
-.tiles{{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:18px 0}}
-.tile{{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#fff}} .tile .label{{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}}
-.tile .value{{font-size:22px;font-weight:600;margin:2px 0}} .grid2{{display:grid;grid-template-columns:1fr 1fr;gap:16px}} @media(max-width:860px){{.grid2{{grid-template-columns:1fr}}}}
-table{{border-collapse:collapse;width:100%;font-size:13px;margin:8px 0}} th,td{{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}} th{{color:var(--muted);font-weight:600}}
-td:nth-child(2) {{white-space:nowrap}} .PASS{{color:#008300}} .FAIL{{color:#e34948}} .PARTIAL{{color:#c98500}} .UNVERIFIABLE{{color:#52514e}}
-.verdict{{border-left:3px solid var(--accent);padding:4px 14px;margin:16px 0;background:#fff}}
-</style></head><body><main>
-<h1>Toll Road: does NEAR's fee switch pay for the chain?</h1>
-<div class="sub">Snapshot {k['snapshot']} · data through {k['as_of_date']} · block {k['block_height']:,} · every number here is regenerated by <code>make report</code> from <code>data/snapshots/{k['snapshot']}/</code></div>"""
-    foot = """<p class="sub">Sources: NearBlocks, NEAR RPC (FastNear), FastNear API, DefiLlama, CoinGecko, nearstats.org, revenue.near.org, Electric Capital Open Dev Data. Not investment advice.</p>
-</main><script>document.querySelectorAll('td').forEach(td=>{if(['PASS','FAIL','PARTIAL','UNVERIFIABLE'].includes(td.textContent))td.classList.add(td.textContent)})</script></body></html>"""
+    head = page_head("Toll Road: does NEAR's fee switch pay for the chain?")
+    top = lambda cur: topbar(nav(cur), k['snapshot'], k['as_of_date'])
+    foot = """<p class="foot">Sources: NEAR RPC (FastNear), NearBlocks, DefiLlama, CoinGecko, TronGrid, nearstats.org, revenue.near.org, Electric Capital Open Dev Data. Every number is regenerated by <code>make report</code>. Not investment advice.</p>
+</div><script>document.querySelectorAll('td').forEach(td=>{if(['PASS','FAIL','PARTIAL','UNVERIFIABLE'].includes(td.textContent.trim()))td.innerHTML='<span class="'+td.textContent.trim()+'">'+td.textContent.trim()+'</span>'})</script></body></html>"""
     OUT.parent.mkdir(exist_ok=True)
     for name, (title, note, body, files, claims) in sections.items():
-        (OUT.parent / f"{name}.html").write_text(head + nav(name) + f"<h2>{html.escape(title)}</h2><div class=\"note\">{note}</div>{body}"
-                                                 + f"<p class=\"sub\">Tables: <code>{html.escape(files)}</code> · ledger rows: {html.escape(claims)}</p>" + foot)
+        (OUT.parent / f"{name}.html").write_text(head + top(name) + f'<div class="head"><div><span class="tag">Evidence</span><h1>{html.escape(title)}</h1><p class="lede">{note}</p></div><a class="chip" href="index.html" style="text-decoration:none">← Back to the story</a></div>'
+                                                 + body + f'<p class="sub">Tables: <code>{html.escape(files)}</code> · ledger rows: {html.escape(claims)}</p>' + foot)
     # start page: tiles, the verdict, and the evidence map
     verdict = (f"<div class=\"verdict\"><p><b>The mechanism is real and small.</b> In the last 30 days NEAR Intents moved {money(k['intents_volume_30d'])}, earned {money(k['intents_fees_30d'])} in fees, "
                f"and NEAR captured {money(k['intents_revenue_30d'])} of it ({k['capture_30d']:.0%}). {k['buyback_near_30d']:,.0f} NEAR was bought against {k['issued_near_30d']/1e6:.2f}M issued: coverage <b>{k['coverage_near_30d']:.1%}</b>. "
@@ -302,7 +287,8 @@ td:nth-child(2) {{white-space:nowrap}} .PASS{{color:#008300}} .FAIL{{color:#e349
                f"What is going wrong: issuance outruns buybacks {k['issued_near_30d']/k['buyback_near_30d']:.0f}x, bought NEAR is held not retired, base-layer activity has fallen, and Electric Capital counts {k.get('dev_all','?')} active developers, down {abs(k.get('dev_all_chg_1y',0)):.0%} in a year. Both sides are in the ledger.</p></div>")
     emap = "<table><thead><tr><th>Question</th><th>Page</th><th>Table (reports/tables/)</th><th>Ledger rows</th></tr></thead><tbody>" + "".join(
         f"<tr><td>{html.escape(t)}</td><td><a href=\"{n}.html\">{html.escape(t)}</a></td><td><code>{html.escape(f)}</code></td><td>{html.escape(c)}</td></tr>" for n, (t, _, _, f, c) in sections.items()) + "</tbody></table>"
-    index = head + nav("index") + f'<div class="tiles">{tiles_html}</div>' + verdict + "<h2>Evidence map</h2><div class=\"note\">Every page answers one question, cites the table it is drawn from and the ledger rows it supports. <code>make report</code> rebuilds all of it; <code>make check</code> re-tests the ledger.</div>" + emap + foot
+    from dashboard.story import build_story
+    index = build_story(k, ms, T, led, nav("index"), head, top("index"), foot)
     OUT.write_text(index)
     print(f"dashboard -> {OUT.parent}/ ({len(sections)+1} pages, index {OUT.stat().st_size/1e3:.0f} KB)")
 
