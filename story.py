@@ -58,20 +58,52 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
     answer = (f'<div class="card answer"><span class="tag">The answer</span>'
               f'<div class="big">The mechanism is real, but small. For every 10 new NEAR printed to pay validators, the fee switch buys back about <b>{k["coverage_near_30d"]*10:.0f}</b>.</div>'
               f'<div class="note">To pay for itself at today\'s 2.5% issuance, NEAR Intents would need about {money(be,0)} of swaps a day, {be/vol_day:.1f}x what it does now. '
-              f'The issuance cut passed on Nov 2 (HSP-029) lowers that bar to {money(ms["breakeven_measured_hsp029"],0)} a day once fully phased in (~2029). Click Next to see how we got here; steps 5 and 9 let you test it yourself.</div></div>')
+              f'The issuance cut passed on Nov 2 (HSP-029) lowers that bar to {money(ms["breakeven_measured_hsp029"],0)} a day once fully phased in (~2029). Click Next to see how we got here; steps 6 and 10 let you test it yourself.</div></div>')
 
     def chapter(no, title, take, body, why, link, label="See the evidence"):
         return (f'<div class="card"><div class="step"><div class="num">{no}</div><div style="flex:1;min-width:0">'
                 f'<div class="card-h"><h3 style="margin:0">{html.escape(title)}</h3><a class="more" href="{link}">{label} →</a></div>'
                 f'<div class="takeaway">{take}</div><div class="note">{why}</div>{body}</div></div></div>')
 
+    # 0 before the switch
+    pm = pd.read_csv(T / "prebuyback_monthly.csv", parse_dates=["month"])
+    pi = pd.read_csv(T / "prebuyback_price_index.csv", parse_dates=["date"])
+    sw, hv = pd.Timestamp(k["pb_switch_date"]), pd.Timestamp("2025-11-01")
+    def marks(fig, ymax):
+        for x, lab in ((hv, "Issuance halved"), (sw, "Fee switch live")):
+            fig.add_shape(type="line", x0=x, x1=x, y0=0, y1=1, yref="paper", line=dict(color=MUTED, dash="dot", width=1.2))
+            fig.add_annotation(x=x, y=1.02, yref="paper", text=lab, showarrow=False, font=dict(size=12, color=MUTED), xanchor="left")
+    pm2 = pm[pm.month >= "2024-06-01"]
+    f0 = go.Figure()
+    f0.add_scatter(x=pm2.month, y=pm2.active_accounts_per_day, name="Active accounts per day", line=dict(color=ACCENT, width=2.5))
+    f0.add_scatter(x=pm2.month, y=pm2.new_accounts_per_day, name="New accounts per day", line=dict(color=VIOLET, width=2))
+    marks(f0, 1)
+    f0.update_yaxes(tickformat=",.0f")
+    f0b = go.Figure()
+    for coin, name, col in (("near", "NEAR", ACCENT), ("solana", "SOL", MUTED), ("ethereum", "ETH", "#b08d2c")):
+        f0b.add_scatter(x=pi.date, y=pi[coin], name=name, line=dict(color=col, width=3 if coin == "near" else 1.6))
+    marks(f0b, 1)
+    f0b.update_yaxes(title_text="Price, start = 100")
+    why = ('<div class="three" style="margin-top:14px">'
+           f'<div><h3>1. There was no revenue to spend</h3><div class="sub">Intents collected almost no fees until {k["pb_intents_fees_first_month"]}, and NEAR\'s own cut was about ${k["pb_intents_rev_before_nov25_usd"]:,.0f} in total before November 2025 (DefiLlama). A buyback needs a stream of income to buy with; the stream only appeared in late 2025.</div></div>'
+           f'<div><h3>2. The first fix was a smaller printing press</h3><div class="sub">A community proposal on 24 June 2025 argued that 5% a year of new NEAR was far more than the network needed. The halving (to 2.5%) took effect with the nearcore 2.9.0 protocol upgrade in late October 2025. Issuance in our data drops from about {k["pb_prehalving_issuance_annual"]:.1%} to {k["pb_posthalving_prefee_issuance_annual"]:.1%} a year in November.</div></div>'
+           f'<div><h3>3. Burning gas was too small to matter</h3><div class="sub">NEAR burns part of every gas fee, but the proposal put the burn at about 0.1% of supply in a year. By our estimate (70% of gas fees) it covered only {k["pb_burn_cover_pre_halved"]:.1%} of the value of new NEAR between November and the switch.</div></div></div>')
+    pxline = (f'<div class="three" style="margin-top:16px"><div><h3>Before the switch ({k["pb_px_start"]} to {k["pb_switch_date"]})</h3><div class="k">NEAR {k["pb_px_pre_near"]:+.0%}</div><div class="sub">SOL {k["pb_px_pre_solana"]:+.0%}, ETH {k["pb_px_pre_ethereum"]:+.0%}. The whole market was falling; NEAR fell with it.</div></div>'
+              f'<div><h3>Since the switch (to {k["pb_as_of"]})</h3><div class="k">NEAR {k["pb_px_post_near"]:+.0%}</div><div class="sub">SOL {k["pb_px_post_solana"]:+.0%}, ETH {k["pb_px_post_ethereum"]:+.0%}. NEAR went from trailing the market to leading it.</div></div>'
+              f'<div><h3>What we do not claim</h3><div class="sub">Buybacks so far total {money(k["buyback_usd_all"])}, small next to the {money(k["pb_near_trading_usd_day"],0)} of NEAR traded on an average day. We read the rally as timing worth noting, not proof the buybacks caused it.</div></div></div>')
+    c0 = chapter(1, "Before the switch", f"Before the buybacks, usage was already shrinking, new NEAR was being printed at twice today's rate, and there was no revenue to buy with.",
+                 _fig(f0, 260) + '<div class="note" style="margin-top:6px">Monthly averages of active and new accounts per day. Active accounts fell from '
+                 f'{k["pb_active_jan25"]/1e3:,.0f}k a day in January 2025 to {k["pb_active_pre_halved"]/1e3:,.0f}k a day in the months before the switch ({k["pb_active_chg_jan25_to_switch"]:+.0%}); transactions fell {k["pb_txns_chg_jan25_to_switch"]:+.0%}.</div>'
+                 + why + '<h3 style="margin-top:20px">NEAR against SOL and ETH over the same dates</h3>' + _fig(f0b, 240) + pxline,
+                 f'The fee switch went live on {k["pb_switch_date"]}; the first sweep reached the buyback wallet on {k["pb_first_sweep"]}, {k["pb_gap_days"]} days later. This is a before-and-after description, not proof of cause: issuance was halved and a reward app stopped in the same months.',
+                 "network.html", "Network pages")
     # 1 traffic
     dd = d[d.date >= "2025-09-01"]
     f1 = go.Figure()
     f1.add_bar(x=dd.date, y=dd.volume_usd, name="Daily swaps", marker_color=ACCENT_SOFT, marker_line_width=0)
     f1.add_scatter(x=dd.date, y=dd.volume_30d / 30, name="30-day average", line=dict(color=ACCENT, width=2.5))
     f1.update_yaxes(tickprefix="$")
-    c1 = chapter(1, "The traffic", f"About {money(vol_day,0)} of swaps cross NEAR Intents every day.",
+    c1 = chapter(2, "The traffic", f"About {money(vol_day,0)} of swaps cross NEAR Intents every day.",
                  _fig(f1), f"Rank {k['xp_bridge_rank']} of {k['xp_bridge_n']} cross-chain aggregators on DefiLlama. Volume is down from its peak: DefiLlama shows {k['xp_intents_chg_1m_llama']:+.0f}% month on month.", "flywheel.html")
     # 2 toll and cut
     mm = m[(m.month >= "2026-02-01") & (m.month <= end)]
@@ -79,7 +111,7 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
     f2.add_bar(x=mm.month, y=mm.fees_usd, name="Fees paid", marker_color=VIOLET_SOFT, marker_line_width=0)
     f2.add_bar(x=mm.month, y=mm.revenue_usd, name="NEAR's cut", marker_color=VIOLET, marker_line_width=0)
     f2.update_layout(barmode="overlay", bargap=0.35); f2.update_yaxes(tickprefix="$")
-    c2 = chapter(2, "The toll", f"Each swap pays about {k['fee_rate_bps_30d']/100:.2f}%. NEAR keeps {k['capture_30d']:.0%} of it; the rest goes to the apps that bring the traffic.",
+    c2 = chapter(3, "The toll", f"Each swap pays about {k['fee_rate_bps_30d']/100:.2f}%. NEAR keeps {k['capture_30d']:.0%} of it; the rest goes to the apps that bring the traffic.",
                  _fig(f2), f"NEAR's share has risen since the fee switch in February (lifetime {k['capture_lifetime']:.0%}, last 30 days {k['capture_30d']:.0%}).", "flywheel.html")
     # 3 printed vs bought (funnel)
     px = k["price_usd"]
@@ -94,7 +126,7 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
         lab_style = f' style="bottom:calc({h:.1f}% + 6px);color:#111318"' if h < 16 else ""
         bars += f'<div class="bar{soft}"><i style="height:{h:.1f}%"></i>{drop}<span{lab_style}>{v/1e6:.2f}M</span></div>'
     funnel = f'<div class="bars">{bars}</div><div class="blabels">' + "".join(f"<div>{l}</div>" for l, _ in steps) + "</div>"
-    c3 = chapter(3, "Printing vs buying back", f"In 30 days NEAR printed {k['issued_near_30d']/1e6:.2f}M new tokens and bought back {k['buyback_near_30d']/1e3:,.0f}k: <b>{k['coverage_near_30d']:.1%}</b> coverage.",
+    c3 = chapter(4, "Printing vs buying back", f"In 30 days NEAR printed {k['issued_near_30d']/1e6:.2f}M new tokens and bought back {k['buyback_near_30d']/1e3:,.0f}k: <b>{k['coverage_near_30d']:.1%}</b> coverage.",
                  funnel, f"Counted in NEAR, not dollars, so a price move can't flatter it. Bought NEAR sits in a multisig: not burned, not staked (ledger C02).", "issuance.html")
     # 4 coverage trend
     mc = m[(m.month >= "2026-04-01") & m.coverage_near.notna() & (m.month <= end)]
@@ -103,7 +135,7 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
                text=[f"{x:.0%}" for x in mc.coverage_near], textposition="outside")
     f4.add_scatter(x=mc.month, y=[1] * len(mc), name="Pays for itself (100%)", line=dict(color=MUTED, dash="dot", width=1.5), mode="lines")
     f4.update_yaxes(tickformat=".0%", range=[0, 1.08])
-    c4 = chapter(4, "The trend", "Coverage is rising, but it is a long way from 100%.", _fig(f4, 240),
+    c4 = chapter(5, "The trend", "Coverage is rising, but it is a long way from 100%.", _fig(f4, 240),
                  "Monthly NEAR bought back divided by NEAR printed. 100% would mean the fee switch fully offsets dilution.", "issuance.html")
     # 6 is it real
     real = [("Payouts are real money leaving", f"{k.get('cust_public_share',0):.0%}", f"Every USDT payout from the bridge's Tron wallet ({money(k.get('cust_payouts_usd',0))}, one week) matches a public NEAR withdrawal."),
@@ -112,7 +144,7 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
             ("Little wash trading", f"{k['vq_selftrade_share_nonpersistent']:.1%}", "of swappers round-trip A→B→A outside the known market makers."),
             ("The April drop was one app", f"{k['blk_drop_explained']:.0%}", "of the fall in daily NEAR transactions is one reward app (KaiChing) stopping, not Intents.")]
     rows = "".join(f'<tr><td style="width:34%"><b>{a}</b></td><td style="width:12%;font-size:20px;font-weight:500">{b_}</td><td class="sub">{c}</td></tr>' for a, b_, c in real)
-    c6 = chapter(6, "Is the traffic real?", "Mostly yes: the money is real and spread out, but user counts are inflated.",
+    c6 = chapter(7, "Is the traffic real?", "Mostly yes: the money is real and spread out, but user counts are inflated.",
                  f'<div class="tablewrap"><table>{rows}</table></div>', "Read from a 1.2% random sample of intents.near transactions plus a full week of Tron payouts.", "volume-quality.html")
     # 7 risks
     pc = lambda x: f"{x:.0%}"
@@ -152,14 +184,14 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
         f'<a class="more" href="{lk}">{pg} page →</a></div><div class="rg">'
         f'<div><h3>What we see</h3>{a}</div><div><h3>Why it matters</h3>{b_}</div><div><h3>What would ease it</h3>{c}</div></div></div>'
         for sv, t, pg, lk, a, b_, c in risks)
-    c7 = chapter(7, "What could break it", f"{len(risks)} risks, ranked. Two are serious today; all are checked against the data on every rebuild.",
+    c7 = chapter(8, "What could break it", f"{len(risks)} risks, ranked. Two are serious today; all are checked against the data on every rebuild.",
                  rcards, "We keep the bad news in. A thesis that hides its weak points can't be trusted on its strong ones.", "security.html", "All risks")
     # 8 predictions
     pr = pd.read_csv(T / "predictions.csv") if (T / "predictions.csv").exists() else pd.DataFrame()
     prow = ""
     for _, r in pr.iterrows():
         prow += f'<tr><td><b>{r["id"]}</b></td><td>{html.escape(r["call"])}</td><td>{html.escape(str(r["observed"]))}</td><td>{html.escape(str(r["threshold"]))}</td><td>{r["settles"]}</td><td><span class="UNVERIFIABLE">{r["status"]}</span></td></tr>'
-    c8 = chapter(8, "Our calls, frozen in advance", "Three dated predictions settle on 31 March 2027. Nobody can move the goalposts.",
+    c8 = chapter(9, "Our calls, frozen in advance", "Three dated predictions settle on 31 March 2027. Nobody can move the goalposts.",
                  f'<div class="tablewrap"><table><thead><tr><th></th><th>Call</th><th>Now</th><th>Threshold</th><th>Settles</th><th>Status</th></tr></thead><tbody>{prow}</tbody></table></div>',
                  "The file is locked by its fingerprint (sha256); a test fails if anyone edits a threshold.", "predictions.html")
 
@@ -196,7 +228,7 @@ $('r_v').innerHTML=cov>=1?'<b>Pays for itself.</b> Buybacks take back all the ne
 ['vol','fee','cap','iss'].forEach(k=>$(k).addEventListener('input',()=>{{run();document.querySelectorAll('#presets button').forEach(b=>b.classList.remove('on'));}}));
 document.querySelectorAll('#presets button').forEach(b=>b.addEventListener('click',()=>set(b.dataset.p)));set('today');}})();
 </script>"""
-    c5 = chapter(5, "Scenarios", "What would it take for NEAR to pay for itself? Set the volume, fee and issuance and see.", sim,
+    c5 = chapter(6, "Scenarios", "What would it take for NEAR to pay for itself? Set the volume, fee and issuance and see.", sim,
                  "Coverage here uses all of NEAR's cut. In the last 30 days only " + f"{sim_data['bbshare']:.0%} of it reached the buyback wallet, which is why measured coverage ({k['coverage_near_30d']:.1%}) is lower.",
                  "breakeven.html", "Full breakeven tables")
 
@@ -224,7 +256,7 @@ $('t_go').addEventListener('click',()=>{{const m=M[+$('t_m').value],x=+$('t_x').
 o.style.display='block';o.className='verdict '+(ok?'v-pass':'v-fail');o.textContent=(ok?'Holds: ':'Does not hold: ')+m[0]+' is '+(m[2]==='%'?val.toFixed(1)+'%':val.toLocaleString(undefined,{{maximumFractionDigits:1}}))+' in this snapshot ({k["as_of_date"]}).';}});
 document.querySelectorAll('#ledf button').forEach(b=>b.addEventListener('click',()=>{{document.querySelectorAll('#ledf button').forEach(x=>x.classList.toggle('on',x===b));
 document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.dataset.s==='ALL'||r.dataset.s===b.dataset.s)?'':'none');}}));}})();</script>"""
-    c9 = chapter(9, "Check other people's claims, or your own", f"We tested {len(led)} public claims about NEAR against the chain. {sc.get('FAIL',0)} are false.",
+    c9 = chapter(10, "Check other people's claims, or your own", f"We tested {len(led)} public claims about NEAR against the chain. {sc.get('FAIL',0)} are false.",
                  f'<div class="folders">{folders}</div>'
                  f'<div class="out" style="margin-bottom:18px"><h3>Test a claim yourself</h3><div class="note" style="margin-top:0">Pick a number, set a threshold, and check it against this snapshot.</div>{tester}</div>'
                  '<h3 style="margin-top:4px">All {n} claims we tested</h3><div class="row" id="ledf" style="margin-bottom:8px">'.replace("{n}", str(len(led)))
@@ -260,7 +292,8 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
              f'<div><h3>It is small</h3><div class="k">{cov:.1%} of new supply</div><div class="sub">Buybacks absorb about a tenth of the NEAR printed. The rest is new supply, so each holder\'s share of NEAR still shrinks.</div></div>'
              f'<div><h3>The bar is coming down</h3><div class="k">{money(be,0)} &rarr; {money(ms["breakeven_measured_hsp029"],0)} a day</div><div class="sub">Holders voted to cut issuance (HSP-029). Once phased in, the volume needed to pay for the chain falls by a third.</div></div>'
              '</div></div>')
-    toc_items = [("The traffic", f"{money(vol_day,0)} of swaps a day; rank {k['xp_bridge_rank']} of {k['xp_bridge_n']} cross-chain aggregators."),
+    toc_items = [("Before the switch", f"Usage fell {abs(k['pb_active_chg_jan25_to_switch']):.0%} in a year and NEAR had no revenue to buy with."),
+                 ("The traffic", f"{money(vol_day,0)} of swaps a day; rank {k['xp_bridge_rank']} of {k['xp_bridge_n']} cross-chain aggregators."),
                  ("The toll", f"Each swap pays about {k['fee_rate_bps_30d']/100:.2f}%; NEAR keeps {capr:.0%}."),
                  ("Printing vs buying back", f"{k['issued_near_30d']/1e6:.2f}M printed, {k['buyback_near_30d']/1e3:,.0f}k bought."),
                  ("The trend", "Coverage is rising month by month, still far from 100%."),
@@ -269,12 +302,12 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
                  ("What could break it", "Seven risks, ranked, with what would ease each one."),
                  ("Our predictions", "Three dated calls, locked until 31 March 2027."),
                  ("Check any claim", f"{len(led)} public claims about NEAR tested; {sc.get('FAIL',0)} are false.")]
-    toc = ('<div class="card"><div class="card-h"><h2>The story in nine steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
+    toc = ('<div class="card"><div class="card-h"><h2>The story in ten steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
            + "".join(f'<a href="#st{i+1}"><span class="tn">{i+1}</span><span><span class="tt">{a}</span><br><span class="td">{b_}</span></span></a>' for i, (a, b_) in enumerate(toc_items))
            + '</div></div>')
-    steps = [("Overview", hero + kpi_html + answer + flow_html + three + toc), ("1 Traffic", c1), ("2 The toll", c2), ("3 Printing vs buying", c3),
-             ("4 Coverage", c4), ("5 What it would take", c5), ("6 Is it real?", c6), ("7 Risks", c7), ("8 Predictions", c8),
-             ("9 Test claims", c9 + rerun)]
+    steps = [("Overview", hero + kpi_html + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
+             ("4 Printing vs buying", c3), ("5 Coverage", c4), ("6 What it would take", c5), ("7 Is it real?", c6), ("8 Risks", c7),
+             ("9 Predictions", c8), ("10 Test claims", c9 + rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
     pages = "".join(f'<div class="st" data-st="{i}">{b}</div>' for i, (_, b) in enumerate(steps))
     body = (f'<div class="storywrap"><aside class="stepper" id="stp"><button id="stall" class="allbtn">Read as one page</button><div class="sidelab">Steps</div>{tabs}</aside><div class="storymain">{pages}'
