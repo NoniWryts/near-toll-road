@@ -285,6 +285,16 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     hero = (f'<div class="head"><div><span class="tag">NEAR investment thesis</span><h1>Does NEAR\'s fee switch pay for the chain?</h1>'
             f'<p class="lede">NEAR Intents is a toll road for cross-chain swaps, and the NEAR token owns it. We follow the money from each swap to the token, using only public on-chain data.</p>'
             f'<div class="byline">An on-chain investment thesis · last 30 days to {k["as_of_date"]} · NEAR block {k["block_height"]:,} · every number rebuilt from public data</div></div></div>')
+    cov_pct = k["coverage_near_30d"] * 100
+    case = ('<div class="card" style="margin:0 0 18px"><span class="tag">The case in five steps</span><ol style="margin:10px 0 0 20px;padding:0">'
+            '<li><b>The problem.</b> Most blockchains pay for their security by printing new tokens, so every holder is diluted a little each day. NEAR prints about '
+            f'{k["issued_near_30d"]/1e6:.1f}M new NEAR a month. An investor in any such chain has to ask whether anything real ever pays that bill.</li>'
+            '<li><b>Why NEAR is the test.</b> Since February 2026 a fee on every NEAR Intents swap is converted to NEAR and sent on-chain to a buyback wallet. '
+            'That makes &ldquo;a product pays the bill&rdquo; something we can measure instead of promise.</li>'
+            '<li><b>The question.</b> How much swap traffic is needed before the buyback covers the new supply, and is NEAR heading there?</li>'
+            f'<li><b>The answer.</b> Today the buyback covers about {cov_pct:.0f}%. It needs about {be/vol_day:.1f}x today&rsquo;s traffic at current issuance. '
+            'So the position is conditional: hold NEAR for the product, not for the fee switch as it stands, and leave if the kill criteria trigger.</li>'
+            '<li><b>What would prove us wrong.</b> The kill criteria and three frozen predictions that settle on 31 March 2027 (step 9 and the full thesis).</li></ol></div>')
     cov = k["coverage_near_30d"]; nfill = max(1, round(cov * 10))
     coins = "".join(f'<div class="coin{" f" if i < nfill else ""}"></div>' for i in range(10))
     answer = (f'<div class="card answer"><div class="g-wide" style="align-items:center"><div><span class="tag">The answer</span>'
@@ -319,7 +329,7 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     toc = ('<div class="card"><div class="card-h"><h2>The story in ten steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
            + "".join(f'<a href="#st{i+1}"><span class="tn">{i+1}</span><span><span class="tt">{a}</span><br><span class="td">{b_}</span></span></a>' for i, (a, b_) in enumerate(toc_items))
            + '</div></div>')
-    steps = [("Overview", hero + kpi_html + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
+    steps = [("Overview", hero + case + kpi_html + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
              ("4 Printing vs buying", c3), ("5 Coverage", c4), ("6 What it would take", c5), ("7 Is it real?", c6), ("8 Risks", c7),
              ("9 Predictions", c8), ("10 Test claims", c9 + rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))

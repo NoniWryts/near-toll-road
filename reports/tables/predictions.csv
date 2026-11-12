@@ -1,4 +1,4 @@
 id,call,observed,threshold,data_through,settles,status,snapshot,checked_at
-P1,HSP-029 live in the protocol,"max_inflation_rate [1, 40] (protocol 88); realised issuance 2.47%","cap != [1,40] or realised < 2.40%",2026-11-10,2027-03-31,PENDING,2026-11-12,2026-11-12T18:11:48Z
-P2,Trailing-90d capture rate,27.1%,>= 30.0%,2026-11-10,2027-03-31,PENDING,2026-11-12,2026-11-12T18:11:48Z
-P3,90-day buyback coverage of issuance,12.5%,>= 15.0%,2026-11-10,2027-03-31,PENDING,2026-11-12,2026-11-12T18:11:48Z
+P1,HSP-029 live in the protocol,"max_inflation_rate [1, 40] (protocol 88); realised issuance 2.47%","cap != [1,40] or realised < 2.40%",2026-11-10,2027-03-31,PENDING,2026-11-12,2026-11-12T18:38:10Z
+P2,Trailing-90d capture rate,27.1%,>= 30.0%,2026-11-10,2027-03-31,PENDING,2026-11-12,2026-11-12T18:38:10Z
+P3,90-day buyback coverage of issuance,12.5%,>= 15.0%,2026-11-10,2027-03-31,PENDING,2026-11-12,2026-11-12T18:38:10Z

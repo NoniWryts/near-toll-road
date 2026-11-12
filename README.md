@@ -4,6 +4,10 @@ A long-term investment thesis for NEAR Protocol, built so that every number can 
 
 **Live dashboard:** https://noniwryts.github.io/near-toll-road/ (the `dashboard/` folder, served from the `gh-pages` branch; no install needed).
 
+**The problem.** Most blockchains pay for their security by printing new tokens, so every holder is diluted a little each day. NEAR prints about 2.7M new NEAR a month. An investor in any such chain has to ask whether anything real ever pays that bill. NEAR is the test case because, since February 2026, a fee on every NEAR Intents swap is converted to NEAR and sent on-chain to a buyback wallet, which makes "a product pays the bill" measurable.
+
+**The position.** Conditional: hold NEAR for the product, not for the fee switch as it stands today, and exit if the kill criteria in the thesis trigger. Today the mechanism is real and small, so the thesis does not claim NEAR is a buy now.
+
 **The question.** Since February 2026 a cut of every NEAR Intents swap is converted to NEAR and swept on-chain into a buyback wallet. Does that revenue cover the value of new NEAR issuance, and what would have to be true for it to?
 
 **The answer today** (snapshot 2026-11-12, data to 2026-11-10): the mechanism is real and small. Buybacks covered about 11% of issuance over the last 30 days. Intents needs roughly 5.0x today's volume at today's fee and capture rates to break even at 2.5% issuance, or 3.2x if HSP-029 cuts issuance to 1.6%. Bought NEAR is held in a multisig, not staked or burned. The full argument, the evidence and the kill criteria are in [`thesis/THESIS.md`](thesis/THESIS.md).

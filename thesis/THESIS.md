@@ -4,6 +4,8 @@
 
 ## 1. The claim, and what would falsify it
 
+**The problem.** Most Layer-1 tokens pay for their security by printing new tokens, which dilutes holders every day. NEAR prints about 2.66 million new NEAR in the last 30 days. An investor has to ask whether anything real ever pays that bill, and NEAR is the test case because a product (Intents) now feeds a buyback that can be measured on-chain. **The position** that follows is conditional: hold NEAR for the product, not for the fee switch as it stands, and exit if the kill criteria below trigger.
+
 **Thesis.** NEAR has turned a cross-chain product, NEAR Intents, into a measurable revenue line for the token: a fee on every swap is converted to NEAR and swept on-chain into a buyback wallet. If that revenue grows to cover the value of new NEAR issuance, NEAR becomes one of the few Layer-1 tokens whose supply is paid for by a product rather than by holders. That is the long-term case.
 
 **Where it stands today.** The mechanism is real and visible on-chain (ledger C01). It is also small: in the last 30 days NEAR bought back 290,497 NEAR against 2.66M NEAR issued, a coverage of **10.9%**. Issuance runs 9.2x buybacks. At the measured fee rate (15.9 bps of volume) and capture rate (30.4%), Intents would need **$630M of volume per day** to cover 2.5% issuance, versus $125M today, a 5.0x gap. HSP-029 passed on Nov 2, 2026 (ledger C20: 3.29M veNEAR for, 0 veNEAR against, turnout 62%). It does not cut issuance to 1.6% at once: after a 14-day timelock, a validator upgrade and a ~90-day buffer, the cap ramps down by about 3.75 bps a month for 24 months. At the end of 2027 the cap is near 2.13%, where breakeven is $536M per day; at the 1.6% end point (2029) it is $403M per day (3.2x today's volume).
