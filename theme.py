@@ -98,9 +98,14 @@ code{background:#efede6;padding:1px 5px;font-size:13.5px;font-family:Menlo,Conso
 .risk{border-top:1px solid var(--line);padding:14px 0 6px} .risk .rt{font-size:19px;margin-left:6px} .rg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;font-size:15px} .rg h3{margin:4px 0 2px;font-size:12px}
 @media(max-width:980px){.rg{grid-template-columns:1fr}}
 /* story: chapter bar, pager, overview pieces */
-.stepper{display:flex;gap:0;overflow-x:auto;margin:0 0 20px;border-bottom:1px solid var(--line)}
-.stepper button{white-space:nowrap;border:0;border-bottom:2px solid transparent;background:none;padding:6px 12px;color:var(--muted);border-radius:0;margin-bottom:-1px}
-.stepper button:hover{color:var(--ink)} .stepper button.on{background:none;color:var(--ink);border-bottom-color:var(--teal);font-weight:700}
+.storywrap{display:grid;grid-template-columns:230px minmax(0,1fr);gap:28px;align-items:start}
+.storymain{min-width:0}
+.stepper{display:flex;flex-direction:column;gap:0;position:sticky;top:16px;border-right:1px solid var(--line);padding-right:12px}
+.stepper .sidelab{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}
+.stepper button{text-align:left;white-space:normal;border:0;border-left:3px solid transparent;background:none;padding:7px 10px;color:var(--muted);border-radius:0;line-height:1.3}
+.stepper button:hover{color:var(--ink);background:#efede6} .stepper button.on{background:#efede6;color:var(--ink);border-left-color:var(--teal);font-weight:700}
+.stepper button.allbtn{border:1px solid #cfcabd;border-left:1px solid #cfcabd;text-align:center;background:#fff;color:var(--ink);padding:7px 10px} .stepper button.allbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media(max-width:900px){.storywrap{grid-template-columns:1fr}.stepper{flex-direction:row;flex-wrap:wrap;position:static;border-right:0;border-bottom:1px solid var(--line);padding:0 0 8px}.stepper .sidelab{display:none}.stepper button{border-left:0;border-bottom:2px solid transparent}.stepper button.on{border-bottom-color:var(--teal)}}
 .stepnav{display:flex;justify-content:space-between;align-items:center;margin:8px 0 10px;border-top:1px solid var(--line);padding-top:14px}
 .stepnav button{padding:8px 16px}
 .byline{font-size:14px;color:var(--muted);margin-top:10px;border-top:1px solid var(--line);padding-top:8px}

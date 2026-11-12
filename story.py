@@ -277,8 +277,8 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
              ("9 Test claims", c9 + rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
     pages = "".join(f'<div class="st" data-st="{i}">{b}</div>' for i, (_, b) in enumerate(steps))
-    body = (f'<div class="stepper" id="stp">{tabs}<button id="stall" style="margin-left:auto">Read as one page</button></div>{pages}'
-            '<div class="stepnav"><button id="stprev">&larr; Back</button><span class="sub" id="stpos"></span><button id="stnext" class="on">Next &rarr;</button></div>'
+    body = (f'<div class="storywrap"><aside class="stepper" id="stp"><button id="stall" class="allbtn">Read as one page</button><div class="sidelab">Steps</div>{tabs}</aside><div class="storymain">{pages}'
+            '<div class="stepnav"><button id="stprev">&larr; Back</button><span class="sub" id="stpos"></span><button id="stnext" class="on">Next &rarr;</button></div></div></div>'
             """<script>(function(){var S=document.querySelectorAll('.st'),B=document.querySelectorAll('#stp button[data-st]'),n=S.length,cur=0;
 var all=false,nav=document.querySelector('.stepnav');document.getElementById('stall').onclick=function(){all=!all;this.classList.toggle('on',all);this.textContent=all?'Read step by step':'Read as one page';
 if(all){S.forEach(function(x){x.style.display='block'});B.forEach(function(b){b.classList.remove('on')});nav.style.display='none';document.querySelectorAll('.js-plotly-plot').forEach(function(g){try{Plotly.Plots.resize(g)}catch(e){}})}else{nav.style.display='';go(0)}};
