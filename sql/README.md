@@ -19,3 +19,5 @@ The pipeline records the max `block_date` returned in the manifest so a stale da
 | `top_receivers.sql` | the 25 contracts receiving the most function calls in the window | what the base chain is actually used for, to explain the April 2026 step-down |
 
 **Run on 2026-11-12:** all three queries ran in the console; the dataset is fresh to 2026-11-10. Results and what they show are in `data/bigquery/`.
+
+Two further queries were run on 2026-11-12 for Chain Signatures (`v1.signer`), daily `sign` calls with distinct callers, and the top 30 callers over 30 days; see `sql/signer_daily.sql`, `sql/signer_callers.sql` and `data/bigquery/signer_*.csv`.

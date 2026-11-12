@@ -56,7 +56,23 @@ def validators(snap: Path, total_supply: float) -> dict:
 
 
 def signer(snap: Path) -> dict:
-    """Chain Signatures usage from the v1.signer sample; extrapolated, labelled as such."""
+    """Chain Signatures usage. Preferred source: full 30-day counts from NEAR's BigQuery (data/bigquery/signer_*.csv, run by hand
+    in the console). Fallback: the sampled NearBlocks receipts, extrapolated and labelled as such."""
+    bq_d, bq_c = ROOT / "data" / "bigquery" / "signer_daily_30d.csv", ROOT / "data" / "bigquery" / "signer_callers_30d.csv"
+    if bq_d.exists() and bq_c.exists():
+        dd, cc = pd.read_csv(bq_d), pd.read_csv(bq_c)
+        tot = float(dd.sign_calls.sum())
+        infra = ["omni.bridge.near", "fast-auth.near", "btc-connector.bridge.near", "zcash-connector.bridge.near"]
+        shares = (cc.set_index("caller").sign_calls / tot)
+        top = shares.head(8).reset_index(); top.columns = ["caller", "share"]
+        top.to_csv(TABLES / "signer_callers.csv", index=False)
+        dd.to_csv(TABLES / "signer_daily.csv", index=False)
+        return {"signer_source": "bigquery", "signer_window_days": int(len(dd)), "signer_total_sign_calls": tot,
+                "signer_sign_calls_per_day_est": tot / len(dd), "signer_receipts_per_day_est": float(dd.all_calls.sum() / len(dd)),
+                "signer_callers_first7": float(dd.sign_callers.head(7).mean()), "signer_callers_last7": float(dd.sign_callers.tail(7).mean()),
+                "signer_near_infra_share": float(shares.reindex(infra).fillna(0).sum()), "signer_top_caller": str(shares.index[0]),
+                "signer_top_caller_share": float(shares.iloc[0]), "signer_sample_rows": int(tot), "signer_sample_hours": 24.0 * len(dd),
+                "signer_lifetime_receipts": 0}
     try:
         d = load_df(snap, "signer_sample")
     except FileNotFoundError:

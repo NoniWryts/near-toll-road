@@ -95,7 +95,7 @@ def build():
         sc9 = pd.read_csv(sp).sort_values("share")
         f9 = go.Figure(go.Bar(x=sc9.share, y=sc9.caller, orientation="h", marker_color=C["1"], marker_line_width=0,
                               text=[f"{x:.0%}" for x in sc9.share], textposition="outside", hovertemplate="%{y}: %{x:.1%}<extra></extra>"))
-        f9.update_layout(title=f"Who calls Chain Signatures: share of ~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (sample of {k['signer_sample_rows']:,} receipts, {k['signer_sample_hours']:.1f} h)",
+        f9.update_layout(title=(f"Who calls Chain Signatures: share of {k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (counted in full over {k['signer_window_days']} days, NEAR BigQuery)" if k.get("signer_source") == "bigquery" else f"Who calls Chain Signatures: share of ~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (sample of {k['signer_sample_rows']:,} receipts, {k['signer_sample_hours']:.1f} h)"),
                          xaxis_tickformat=".0%", margin=dict(l=220))
     # 10 developers, 11 cross-protocol
     f10 = f11 = f12 = None

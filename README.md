@@ -60,7 +60,7 @@ thesis/risk_register.md     risks with the metric that monitors each
 | Breakeven volume | $630M/day at 2.5%; $536M/day at the end-2027 ramp point (2.13%); $403M/day at 1.6% (2029) | `models/breakeven.py` |
 | HSP-029 | passed Nov 2, 2026: 3.29M veNEAR for, 0 against, 1,071 abstain, turnout 62% (status Timelock) | `vote.dao` via RPC, ledger C20 |
 | Staking | 44.5% of supply, 353 validators, Nakamoto coefficient 9 | NEAR RPC `validators` |
-| Chain Signatures | ~16.9k `sign` calls/day, 92% from NEAR's own bridge and FastAuth contracts | sample of `v1.signer` receipts (NearBlocks; carried forward from 2026-11-01) |
+| Chain Signatures | about 14.3k `sign` calls/day counted in full over 30 days, about 90% from NEAR's own bridge and FastAuth contracts | NEAR BigQuery, run by hand on 2026-11-12 (`data/bigquery/signer_*.csv`) |
 | Before the buybacks | active accounts fell 74% from January 2025 to the months before the fee switch; issuance was halved in Nov 2025; Intents paid NEAR about $36 before Nov 2025, so there was nothing to buy with; NEAR fell with SOL and ETH before the switch and has outrun them since (timing, not proof of cause) | `analysis/prebuyback.py`, `reports/tables/prebuyback_monthly.csv`, THESIS section 2 |
 | Intents vs peers | rank 1 of 30 bridge aggregators (39% of list volume); rank 6 of 151 swap aggregators | DefiLlama overview lists, one volume definition |
 | Volume quality | top 10 payout destinations hold 31% of sampled value (HHI 177), with Omni bridge payouts traced to their final recipient on Solana, Zcash, Bitcoin and other chains; 71% of payouts are signed by per-quote accounts, so Explorer "unique users" count swaps; round trips 1.0% outside market makers | `pipeline/fetch_intents_sample.py`, ledger C21 |

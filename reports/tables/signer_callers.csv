@@ -1,9 +1,9 @@
 caller,share
-omni.bridge.near,0.31724422442244227
-fast-auth.near,0.3110561056105611
-btc-connector.bridge.near,0.1712046204620462
-zcash-connector.bridge.near,0.11592409240924093
-tx-bench.near,0.03382838283828383
-kernel-zec.meteor-vaults.near,0.009075907590759076
-kernel-near.meteor-vaults.near,0.007013201320132013
-kernel-usdc.meteor-vaults.near,0.007013201320132013
+omni.bridge.near,0.32618734896678087
+fast-auth.near,0.2829024553268861
+btc-connector.bridge.near,0.1577312648696148
+zcash-connector.bridge.near,0.12985701799077323
+tx-bench.near,0.040419644484745935
+kernel-near.meteor-vaults.near,0.009158981597902245
+kernel-usdc.meteor-vaults.near,0.008460197342282757
+kernel-usdt.meteor-vaults.near,0.008455523200104701

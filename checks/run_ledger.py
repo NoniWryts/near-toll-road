@@ -115,8 +115,10 @@ def build(snap: Path) -> pd.DataFrame:
     # C17 Chain Signatures usage
     if "signer_sign_calls_per_day_est" in k:
         add("C17", "Chain Signatures is used in production (NEAR docs, Messari); scale and who uses it are not published", "docs.near.org",
-            f"~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (extrapolated from {k['signer_sample_rows']:,} receipts over {k['signer_sample_hours']:.1f} h); lifetime receipts {k['signer_lifetime_receipts']:,}; {k['signer_near_infra_share']:.0%} of sign calls come from NEAR's own bridge/FastAuth contracts",
-            "calls/day", "PASS", "data/snapshots/<date>/signer_sample.parquet; reports/tables/signer_callers.csv",
+            (f"{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day, counted in full over {k['signer_window_days']} days ({k['signer_total_sign_calls']:,.0f} calls, NEAR BigQuery); {k['signer_near_infra_share']:.0%} of sign calls come from NEAR's own bridge/FastAuth contracts; distinct callers fell from {k['signer_callers_first7']:.0f}/day to {k['signer_callers_last7']:.0f}/day"
+             if k.get("signer_source") == "bigquery" else
+             f"~{k['signer_sign_calls_per_day_est']:,.0f} sign calls/day (extrapolated from {k['signer_sample_rows']:,} receipts over {k['signer_sample_hours']:.1f} h); lifetime receipts {k['signer_lifetime_receipts']:,}; {k['signer_near_infra_share']:.0%} of sign calls come from NEAR's own bridge/FastAuth contracts"),
+            "calls/day", "PASS", "data/bigquery/signer_daily_30d.csv, signer_callers_30d.csv (or the sampled signer_sample.parquet); reports/tables/signer_callers.csv",
             "Call counts, not value signed. Most demand is NEAR Intents' own bridging (omni.bridge, btc/zcash connectors) and FastAuth, not third-party apps or agents.")
     # C18 cross-protocol rank
     if "xp_bridge_rank" in k:
