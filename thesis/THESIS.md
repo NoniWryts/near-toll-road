@@ -4,7 +4,7 @@
 
 ## 1. The claim, and what would falsify it
 
-**The problem.** Most Layer-1 tokens pay for their security by printing new tokens, which dilutes holders every day. NEAR prints about 2.66 million new NEAR in the last 30 days. An investor has to ask whether anything real ever pays that bill, and NEAR is the test case because a product (Intents) now feeds a buyback that can be measured on-chain. **The position** that follows is conditional: hold NEAR for the product, not for the fee switch as it stands, and exit if the kill criteria below trigger.
+**Why this matters.** Every blockchain has to pay the computers that run it, and most pay by printing new coins. On Ethereum 93% of staking rewards are newly minted ETH, and on Solana over 90% (Bitwise, Q2 2026). Holders just own a slightly smaller share each month. NEAR printed 2.66 million new NEAR in the last 30 days too, but a fee on every Intents swap now buys NEAR back, so for once a product pays toward that bill and it can be measured. Owning NEAR is a bet on Intents growing, not on the fee switch as it stands; the kill criteria below say when we would walk away.
 
 **Thesis.** NEAR has turned a cross-chain product, NEAR Intents, into a measurable revenue line for the token: a fee on every swap is converted to NEAR and swept on-chain into a buyback wallet. If that revenue grows to cover the value of new NEAR issuance, NEAR becomes one of the few Layer-1 tokens whose supply is paid for by a product rather than by holders. That is the long-term case.
 
