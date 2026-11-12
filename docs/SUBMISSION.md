@@ -12,7 +12,6 @@ Re-read the live rules file before submitting; dates and rules may change.
 | Track ids | `thesis` (primary). Others do not fit | submission `tracks` |
 | Demo post on X with video or screenshots, "built at NEAR HACKATHON", tags @NEARProtocol #NEARHackathon | **Daniel records and posts**; draft in `docs/DEMO.md` | |
 | Hosted demo (a plus, keep up to 2026-11-18, ideally 11-25) | `dashboard/` is static; enable GitHub Pages on the repo once public | |
-| Second project disclosure (Q-015: one person, at most 2 projects, each README names the other) | this README names Clearance; Clearance's README must name Toll Road | `README.md` "Other entries" |
 | NEAR mainnet account for payout | **Daniel provides**; never invented | submission `nearAddress` |
 | Team lead name, email, team size | **Daniel provides** | submission |
 | Submit once, POST only after Daniel confirms the exact payload | not sent | `docs/SUBMISSION.md` payload below |

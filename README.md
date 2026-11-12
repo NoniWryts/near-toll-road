@@ -72,10 +72,6 @@ thesis/risk_register.md     risks with the metric that monitors each
 - The cross-protocol ranking uses DefiLlama's lists only. Canonical bridges (Across, Stargate, Wormhole, CCTP) sit behind a paid endpoint and exchange flows are not counted.
 - revenue.near.org labels its own figures "illustrative"; the ledger records where it and the chain differ.
 
-## Other entries
-
-The same author also submits **Clearance** (AI Security & Defense track), a separate project with its own repository; the two share no code. Disclosed per rule Q-015.
-
 ## Optional sources
 
 - **NEAR BigQuery public dataset**: queries in `sql/`, run by `pipeline/fetch_bigquery.py` when `GOOGLE_CLOUD_PROJECT` is set. Not needed for the rebuild.
