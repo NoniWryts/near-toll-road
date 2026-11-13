@@ -84,7 +84,7 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
     pi = pd.read_csv(T / "prebuyback_price_index.csv", parse_dates=["date"])
     sw, hv = pd.Timestamp(k["pb_switch_date"]), pd.Timestamp("2025-11-01")
     def marks(fig, ymax):
-        for x, lab in ((hv, "Issuance halved"), (sw, "Fee switch live")):
+        for x, lab in ((hv, "Issuance halved, Nov 2025"), (sw, "Fee switch live, 23 Feb 2026")):
             fig.add_shape(type="line", x0=x, x1=x, y0=0, y1=1, yref="paper", line=dict(color=MUTED, dash="dot", width=1.2))
             fig.add_annotation(x=x, y=1.02, yref="paper", text=lab, showarrow=False, font=dict(size=12, color=MUTED), xanchor="left")
     pm2 = pm[pm.month >= "2024-06-01"]
