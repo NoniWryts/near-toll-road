@@ -10,8 +10,8 @@ from dashboard.theme import ACCENT, ACCENT_SOFT, VIOLET, VIOLET_SOFT, GREEN, INK
 
 AX = dict(gridcolor="#eef0f3", zeroline=False, linecolor="#e7e9ee", tickfont=dict(color=MUTED, size=11))
 BASE = dict(template="plotly_white", font=dict(family="Times New Roman, Times, serif", size=12, color=INK), paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)", margin=dict(l=44, r=10, t=10, b=30), hovermode="x unified", showlegend=True,
-            legend=dict(orientation="h", y=1.08, x=0, yanchor="bottom", font=dict(size=12, color=MUTED)), xaxis=dict(AX, showgrid=False), yaxis=AX)
+            plot_bgcolor="rgba(0,0,0,0)", margin=dict(l=44, r=10, t=40, b=30), hovermode="x unified", showlegend=True,
+            legend=dict(orientation="h", y=1.2, x=0, yanchor="bottom", font=dict(size=12, color=MUTED)), xaxis=dict(AX, showgrid=False), yaxis=AX)
 
 
 def _fig(fig, h=260):
@@ -83,10 +83,10 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
     pm = pd.read_csv(T / "prebuyback_monthly.csv", parse_dates=["month"])
     pi = pd.read_csv(T / "prebuyback_price_index.csv", parse_dates=["date"])
     sw, hv = pd.Timestamp(k["pb_switch_date"]), pd.Timestamp("2025-11-01")
-    def marks(fig, ymax):
-        for x, lab in ((hv, "Issuance halved, Nov 2025"), (sw, "Fee switch live, 23 Feb 2026")):
+    def marks(fig, ymax, left=False):
+        for i, (x, lab) in enumerate(((hv, "Issuance halved"), (sw, "Fee switch live, 23 Feb 2026"))):
             fig.add_shape(type="line", x0=x, x1=x, y0=0, y1=1, yref="paper", line=dict(color=MUTED, dash="dot", width=1.2))
-            fig.add_annotation(x=x, y=1.02, yref="paper", text=lab, showarrow=False, font=dict(size=12, color=MUTED), xanchor="left")
+            fig.add_annotation(x=x, y=1.02, yref="paper", text=lab, showarrow=False, font=dict(size=12, color=MUTED), xanchor="right" if (left and i == 0) else "left", yshift=0 if left else 16 * i)
     pm2 = pm[pm.month >= "2024-06-01"]
     f0 = go.Figure()
     f0.add_scatter(x=pm2.month, y=pm2.active_accounts_per_day, name="Active accounts per day", line=dict(color=ACCENT, width=2.5))

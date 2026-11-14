@@ -176,6 +176,19 @@ h1{letter-spacing:-.6px}
 .coin{transition:background .4s,border-color .4s}
 .toc a{border-radius:12px;padding:12px 14px;border-bottom:0;background:#f7f9fc;margin:0 0 8px}
 @media(max-width:980px){.kpi{border-top:1px solid rgba(29,53,87,.06) !important}}
+/* layout: pages down the left, story steps across the top */
+.shell{display:grid;grid-template-columns:208px minmax(0,1fr);column-gap:32px;row-gap:0;align-items:start;max-width:1560px}
+.shell>*{grid-column:2;min-width:0}
+.shell>.top{grid-column:1;grid-row:1/span 80;position:sticky;top:16px;flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 12px;margin:0;box-shadow:0 6px 18px rgba(16,42,67,.06)}
+.top nav{flex-direction:column;flex-wrap:nowrap;justify-content:flex-start;flex:0 0 auto;gap:2px}
+.top nav a{display:block;padding:8px 12px;border-radius:10px;white-space:normal;font-size:15px}
+.top>.sub{margin-top:8px;padding:10px 12px 0;border-top:1px solid var(--line);white-space:normal !important;font-size:12.5px}
+.storywrap{grid-template-columns:minmax(0,1fr);gap:14px}
+.stepper{position:static;flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px;border-right:0;border-bottom:1px solid var(--line);padding:0 0 12px}
+.stepper .sidelab{display:none}
+.stepper button{padding:7px 13px;font-size:14.5px;border-radius:999px;white-space:nowrap}
+.stepper button.allbtn{margin-right:8px}
+@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}.shell>*{grid-column:1}.shell>.top{grid-column:1;grid-row:auto;position:static;flex-direction:row;flex-wrap:wrap;align-items:center}.top nav{flex:1 1 100%;flex-direction:row;flex-wrap:wrap}.top nav a{display:inline-block;padding:6px 10px}.top>.sub{border-top:0;margin:0;padding:0}.stepper button{white-space:normal}}
 """
 
 FONT = ""
