@@ -217,9 +217,9 @@ def build_story(k: dict, ms: dict, T, led: pd.DataFrame, nav: str, head: str, to
 <div class="sim"><div>
 <div class="ctl"><label>Swap volume per day <b id="o_vol"></b></label><input id="vol" type="range" min="20" max="1500" step="5"></div>
 <div class="ctl"><label>Fee per swap <b id="o_fee"></b></label><input id="fee" type="range" min="4" max="40" step="0.01"></div>
-<div class="ctl"><label>NEAR's share of fees <b id="o_cap"></b></label><input id="cap" type="range" min="5" max="100" step="0.1"></div>
-<div class="ctl"><label>New NEAR printed per year <b id="o_iss"></b></label><input id="iss" type="range" min="0.5" max="5" step="0.05"></div>
-<div class="sub">NEAR price is held at ${px:.2f}; coverage is price-free when buybacks and issuance are both counted in NEAR.</div>
+<div class="ctl"><label>NEAR's share of fees <b id="o_cap"></b></label><input id="cap" type="range" min="5" max="100" step="0.01"></div>
+<div class="ctl"><label>New NEAR printed per year <b id="o_iss"></b></label><input id="iss" type="range" min="0.5" max="5" step="0.01"></div>
+<div class="sub">Price is fixed at ${px:.2f} so you can see the other four dials clearly. A higher price makes the printed coins worth more dollars, which raises the bill.</div>
 </div><div class="out">
 <h3>NEAR's cut covers this much of new supply</h3><div class="v" id="r_cov"></div><div class="meter"><i id="r_bar"></i></div>
 <div class="sub" id="r_line"></div><hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
@@ -333,7 +333,17 @@ document.querySelectorAll('#ledt tr[data-s]').forEach(r=>r.style.display=(b.data
     toc = ('<div class="card"><div class="card-h"><h2>The story in ten steps</h2><span class="sub">Click any step, or use Next</span></div><div class="toc">'
            + "".join(f'<a href="#st{i+1}"><span class="tn">{i+1}</span><span><span class="tt">{a}</span><br><span class="td">{b_}</span></span></a>' for i, (a, b_) in enumerate(toc_items))
            + '</div></div>')
-    steps = [("Overview", hero + live + case + kpi_html + livenote + answer + flow_html + three + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
+    tw_rows = [("Volume", f"{money(vol_day,0)} a day", "Walk away if under $120M a day at the end of Q2 2027", "Holding", "ok"),
+               ("Share of fees NEAR keeps (90 days)", f"{k['capture_90d']:.1%}", "Walk away if under 20%. Prediction P2 asks for 30% by March 2027", "Holding, short of the 30% goal", "ok"),
+               ("Buyback coverage", f"{cov:.1%}", "Walk away if under 25% at end of 2027 with HSP-029 in force. Prediction P3 asks for 15% (90-day) by March 2027", "Not due yet, on watch", "watch"),
+               ("Biggest senders", "not measurable yet", "Walk away if the top 10 senders exceed 60% for two quarters", "Not measurable", "na"),
+               ("Security", "16 signers, 11 needed", "Walk away after a second settlement-layer exploit or a signer set under 10", "Holding", "ok")]
+    tw_html = ('<div class="card"><div class="card-h"><h2>Tripwires: what would make us walk away</h2><span class="sub">Written down before the results</span></div>'
+               '<p style="margin:0 0 10px"><b>Verdict: on track, not proven.</b> No tripwire has been hit. The two that decide the case (coverage and volume) are not due until 2027.</p>'
+               '<table style="width:100%;border-collapse:collapse"><tr><th align=left>Measure</th><th align=left>Now</th><th align=left>Rule</th><th align=left>Status</th></tr>'
+               + "".join(f'<tr style="border-top:1px solid var(--line)"><td style="padding:6px 8px 6px 0">{a}</td><td style="padding:6px 8px 6px 0"><b>{b_}</b></td><td style="padding:6px 8px 6px 0">{c}</td><td style="padding:6px 0">{d}</td></tr>' for a, b_, c, d, _ in tw_rows)
+               + f'</table><p class="sub" style="margin:10px 0 0">Security, for context: {k["validators"]} validators, top 10 hold {k["top10_stake_share"]:.0%} of stake, Chain Signatures needs 11 of 16 signers.</p></div>')
+    steps = [("Overview", hero + live + case + kpi_html + livenote + answer + flow_html + three + tw_html + toc), ("1 Before the switch", c0), ("2 Traffic", c1), ("3 The toll", c2),
              ("4 Printing vs buying", c3), ("5 Coverage", c4), ("6 What it would take", c5), ("7 Is it real?", c6), ("8 Risks", c7),
              ("9 Predictions", c8), ("10 Test claims", c9 + rerun)]
     tabs = "".join(f'<button data-st="{i}">{html.escape(n)}</button>' for i, (n, _) in enumerate(steps))
